@@ -1,4 +1,4 @@
-const todoLogic = (() => {
+const todo = (() => {
 
     
     const todoFactory = (title) => {
@@ -9,7 +9,7 @@ const todoLogic = (() => {
     
     
     const captureFormData = () => {
-        return new FormData(todoForm)
+        return new FormData(_todoForm)
     };
     
     
@@ -17,6 +17,10 @@ const todoLogic = (() => {
         let title = data.get('title');
     
         return todoFactory(title);
+    };
+
+    const getList = () => {
+        return _todoList
     };
     
     
@@ -27,31 +31,41 @@ const todoLogic = (() => {
     
         let formData = captureFormData();
     
-        let todo = createTodo(formData);
+        let newTodo = createTodo(formData);
 
 
-        todoList.push(todo)
-    
-        console.log(todo);
-        console.log(todoList);
+        _todoList.push(newTodo);
+
+        _todoForm.reset();
+
+        console.log(getList());
+
     
         
     };   
     
     
-    const todoForm = document.querySelector(".todoForm");
+    const _todoForm = document.querySelector(".todoForm");
 
-    const todoList = [];
+    const _todoList = [];
 
 
-    todoForm.addEventListener('click', startTodoApp);
+    _todoForm.addEventListener('click', startTodoApp);
 
+
+    return { getList }
+
+})();
+
+
+
+
+const renderTodo = (() => {
 
 
 
 
 })();
-
 
 
 
