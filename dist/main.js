@@ -1,15 +1,68 @@
 /******/ (() => { // webpackBootstrap
-/******/ 	var __webpack_modules__ = ({
-
-/***/ "./src/index.js":
+var __webpack_exports__ = {};
 /*!**********************!*\
   !*** ./src/index.js ***!
   \**********************/
-/***/ (function() {
+const todoLogic = (() => {
 
-const todo = (function(title, desctiption, dueDate, priority, notes, checklist) {
-    console.log("Howdy");
-})()
+    
+    const todoFactory = (title) => {
+    
+        return { title }
+    };
+    
+    
+    
+    const captureFormData = () => {
+        return new FormData(todoForm)
+    };
+    
+    
+    const createTodo = (data) => {
+        let title = data.get('title');
+    
+        return todoFactory(title);
+    };
+    
+    
+    
+    const startTodoApp = function(e) {
+        e.preventDefault();   
+    
+    
+        let formData = captureFormData();
+    
+        let todo = createTodo(formData);
+
+
+        todoList.push(todo)
+    
+        console.log(todo);
+        console.log(todoList);
+    
+        
+    };   
+    
+    
+    const todoForm = document.querySelector(".todoForm");
+
+    const todoList = [];
+
+
+    todoForm.addEventListener('click', startTodoApp);
+
+
+
+
+
+})();
+
+
+
+
+
+
+
 
 // const todoFactory = (title, desctiption, dueDate, priority, notes, checklist) => {
 //     const name = () => {console.log(this.title)};
@@ -17,30 +70,11 @@ const todo = (function(title, desctiption, dueDate, priority, notes, checklist) 
 //     return { title, desctiption, dueDate, priority, notes, checklist }
 // }
 
-const todoFactory = (title) => {
-    const name = () => {console.log(this.title)};
-
-    return { title }
-}
 
 
-const todoForm = document.querySelector(".todoForm")
 
-let formData = new FormData(todoForm)
 
-console.log(formData);
 
-/***/ })
-
-/******/ 	});
-/************************************************************************/
-/******/ 	
-/******/ 	// startup
-/******/ 	// Load entry module and return exports
-/******/ 	// This entry module is referenced by other modules so it can't be inlined
-/******/ 	var __webpack_exports__ = {};
-/******/ 	__webpack_modules__["./src/index.js"]();
-/******/ 	
 /******/ })()
 ;
-//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibWFpbi5qcyIsIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7QUFBQTtBQUNBO0FBQ0EsQ0FBQzs7QUFFRDtBQUNBLDJCQUEyQjs7QUFFM0IsZ0JBQWdCO0FBQ2hCOztBQUVBO0FBQ0Esd0JBQXdCOztBQUV4QixhQUFhO0FBQ2I7OztBQUdBOztBQUVBOztBQUVBOzs7Ozs7O1VFckJBO1VBQ0E7VUFDQTtVQUNBO1VBQ0EiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly90b2RvLWxpc3QvLi9zcmMvaW5kZXguanMiLCJ3ZWJwYWNrOi8vdG9kby1saXN0L3dlYnBhY2svYmVmb3JlLXN0YXJ0dXAiLCJ3ZWJwYWNrOi8vdG9kby1saXN0L3dlYnBhY2svc3RhcnR1cCIsIndlYnBhY2s6Ly90b2RvLWxpc3Qvd2VicGFjay9hZnRlci1zdGFydHVwIl0sInNvdXJjZXNDb250ZW50IjpbImNvbnN0IHRvZG8gPSAoZnVuY3Rpb24odGl0bGUsIGRlc2N0aXB0aW9uLCBkdWVEYXRlLCBwcmlvcml0eSwgbm90ZXMsIGNoZWNrbGlzdCkge1xuICAgIGNvbnNvbGUubG9nKFwiSG93ZHlcIik7XG59KSgpXG5cbi8vIGNvbnN0IHRvZG9GYWN0b3J5ID0gKHRpdGxlLCBkZXNjdGlwdGlvbiwgZHVlRGF0ZSwgcHJpb3JpdHksIG5vdGVzLCBjaGVja2xpc3QpID0+IHtcbi8vICAgICBjb25zdCBuYW1lID0gKCkgPT4ge2NvbnNvbGUubG9nKHRoaXMudGl0bGUpfTtcblxuLy8gICAgIHJldHVybiB7IHRpdGxlLCBkZXNjdGlwdGlvbiwgZHVlRGF0ZSwgcHJpb3JpdHksIG5vdGVzLCBjaGVja2xpc3QgfVxuLy8gfVxuXG5jb25zdCB0b2RvRmFjdG9yeSA9ICh0aXRsZSkgPT4ge1xuICAgIGNvbnN0IG5hbWUgPSAoKSA9PiB7Y29uc29sZS5sb2codGhpcy50aXRsZSl9O1xuXG4gICAgcmV0dXJuIHsgdGl0bGUgfVxufVxuXG5cbmNvbnN0IHRvZG9Gb3JtID0gZG9jdW1lbnQucXVlcnlTZWxlY3RvcihcIi50b2RvRm9ybVwiKVxuXG5sZXQgZm9ybURhdGEgPSBuZXcgRm9ybURhdGEodG9kb0Zvcm0pXG5cbmNvbnNvbGUubG9nKGZvcm1EYXRhKTsiLCIiLCIvLyBzdGFydHVwXG4vLyBMb2FkIGVudHJ5IG1vZHVsZSBhbmQgcmV0dXJuIGV4cG9ydHNcbi8vIFRoaXMgZW50cnkgbW9kdWxlIGlzIHJlZmVyZW5jZWQgYnkgb3RoZXIgbW9kdWxlcyBzbyBpdCBjYW4ndCBiZSBpbmxpbmVkXG52YXIgX193ZWJwYWNrX2V4cG9ydHNfXyA9IHt9O1xuX193ZWJwYWNrX21vZHVsZXNfX1tcIi4vc3JjL2luZGV4LmpzXCJdKCk7XG4iLCIiXSwibmFtZXMiOltdLCJzb3VyY2VSb290IjoiIn0=
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibWFpbi5qcyIsIm1hcHBpbmdzIjoiOzs7OztBQUFBOztBQUVBO0FBQ0E7QUFDQTtBQUNBLGlCQUFpQjtBQUNqQjtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7OztBQUdBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBOztBQUVBOzs7QUFHQTs7Ozs7O0FBTUEsQ0FBQzs7Ozs7Ozs7O0FBU0Q7QUFDQSwyQkFBMkI7O0FBRTNCLGdCQUFnQjtBQUNoQiIsInNvdXJjZXMiOlsid2VicGFjazovL3RvZG8tbGlzdC8uL3NyYy9pbmRleC5qcyJdLCJzb3VyY2VzQ29udGVudCI6WyJjb25zdCB0b2RvTG9naWMgPSAoKCkgPT4ge1xuXG4gICAgXG4gICAgY29uc3QgdG9kb0ZhY3RvcnkgPSAodGl0bGUpID0+IHtcbiAgICBcbiAgICAgICAgcmV0dXJuIHsgdGl0bGUgfVxuICAgIH07XG4gICAgXG4gICAgXG4gICAgXG4gICAgY29uc3QgY2FwdHVyZUZvcm1EYXRhID0gKCkgPT4ge1xuICAgICAgICByZXR1cm4gbmV3IEZvcm1EYXRhKHRvZG9Gb3JtKVxuICAgIH07XG4gICAgXG4gICAgXG4gICAgY29uc3QgY3JlYXRlVG9kbyA9IChkYXRhKSA9PiB7XG4gICAgICAgIGxldCB0aXRsZSA9IGRhdGEuZ2V0KCd0aXRsZScpO1xuICAgIFxuICAgICAgICByZXR1cm4gdG9kb0ZhY3RvcnkodGl0bGUpO1xuICAgIH07XG4gICAgXG4gICAgXG4gICAgXG4gICAgY29uc3Qgc3RhcnRUb2RvQXBwID0gZnVuY3Rpb24oZSkge1xuICAgICAgICBlLnByZXZlbnREZWZhdWx0KCk7ICAgXG4gICAgXG4gICAgXG4gICAgICAgIGxldCBmb3JtRGF0YSA9IGNhcHR1cmVGb3JtRGF0YSgpO1xuICAgIFxuICAgICAgICBsZXQgdG9kbyA9IGNyZWF0ZVRvZG8oZm9ybURhdGEpO1xuXG5cbiAgICAgICAgdG9kb0xpc3QucHVzaCh0b2RvKVxuICAgIFxuICAgICAgICBjb25zb2xlLmxvZyh0b2RvKTtcbiAgICAgICAgY29uc29sZS5sb2codG9kb0xpc3QpO1xuICAgIFxuICAgICAgICBcbiAgICB9OyAgIFxuICAgIFxuICAgIFxuICAgIGNvbnN0IHRvZG9Gb3JtID0gZG9jdW1lbnQucXVlcnlTZWxlY3RvcihcIi50b2RvRm9ybVwiKTtcblxuICAgIGNvbnN0IHRvZG9MaXN0ID0gW107XG5cblxuICAgIHRvZG9Gb3JtLmFkZEV2ZW50TGlzdGVuZXIoJ2NsaWNrJywgc3RhcnRUb2RvQXBwKTtcblxuXG5cblxuXG59KSgpO1xuXG5cblxuXG5cblxuXG5cbi8vIGNvbnN0IHRvZG9GYWN0b3J5ID0gKHRpdGxlLCBkZXNjdGlwdGlvbiwgZHVlRGF0ZSwgcHJpb3JpdHksIG5vdGVzLCBjaGVja2xpc3QpID0+IHtcbi8vICAgICBjb25zdCBuYW1lID0gKCkgPT4ge2NvbnNvbGUubG9nKHRoaXMudGl0bGUpfTtcblxuLy8gICAgIHJldHVybiB7IHRpdGxlLCBkZXNjdGlwdGlvbiwgZHVlRGF0ZSwgcHJpb3JpdHksIG5vdGVzLCBjaGVja2xpc3QgfVxuLy8gfVxuXG5cblxuXG5cbiJdLCJuYW1lcyI6W10sInNvdXJjZVJvb3QiOiIifQ==
