@@ -1,29 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ToDo List</title>
 </head>
 <body>
 
+  <div class="all-projects">
 
-    <form action="" class="todoForm">
 
+  </div>
+
+  <div class="project-container">
+
+    <h2 class="project-header"> Complete Presentation</h2>
+    <div class="project-description">Board meeting on the 20th, must sell pitch</div>
+
+
+
+    <ul>
+
+      <li>
+        <input type="checkbox" name="task1" id="task1" class="task" autocomplete="off">
+        <label for="task1" >Gather pictures for powerpoint</label>
+      </li>
+
+      <li>
+        <input type="checkbox" name="task2" id="task2" class="task" autocomplete="off">
+        <label for="task2">Gather data on market trends</label>       
+
+      </li>
+
+
+    </ul>
+  </div>
+
+
+  <form action="" class="todoForm">
+
+    <ul>
+
+      <li>
         <label for="title">Title: </label>
         <input type="text" name="title" id="title">
 
+      </li>
 
-        <button type="submit">Submit</button>
+      <li>
+        <label for="description">Description: </label>
+        <textarea name="description" id="description" cols="30" rows="4"></textarea>
+      </li>
+
+      <li>
+        <label for="task1">Task 1: </label>
+        <input type="text" name="task1" id="task1">
+      </li>
+
+      <!-- <li>
+        <label for="task2">Task 2: </label>
+        <input type="text" name="task2" id="task2">
+      </li> -->
+
+      <li>
+        <button type="submit" class="submit">Submit</button>          
+      </li>
+
+
+    </ul>
+  </form>
 
 
 
-
-    </form>
-    
-
-
-    <script src="main.js"></script>
+  <script src="main.js"></script>
 </body>
 </html>
