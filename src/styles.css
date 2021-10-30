@@ -1,0 +1,23 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.project-container {
+  border: 1px solid blue;
+  margin-bottom: 50px;
+}
+
+
+.task {
+  /* display: block; */
+}
+
+
+li {
+  list-style: none;
+}
+
+.task-done {
+  text-decoration: line-through;
+}
