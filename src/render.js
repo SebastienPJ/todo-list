@@ -1,8 +1,11 @@
+import { todo } from "./index";
+
+
 
 const renderTodo = (() => {
 
 
-  const findTasks = (obj) => {
+  const separateTasks = (obj) => {
     let keys = Object.keys(obj);
 
     let projectTasks;
@@ -38,75 +41,76 @@ const renderTodo = (() => {
   };
 
 
-  const updatePage = (list) => {
+  const findIndexOf = (item, list) => {
+    return list.indexOf(item);
+  }
+
+
+  const updatePage = (object) => {
     console.log('Todos have been rendered')
-    console.log(list);
-
-
-    list.forEach(todo => {
-
-      let tasks = findTasks(todo);
-     
-
-      const projectDisplay = document.querySelector('.all-projects');
-
-      
-      let projectContainer = document.createElement('div');
-      projectContainer.classList.add('project-container');
-      projectDisplay.appendChild(projectContainer);
-
-
-      let projectName = document.createElement('h2');
-      projectName.classList.add('project-header');
-      projectName.textContent = todo.title;
-      projectContainer.appendChild(projectName);
-
-
-      let projectDescription = document.createElement('div');
-      projectDescription.classList.add('project-description');
-      projectDescription.textContent = todo.description;
-      projectContainer.appendChild(projectDescription);
-
-
-      let unorderedList = document.createElement('ul');
-      projectContainer.appendChild(unorderedList);
+    console.log(object);
 
 
 
-      tasks.forEach(task => {
-        let item = document.createElement('li')
-        unorderedList.appendChild(item);
+    let tasks = separateTasks(object);
 
-        let inputCheckBox = document.createElement('input');
-        inputCheckBox.type = 'checkbox';
-        inputCheckBox.name = 'task';
-        inputCheckBox.id = 'task';
-        inputCheckBox.classList.add('task');
-        inputCheckBox.autocomplete = 'off';
-        item.appendChild(inputCheckBox);
+    console.log(tasks);
+    
 
-        let inputLabel = document.createElement('label');
-        inputLabel.setAttribute('for', 'task');
-        inputLabel.textContent = task
-        item.appendChild(inputLabel)
+    const projectDisplay = document.querySelector('.all-projects');
+
+    
+    let projectContainer = document.createElement('div');
+    projectContainer.classList.add('project-container');
+    let todoIndex = findIndexOf(object, todo.getList());
+    projectContainer.dataset['objIndex'] = todoIndex;
+    projectDisplay.appendChild(projectContainer);
 
 
-      })
-
-      const checkbox = [...document.querySelectorAll('.task')]
-      checkbox.forEach(task => {
-        task.addEventListener("click", toggleTaskComplete)
-      });
+    let projectName = document.createElement('h2');
+    projectName.classList.add('project-header');
+    projectName.textContent = object.title;
+    projectContainer.appendChild(projectName);
 
 
+    let projectDescription = document.createElement('div');
+    projectDescription.classList.add('project-description');
+    projectDescription.textContent = object.description;
+    projectContainer.appendChild(projectDescription);
+
+
+    let unorderedList = document.createElement('ul');
+    projectContainer.appendChild(unorderedList);
 
 
 
+    tasks.forEach(task => {
+      let item = document.createElement('li')
+      unorderedList.appendChild(item);
+
+      let inputCheckBox = document.createElement('input');
+      let taskIndex = findIndexOf(task, tasks);
+      inputCheckBox.dataset['taskIndex'] = taskIndex;      
+      inputCheckBox.type = 'checkbox';
+      inputCheckBox.name = `task${todoIndex}${taskIndex}`;
+      inputCheckBox.id = `task${todoIndex}${taskIndex}`;
+      inputCheckBox.classList.add('task');
+      inputCheckBox.autocomplete = 'off';
+      item.appendChild(inputCheckBox);
+
+      let inputLabel = document.createElement('label');
+      inputLabel.setAttribute('for', `task${todoIndex}${taskIndex}`);
+      inputLabel.textContent = task
+      item.appendChild(inputLabel)
 
 
-            
-      
+    })
+
+    const checkbox = [...document.querySelectorAll('.task')]
+    checkbox.forEach(task => {
+      task.addEventListener("click", toggleTaskComplete)
     });
+
 
 
 

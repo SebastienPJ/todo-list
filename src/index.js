@@ -50,6 +50,7 @@ const todo = (() => {
     
 
     let _newTodo = todoFactory(_formData);
+    // console.log(_newTodo);
 
     _todoList.push(_newTodo);
 
@@ -57,7 +58,8 @@ const todo = (() => {
     _todoForm.reset();
 
 
-    renderTodo.updatePage(_todoList);
+    // renderTodo.updatePage(_todoList);
+    renderTodo.updatePage(_newTodo);
 
 
     
@@ -65,23 +67,6 @@ const todo = (() => {
   };   
     
 
-  const toggleTaskComplete = (e) => {
-    
-    let task = e.target.labels[0];
-    
-    let boxChecked = e.target.checked;
-
-    console.log(boxChecked);
-
-
-    task.classList.toggle('task-done')
-
-        
-
-
-    console.log(e)
-    console.log(e.target.labels[0].textContent)
-  };
     
   const _todoForm = document.querySelector(".todoForm");
   const _submitButton = document.querySelector('.submit');
@@ -90,24 +75,14 @@ const todo = (() => {
 
 
   _submitButton.addEventListener('click', startTodoApp);
-
-
-
-  const checkbox = [...document.querySelectorAll('.task')]
-  checkbox.forEach(task => {
-    task.addEventListener("click", toggleTaskComplete)
-  });
-    
-    
    
-
 
   return { getList }
 
 })();
 
 
-
+export { todo }
 
 // const todoFactory = (title, desctiption, dueDate, priority, notes, checklist) => {
 //     const name = () => {console.log(this.title)};
