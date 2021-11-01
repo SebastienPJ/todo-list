@@ -58,6 +58,8 @@ const todo = (() => {
 
     _todoList.push(_newTodo);
 
+    
+    console.log(_todoList);
 
     _todoForm.reset();
 
