@@ -3,9 +3,30 @@ import { todo } from ".";
 
 const create = (() => {
 
+
+
   const findIndexOf = (item, list) => {
     return list.indexOf(item);
   }
+
+
+
+  const toggleTaskComplete = (e) => {
+ 
+    console.log(e);
+
+    let task = e.target.labels[0];
+    
+    let boxChecked = e.target.checked;
+
+    console.log(boxChecked);
+
+
+    task.classList.toggle('task-done')
+
+  };
+
+
 
 
   const createNameSection = (todoObject) => {
@@ -17,6 +38,9 @@ const create = (() => {
     return section;
 
   };
+
+
+
 
 
   const createDescriptionSection = (object) => {
@@ -43,38 +67,58 @@ const create = (() => {
     return tasks
   };
 
+
+
+
+
   const listTasks = (taskObjPassed, taskArray, projectObj) => {
     console.log(taskObjPassed);
     console.log(taskArray);
+    console.log(projectObj);
+
     let task = document.createElement('li');
 
+    let taskIndex = findIndexOf(taskObjPassed, taskArray);
+
+    let projectObjectIndex = findIndexOf(projectObj, todo.getList())
+
+
     let inputCheckBox = document.createElement('input');
-    
-    // let taskIndex = findIndexOf(taskObj, taskArray);
-    
-    // let projectObjectIndex = findIndexOf(projectObj, todo.getList())
-    
-    // inputCheckBox.dataset['taskIndex'] = taskIndex; 
+    inputCheckBox.setAttribute('type', 'checkbox');
+    inputCheckBox.addEventListener('click', toggleTaskComplete);
 
-    // inputCheckBox.name = `task${projectObjectIndex}${taskIndex}`;
+        
+    
+    inputCheckBox.dataset['taskIndex'] = taskIndex; 
 
-    // inputCheckBox.id = `task${projectObjectIndex}${taskIndex}`;  
-    // inputCheckBox.classList.add('task');
-    // inputCheckBox.autocomplete = 'off';
+    inputCheckBox.name = `task${projectObjectIndex}${taskIndex}`;
+
+    inputCheckBox.id = `task${projectObjectIndex}${taskIndex}`;  
+    inputCheckBox.classList.add('task');
+    inputCheckBox.autocomplete = 'off';
     
     
-    // task.appendChild(inputCheckBox);
+    task.appendChild(inputCheckBox);
 
 
-    // let inputLabel = document.createElement('label');
-    // inputLabel.setAttribute('for', `task${projectObjectIndex}${taskIndex}`);
+    let inputLabel = document.createElement('label');
+    inputLabel.setAttribute('for', `task${projectObjectIndex}${taskIndex}`);
    
-    // let contentKey = Object.keys(taskObj);
-    // console.log(`contentKey: ${contentKey}`);
+    let contentKey = Object.keys(taskObjPassed);
+    let labelValue;
 
+    contentKey.forEach(key => {
+      if (key.includes('task')) {
+        labelValue = taskObjPassed[key];
+        inputLabel.textContent = labelValue;
+        task.appendChild(inputLabel);
+      }
+    });
 
     return task
-  }
+  };
+
+
 
 
   const createTaskSection = (newObj) => {
@@ -85,19 +129,19 @@ const create = (() => {
     console.log(tasksOnly);
 
     tasksOnly.forEach(taskObj => {
-      // console.log(taskObj);
-      // console.log(findIndexOf(taskObj,tasksOnly))
-      taskSection.appendChild(listTasks(taskObj, tasksOnly. newObj));
-
-    })
+      let section = listTasks(taskObj, tasksOnly, newObj);
+      taskSection.appendChild(section);
+    });
 
 
 
 
     return taskSection
-  }
+  };
 
 
+
+  
 
   const projectContainer = (obj) => {
 
@@ -116,6 +160,15 @@ const create = (() => {
     container.appendChild(createDescriptionSection(obj));
 
     container.appendChild(createTaskSection(obj));
+
+
+    const markTaskComplete = [...document.querySelectorAll('.task')]
+
+    console.log(markTaskComplete);
+
+    markTaskComplete.forEach(task => {
+      task.addEventListener("click", toggleTaskComplete)
+    });
 
 
 
