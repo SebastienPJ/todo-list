@@ -40,35 +40,53 @@
 
   <form action="" class="todoForm">
 
-    <ul>
+    <table class="project-table">
 
-      <li>
-        <label for="title">Title: </label>
-        <input type="text" name="title" id="title">
+      
+      <tr>
+        <td class="form-label">
+          <label for="title">Title: </label>
+        </td>
+        <td>
+          <input type="text" name="title" id="title">
+        </td>
+      </tr>
 
-      </li>
+      <tr>
+        <td class="form-label">
+          <label for="description">Description: </label>
+        </td>
+        <td>
+          <textarea name="description" id="description" cols="30" rows="4"></textarea>
+        </td>
+      </tr>
 
-      <li>
-        <label for="description">Description: </label>
-        <textarea name="description" id="description" cols="30" rows="4"></textarea>
-      </li>
+      <tr>
+        <td class="form-label">
+          <label for="task1">Task 1: </label>
+        </td>
+        <td>
+          <input type="text" name="task1" id="task1">
+        </td>
+      </tr>
+      
+      <tr>
+        <td class="form-label">
+          <label for="task2">Task 2: </label>
+        </td>
+        <td>
+          <input type="text" name="task2" id="task2">
+        </td>
+      </tr>
 
-      <li>
-        <label for="task1">Task 1: </label>
-        <input type="text" name="task1" id="task1">
-      </li>
 
-      <li>
-        <label for="task2">Task 2: </label>
-        <input type="text" name="task2" id="task2">
-      </li>
-
-      <li>
-        <button type="submit" class="submit">Submit</button>          
-      </li>
+    </table>
 
 
-    </ul>
+    <button type="submit" class="submit">Submit</button>
+    <button type="button" class="add-row">Add Task</button>          
+
+
   </form>
 
 

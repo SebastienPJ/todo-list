@@ -19,9 +19,6 @@ const todo = (() => {
         taskObj[key] = value;
         taskObj['isTaskDone'] = 'no'
         tasks.push(taskObj);
-
-        // console.log(taskObj);
-        // console.log(tasks);
       } else {
 
         todoObj[key] = value;
@@ -32,9 +29,6 @@ const todo = (() => {
 
     todoObj['all-tasks'] = tasks;
 
-    // console.log(todoObj);
-
-    
     return todoObj
   };
 
@@ -76,6 +70,10 @@ const todo = (() => {
 
 
   _submitButton.addEventListener('click', startTodoApp);
+  
+  
+  let _addTask = document.querySelector('.add-row');
+  _addTask.addEventListener('click', renderTodo.addMoreTask)
 
   return { getList }
 

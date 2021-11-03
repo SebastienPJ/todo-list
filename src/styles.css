@@ -3,21 +3,25 @@ body {
   padding: 0;
 }
 
+
+
 .project-container {
   border: 1px solid blue;
   margin-bottom: 50px;
 }
 
 
-.task {
-  /* display: block; */
-}
-
-
-li {
-  list-style: none;
+.form-label {
+  text-align: right;
+  vertical-align: top;
 }
 
 .task-done {
   text-decoration: line-through;
+}
+
+
+form {
+  border: 1px solid blue;
+  padding-left: 20px;
 }

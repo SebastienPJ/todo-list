@@ -14,14 +14,32 @@ const renderTodo = (() => {
 
     projectDisplay.appendChild(create.projectContainer(newObject))
 
+  }
 
+
+  const addMoreTask = () => {
+    let table = document.querySelector('.project-table');
+
+    let row = table.insertRow(-1);
+
+
+
+    let cellName = row.insertCell(0);
+    let newLabel = document.createElement('label');
+    
+
+
+    let cellValue = row.insertCell(1);
+
+    cellName.textContent = "New Task";
+    cellValue.textContent = "Add it  here"
 
 
 
   }
 
 
-  return { updatePage }
+  return { updatePage, addMoreTask }
 
 
 })();
