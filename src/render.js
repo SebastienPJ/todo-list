@@ -26,13 +26,25 @@ const renderTodo = (() => {
 
     let cellName = row.insertCell(0);
     let newLabel = document.createElement('label');
+    newLabel.textContent = "Task3";
+    newLabel.setAttribute('for', 'task3');
+    
+
+    cellName.appendChild(newLabel)
+
     
 
 
     let cellValue = row.insertCell(1);
+    let newInput = document.createElement('input');
+    newInput.setAttribute('type', 'text');
+    newInput.name = 'task3';
+    newInput.id = 'task3';
+    newInput.autocomplete = 'off';
 
-    cellName.textContent = "New Task";
-    cellValue.textContent = "Add it  here"
+
+    cellValue.appendChild(newInput);
+
 
 
 

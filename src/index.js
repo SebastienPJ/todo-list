@@ -12,6 +12,8 @@ const todo = (() => {
       let key = pair[0];
       let value = pair[1];
 
+      console.log(pair);
+
 
       if (key.includes('task')) {
         let taskObj = {};
@@ -44,7 +46,9 @@ const todo = (() => {
 
 
   const startTodoApp = function(e) {
-    e.preventDefault();     
+    e.preventDefault();   
+    
+    console.log(e);
     
     let _formData = captureFormData();    
 
