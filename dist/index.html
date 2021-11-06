@@ -8,92 +8,116 @@
 </head>
 <body>
 
-  <div class="all-projects">
+  <div class="todo-app">
+    <div class="side-bar">
+      <div class="all-tasks-container">
+        <h2>All ToDos</h2>
+
+
+      </div>
+
+      <div class="today-container">
+        <h2>Today</h2>
+      
+      
+      </div>
+
+      <div class="tomorrow-container">
+        <h2>Tomorrow</h2>
+      
+      
+      </div>
+
+      <div class="projects-container">
+        <h2>Projects</h2>
+      
+      
+      </div>
+    
+    </div>
+    <div class="all-projects">
+
+      <button type="button" class="add-new-todo-button">+</button>
+    </div>
+
+
+
 
 
   </div>
 
-  <div class="project-container">
-
-    <h2 class="project-header"> Complete Presentation</h2>
-    <div class="project-description">Board meeting on the 20th, must sell pitch</div>
 
 
 
-    <ul>
+  <!-------------- TODO FORM ---------->
 
-      <li>
-        <input type="checkbox" name="task1" id="task1" class="task" autocomplete="off">
-        <label for="task1" >Gather pictures for powerpoint</label>
-      </li>
+  <div class="todo-form-popup">
+    <form action="" class="todo-form">
+      <div class="form-header">Add ToDo</div>
+      <div class="close-form close-button">+</div>
+  
+      <table class="todo-table">
+  
+        
+        <tr>
+          <td class="form-label">
+            <label for="title">What's the task? </label>
+          </td>
+          <td>
+            <input type="text" name="title" id="title">
+          </td>
+        </tr>
+  
+        <tr>
+          <td class="form-label">
+            <label for="description">Description: </label>
+          </td>
+          <td>
+            <textarea name="description" id="description" cols="21" rows="6"></textarea>
+          </td>
+        </tr>
+  
+        <tr>
+          <td class="form-label">
+            <label for="due-date">Due Date: </label>
+          </td>
+          <td>
+            <input type="date" name="due-date" id="due-date">
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="form-label">
+            <label for="priority">Priority: </label>
+          </td>
+          <td>
+            <select name="" id="">
+              <option value="high">High</option>
+              <option value="medium">Medium</option>
+              <option value="low">Low</option>
+              <option value="" selected></option>
+            </select>
+          </td>
+        </tr>
+  
+  
+      </table>
+  
+  
+      <div class="form-buttons">
+        <button type="submit" class="submit">Submit</button>
+        <button type="button" class="cancel close-form">Cancel</button>
+      </div>         
+  
+  
+    </form>
 
-      <li>
-        <input type="checkbox" name="task2" id="task2" class="task" autocomplete="off">
-        <label for="task2">Gather data on market trends</label>       
-
-      </li>
 
 
-    </ul>
   </div>
 
 
-  <form action="" class="todoForm">
 
-    <table class="project-table">
-
-      
-      <tr>
-        <td class="form-label">
-          <label for="title">Title: </label>
-        </td>
-        <td>
-          <input type="text" name="title" id="title">
-        </td>
-      </tr>
-
-      <tr>
-        <td class="form-label">
-          <label for="description">Description: </label>
-        </td>
-        <td>
-          <textarea name="description" id="description" cols="21" rows="6"></textarea>
-        </td>
-      </tr>
-
-      <tr>
-        <td class="form-label">
-          <label for="task1">Task 1: </label>
-        </td>
-        <td>
-          <input type="text" name="task1" id="task1">
-        </td>
-        <td class="left-align">
-          <div class="remove-task">+</div>
-        </td>
-      </tr>
-      
-      <tr>
-        <td class="form-label">
-          <label for="task2">Task 2: </label>
-        </td>
-        <td>
-          <input type="text" name="task2" id="task2">
-        </td>
-        <td class="left-align">
-          <div class="remove-task">+</div>
-        </td>
-      </tr>
-
-
-    </table>
-
-
-    <button type="submit" class="submit">Submit</button>
-    <button type="button" class="add-row">Add Task</button>          
-
-
-  </form>
 
 
 

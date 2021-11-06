@@ -102,7 +102,7 @@ const create = (() => {
 
 
     let inputLabel = document.createElement('label');
-    inputLabel.setAttribute('for', `task${projectObjectIndex}${taskIndex}`);
+    inputLabel.setAttribute('for', `obj${projectObjectIndex},task${taskIndex}`);
    
     let contentKey = Object.keys(taskObjPassed);
     let labelValue;

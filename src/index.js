@@ -3,38 +3,15 @@ import './styles.css';
 
 const todo = (() => {
 
-  const todoFactory = (data) => {
-    let todoObj = {};
-    let tasks = [];
+  const openNewTodoForm = () => {
+    _newTodoForm.setAttribute('style', 'display: flex');
+  }
 
+  const closeTodoForm = () => {
+    _newTodoForm.setAttribute('style', 'display: none');
+  }
 
-    for(let pair of data.entries()) {
-      let key = pair[0];
-      let value = pair[1];
-
-      console.log(pair);
-
-
-      if (key.includes('task')) {
-        let taskObj = {};
-
-        taskObj[key] = value;
-        taskObj['isTaskDone'] = 'no'
-        tasks.push(taskObj);
-      } else {
-
-        todoObj[key] = value;
-
-      };
-    };
-
-
-    todoObj['all-tasks'] = tasks;
-
-    return todoObj
-  };
-
-
+  
 
   const captureFormData = () => {
     return new FormData(_todoForm)
@@ -46,38 +23,27 @@ const todo = (() => {
 
 
   const startTodoApp = function(e) {
-    e.preventDefault();   
-    
-    console.log(e);
-    
-    let _formData = captureFormData();    
-
-    let _newTodo = todoFactory(_formData);
-
-    _todoList.push(_newTodo);
-
-    
-    console.log(_todoList);
-
-    _todoForm.reset();
-
-    renderTodo.updatePage(_newTodo);    
+    console.log("Yay");
+        
         
   };   
 
+  const _newTodoForm = document.querySelector('.todo-form-popup');
 
 
-  const _todoForm = document.querySelector(".todoForm");
-  const _submitButton = document.querySelector('.submit');
-
-  const _todoList = [];
-
-
-  _submitButton.addEventListener('click', startTodoApp);
+  const _addTodoButton = document.querySelector('.add-new-todo-button')
+  _addTodoButton.addEventListener('click', openNewTodoForm);
   
-  
-  let _addTask = document.querySelector('.add-row');
-  _addTask.addEventListener('click', renderTodo.addMoreTask)
+
+  const _closeTodoFormButtons = document.querySelectorAll('.close-form');
+  _closeTodoFormButtons.forEach(button => {
+    button.addEventListener('click', closeTodoForm)
+  });
+
+
+
+
+
 
   return { getList }
 
