@@ -25,8 +25,9 @@ const renderTodo = (() => {
 
 
     let cellName = row.insertCell(0);
+    cellName.classList.add('form-label')
     let newLabel = document.createElement('label');
-    newLabel.textContent = "Task3";
+    newLabel.textContent = "Task 3:";
     newLabel.setAttribute('for', 'task3');
     
 
@@ -44,6 +45,14 @@ const renderTodo = (() => {
 
 
     cellValue.appendChild(newInput);
+
+
+    let closeCell = row.insertCell(2);
+    closeCell.classList.add('left-align');
+    let closeButton = document.createElement('div');
+    closeButton.textContent = '+';
+    closeButton.classList.add('remove-task');
+    closeCell.appendChild(closeButton);
 
 
 
