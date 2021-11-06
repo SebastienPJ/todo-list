@@ -4,36 +4,71 @@ import './styles.css';
 const todo = (() => {
 
   const openNewTodoForm = () => {
-    _newTodoForm.setAttribute('style', 'display: flex');
-  }
+    _TodoFormPopup.setAttribute('style', 'display: flex');
+  };
 
   const closeTodoForm = () => {
-    _newTodoForm.setAttribute('style', 'display: none');
-  }
-
-  
+    _TodoFormPopup.setAttribute('style', 'display: none');
+  };
 
   const captureFormData = () => {
     return new FormData(_todoForm)
   };
 
-  const getList = () => {
+
+
+  const getTodoList = () => {
     return _todoList
   };
 
 
+
+
+  const todoFactory = (data) => {
+    let title = data.get('title');
+    let description = data.get('description');
+    let dueDate = data.get('due-date');
+    let priority = data.get('priority');
+
+
+    return { title, description, dueDate, priority  }
+
+  };
+
+
+
+
+
+
+
   const startTodoApp = function(e) {
-    console.log("Yay");
-        
-        
+    e.preventDefault();
+
+
+    let _formData = captureFormData();
+
+    let _newTodo = todoFactory(_formData);
+
+    _todoList.push(_newTodo);
+
+    console.log(getTodoList());
+
+    _todoForm.reset();
+    closeTodoForm(); 
   };   
 
-  const _newTodoForm = document.querySelector('.todo-form-popup');
+
+
+
+  const _todoList = [];
+
+  const _TodoFormPopup = document.querySelector('.todo-form-popup');
+  const _todoForm = document.querySelector('.todo-form')
 
 
   const _addTodoButton = document.querySelector('.add-new-todo-button')
   _addTodoButton.addEventListener('click', openNewTodoForm);
-  
+
 
   const _closeTodoFormButtons = document.querySelectorAll('.close-form');
   _closeTodoFormButtons.forEach(button => {
@@ -42,10 +77,14 @@ const todo = (() => {
 
 
 
+  const _submitTodoForm = document.querySelector('.submit-form')
+  _submitTodoForm.addEventListener('click', startTodoApp)
 
 
 
-  return { getList }
+
+
+  return { getTodoList }
 
 
 })();

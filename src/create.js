@@ -7,7 +7,7 @@ const create = (() => {
 
   const findIndexOf = (item, list) => {
     return list.indexOf(item);
-  }
+  };
 
 
 
