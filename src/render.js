@@ -5,16 +5,25 @@ import { create } from "./create";
 const renderTodo = (() => {
 
   const updateSideBar = (newItem) => {
-
-    console.log(newItem);
     let _newList = document.createElement('li');
     _newList.textContent = newItem.title;
     _sideBarAllTodoList.appendChild(_newList);
 
+  
+  }
+
+  const showList = (e) => {
+
+
+    const parentElement = e.target.parentElement;
+
+
+    const list = parentElement.children[1];
+
+    list.classList.toggle('dropdown')
 
 
   }
-
   
 
 
@@ -22,7 +31,7 @@ const renderTodo = (() => {
 
   const _allTasksContainer = document.querySelector('.all-todos-container');
   const _sideBarAllTodoList = document.querySelector('.all-todos');
-  
+
   const _todayContainer = document.querySelector('.today-container');
   const _sideBarTodayList = document.querySelector('.due-today');
   
@@ -32,7 +41,7 @@ const renderTodo = (() => {
   const _projectsContainer = document.querySelector('.projects-container');
   const _sideBarAllProjectsList = document.querySelector('.all-projects');
 
-  return { updateSideBar }
+  return { updateSideBar, showList }
 
 
 })();

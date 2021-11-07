@@ -14,10 +14,44 @@ body {
   height: 100vh;
 }
 
-.side-bar h2 {
-  text-align: center;
-  text-decoration: underline;
+
+.all-todos,
+.due-today,
+.due-tomorrow,
+.all-projects {
+  display: none;
+
 }
+
+
+.dropdown {
+  display: flex;
+}
+
+.menu-dropdown {
+  width: 100%;
+  margin: 20px 0;
+  padding: 10px;
+  border: none;
+  font-size: 2rem;
+  border-top: 2px solid black;
+  border-bottom: 2px solid black;
+  cursor: pointer;
+  font-weight: bold;
+  background-color: transparent;
+
+}
+
+.menu-dropdown:hover {
+  background-color: blanchedalmond;
+}
+
+
+
+
+
+
+
 
 
 .todo-display {
@@ -112,3 +146,6 @@ textarea {
 .cancel {
   margin-left: 10px;
 }
+
+
+
