@@ -38,7 +38,9 @@ const todo = (() => {
 
 
 
-
+  const findIndexOf = (item, list) => {
+    return list.indexOf(item);
+  };
 
 
 
@@ -51,6 +53,7 @@ const todo = (() => {
     let _newTodo = todoFactory(_formData);
 
     _todoList.push(_newTodo);
+
 
     // renderTodo.updateSideBar(_newTodo);
 
@@ -110,7 +113,7 @@ const todo = (() => {
 
 
 
-  return { getTodoList, openNewTodoForm }
+  return { getTodoList, openNewTodoForm, findIndexOf }
 
 
 })();

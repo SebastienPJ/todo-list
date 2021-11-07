@@ -13,17 +13,15 @@ const create = (() => {
     return todoButton
   }
 
-  const displayHeader = (buttonClicked) => {
+  const displayHeader = (title) => {
     
     const _headerContainer = document.createElement('header');
     _headerContainer.classList.add('display-menu-header')
     _contentContainer.appendChild(_headerContainer);
 
 
-
-
     const pageTitle = document.createElement('h1');
-    pageTitle.textContent = buttonClicked.target.textContent;
+    pageTitle.textContent = title;
     _headerContainer.appendChild(pageTitle);
 
 
@@ -31,11 +29,86 @@ const create = (() => {
 
   }
 
+  const toggleTaskComplete = (e) => {
+    console.log(e);
+    console.log("task is complete")
+
+    let task = e.target.labels[0];
+    task.classList.toggle('task-done')
+
+
+  }
+
+
+  const listOfTodos = (menuClicked) => {
+   
+
+    const allToDosList = () => {
+      const listContainer = document.createElement('div')
+
+      const unorderdList = document.createElement('ul');
+      listContainer.appendChild(unorderdList);
+
+      let taskArray = todo.getTodoList();
+
+      
+
+      taskArray.forEach(task => {
+        let todoIndex = todo.findIndexOf(task, taskArray)
+
+        const listedTask = document.createElement('li');
+
+        let inputCheckBox = document.createElement('input');
+        inputCheckBox.setAttribute('type', 'checkbox');
+        inputCheckBox.addEventListener('click', toggleTaskComplete);
+
+        inputCheckBox.dataset['taskIndex'] = todoIndex; 
+
+        inputCheckBox.name = `task${todoIndex}`;
+    
+        inputCheckBox.id = `task${todoIndex}`;  
+        inputCheckBox.classList.add('task');
+        inputCheckBox.autocomplete = 'off';
+        
+        
+        listedTask.appendChild(inputCheckBox);
+
+
+        let inputLabel = document.createElement('label');
+        inputLabel.setAttribute('for', `task${todoIndex}`);
+
+        inputLabel.textContent = task.title;
+
+        listedTask.appendChild(inputLabel);
+   
+
+        unorderdList.appendChild(listedTask);
+        
+      })
+
+      
+      return listContainer
+
+
+    }
+    
+    
+    const listReturned = {
+      'All ToDos': allToDosList,
+      // 'Today': todayList,
+      // 'Tomorrow': tomorrowList,
+      // 'Projects': projectsList
+
+    }
+
+    return listReturned[menuClicked]();
+  }
+
   const _contentContainer = document.querySelector('.todo-display');
 
 
 
-  return { displayHeader, newTodoButton }
+  return { displayHeader, newTodoButton, listOfTodos }
 })();
 
 

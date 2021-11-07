@@ -62,9 +62,19 @@ body {
   position: relative;
 }
 
+.todo-display li {
+  list-style: none;
+}
+
 
 .display-menu-header {
   text-align: center;
+}
+
+
+.task-done {
+  text-decoration: line-through;
+
 }
 
 
