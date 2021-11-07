@@ -4,63 +4,35 @@ import { create } from "./create";
 
 const renderTodo = (() => {
 
+  const updateSideBar = (newItem) => {
 
-
-  const updatePage = (newObject) => {
-
-    console.log(newObject);
-
-    const projectDisplay = document.querySelector('.all-projects');
-
-    projectDisplay.appendChild(create.projectContainer(newObject))
-
-  }
-
-
-  const addMoreTask = () => {
-    let table = document.querySelector('.project-table');
-
-    let row = table.insertRow(-1);
-
-
-
-    let cellName = row.insertCell(0);
-    cellName.classList.add('form-label')
-    let newLabel = document.createElement('label');
-    newLabel.textContent = "Task 3:";
-    newLabel.setAttribute('for', 'task3');
-    
-
-    cellName.appendChild(newLabel)
-
-    
-
-
-    let cellValue = row.insertCell(1);
-    let newInput = document.createElement('input');
-    newInput.setAttribute('type', 'text');
-    newInput.name = 'task3';
-    newInput.id = 'task3';
-    newInput.autocomplete = 'off';
-
-
-    cellValue.appendChild(newInput);
-
-
-    let closeCell = row.insertCell(2);
-    closeCell.classList.add('left-align');
-    let closeButton = document.createElement('div');
-    closeButton.textContent = '+';
-    closeButton.classList.add('remove-task');
-    closeCell.appendChild(closeButton);
-
+    console.log(newItem);
+    let _newList = document.createElement('li');
+    _newList.textContent = newItem.title;
+    _sideBarAllTodoList.appendChild(_newList);
 
 
 
   }
 
+  
 
-  return { updatePage, addMoreTask }
+
+
+
+  const _allTasksContainer = document.querySelector('.all-todos-container');
+  const _sideBarAllTodoList = document.querySelector('.all-todos');
+  
+  const _todayContainer = document.querySelector('.today-container');
+  const _sideBarTodayList = document.querySelector('.due-today');
+  
+  const _tomorrowContainer = document.querySelector('.tomorrow-container');
+  const _sideBarTomorrowList = document.querySelector('.due-tomorrow');
+  
+  const _projectsContainer = document.querySelector('.projects-container');
+  const _sideBarAllProjectsList = document.querySelector('.all-projects');
+
+  return { updateSideBar }
 
 
 })();

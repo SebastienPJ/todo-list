@@ -29,9 +29,10 @@ const todo = (() => {
     let description = data.get('description');
     let dueDate = data.get('due-date');
     let priority = data.get('priority');
+    let isTodoDone = 'no'
 
 
-    return { title, description, dueDate, priority  }
+    return { title, description, dueDate, priority, isTodoDone }
 
   };
 
@@ -51,7 +52,7 @@ const todo = (() => {
 
     _todoList.push(_newTodo);
 
-    console.log(getTodoList());
+    renderTodo.updateSideBar(_newTodo);
 
     _todoForm.reset();
     closeTodoForm(); 
