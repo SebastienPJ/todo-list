@@ -13,13 +13,18 @@ const renderTodo = (() => {
   }
 
   const showList = (e) => {
+    const _menuDropdown = document.querySelectorAll('.menu-dropdown');
+
+    _menuDropdown.forEach(button => {
+      let menuList = button.parentNode.children[1];
+      if (menuList.classList.contains('dropdown')) {
+        menuList.classList.toggle('dropdown')
+      }
+    })
 
 
     const parentElement = e.target.parentElement;
-
-
     const list = parentElement.children[1];
-
     list.classList.toggle('dropdown')
 
 

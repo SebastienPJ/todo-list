@@ -84,8 +84,8 @@ const todo = (() => {
 
 
   const _menuDropdown = document.querySelectorAll('.menu-dropdown');
-  _menuDropdown.forEach(item => {
-    item.addEventListener('click', renderTodo.showList)
+  _menuDropdown.forEach(button => {
+    button.addEventListener('click', renderTodo.showList)
   })
 
 
