@@ -1,4 +1,5 @@
 import { renderTodo } from "./render";
+import { editTodo } from "./edit";
 import './styles.css';
 
 const todo = (() => {
@@ -92,21 +93,27 @@ const todo = (() => {
 
   const _closeTodoFormButtons = document.querySelectorAll('.close-form');
   _closeTodoFormButtons.forEach(button => {
-    button.addEventListener('click', closeTodoForm)
+    button.addEventListener('click', closeTodoForm);
   });
 
 
 
-  const _submitTodoForm = document.querySelector('.submit-form')
-  _submitTodoForm.addEventListener('click', startTodoApp)
+  const _submitTodoForm = document.querySelector('.submit-form');
+  _submitTodoForm.addEventListener('click', startTodoApp);
 
 
 
   const _menuButtons = document.querySelectorAll('.menu-button');
   _menuButtons.forEach(button => {
-    button.addEventListener('click', renderTodo.displayMenuItems)
+    button.addEventListener('click', renderTodo.displayMenuItems);
   })
 
+
+
+  const _closeEditFormButtons = document.querySelectorAll('.close-edit-form');
+  _closeEditFormButtons.forEach(button => {
+    button.addEventListener('click', editTodo.closeEditForm);
+  })
 
 
 

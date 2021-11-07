@@ -1,4 +1,6 @@
 import { todo } from ".";
+import { editTodo } from "./edit";
+
 
 
 const create = (() => {
@@ -86,6 +88,7 @@ const create = (() => {
         const editButton = document.createElement('button');
         editButton.classList.add('hide');
         editButton.textContent = 'edit';
+        editButton.addEventListener('click', editTodo.openEditForm)
         listedTask.appendChild(editButton);
 
         const expandButton = document.createElement('button');
