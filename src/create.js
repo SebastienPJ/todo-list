@@ -88,7 +88,10 @@ const create = (() => {
         const editButton = document.createElement('button');
         editButton.classList.add('hide');
         editButton.textContent = 'edit';
-        editButton.addEventListener('click', editTodo.openEditForm)
+        editButton.addEventListener('click', (e) => {
+          editTodo.openEditForm()
+          editTodo.prefillEditForm(e);
+        });
         listedTask.appendChild(editButton);
 
         const expandButton = document.createElement('button');
