@@ -133,6 +133,73 @@
 
 
 
+  <div class="edit-todo-popup">
+    <form action="" class="edit-todo-form">
+      <div class="form-header">Edit Task</div>
+      <div class="close-form close-button">+</div>
+  
+      <table class="todo-table">
+  
+        
+        <tr>
+          <td class="form-label">
+            <label for="title">What's the task? </label>
+          </td>
+          <td>
+            <input type="text" name="title" id="title">
+          </td>
+        </tr>
+  
+        <tr>
+          <td class="form-label">
+            <label for="description">Description: </label>
+          </td>
+          <td>
+            <textarea name="description" id="description" cols="21" rows="6"></textarea>
+          </td>
+        </tr>
+  
+        <tr>
+          <td class="form-label">
+            <label for="due-date">Due Date: </label>
+          </td>
+          <td>
+            <input type="date" name="due-date" id="due-date">
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="form-label">
+            <label for="priority">Priority: </label>
+          </td>
+          <td>
+            <select name="priority" id="priority">
+              <option value="high">High</option>
+              <option value="medium">Medium</option>
+              <option value="low">Low</option>
+              <option value="" selected></option>
+            </select>
+          </td>
+        </tr>
+  
+  
+      </table>
+  
+  
+      <div class="form-buttons">
+        <button type="submit" class="save-changes">Save Changes</button>
+        <button type="button" class="cancel close-form">Cancel</button>
+      </div>         
+  
+  
+    </form>
+
+
+  </div>
+
+
+
+
 
 
   <script src="main.js"></script>
