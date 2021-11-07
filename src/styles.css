@@ -26,9 +26,10 @@ body {
 
 .dropdown {
   display: flex;
+  flex-direction: column;
 }
 
-.menu-dropdown {
+.menu-button {
   width: 100%;
   margin: 20px 0;
   padding: 10px;
@@ -42,7 +43,7 @@ body {
 
 }
 
-.menu-dropdown:hover {
+.menu-button:hover {
   background-color: blanchedalmond;
 }
 
@@ -60,6 +61,14 @@ body {
   height: 100vh;
   position: relative;
 }
+
+
+.display-menu-header {
+  text-align: center;
+}
+
+
+
 
 .add-new-todo-button {
   color: white;

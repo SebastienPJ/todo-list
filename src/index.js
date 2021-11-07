@@ -52,7 +52,7 @@ const todo = (() => {
 
     _todoList.push(_newTodo);
 
-    renderTodo.updateSideBar(_newTodo);
+    // renderTodo.updateSideBar(_newTodo);
 
     _todoForm.reset();
     closeTodoForm(); 
@@ -83,9 +83,9 @@ const todo = (() => {
 
 
 
-  const _menuDropdown = document.querySelectorAll('.menu-dropdown');
-  _menuDropdown.forEach(button => {
-    button.addEventListener('click', renderTodo.showList)
+  const _menuButtons = document.querySelectorAll('.menu-button');
+  _menuButtons.forEach(button => {
+    button.addEventListener('click', renderTodo.displayMenuItems)
   })
 
 
