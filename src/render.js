@@ -13,17 +13,23 @@ const renderTodo = (() => {
 
 
   const clearDisplay = () => {
-
+ 
     while (_contentDisplay.hasChildNodes()) {
+ 
       _contentDisplay.removeChild(_contentDisplay.firstChild)
     };
   }
 
   const displayMenuItems = (e) => {
+    console.log(todo.getTodoList());
     
     clearDisplay();
 
-    _contentDisplay.appendChild(create.displayHeader(e))
+    _contentDisplay.appendChild(create.displayHeader(e));
+
+    _contentDisplay.appendChild(create.newTodoButton());
+
+    // _contentDisplay.appendChild(create.listOfTodos())
 
 
 

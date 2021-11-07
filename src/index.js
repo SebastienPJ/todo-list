@@ -61,7 +61,23 @@ const todo = (() => {
 
 
 
-  const _todoList = [];
+  const _todoList = [
+    {
+      title: "Complete Presentation",
+      description: "Must complete and sell pitch to board",
+      dueDate: "2021-12-10",
+      priority: "medium",
+      isTodoDone: "no"
+    },
+
+    {
+      title: "Do groceries",
+      description: "Need foood",
+      dueDate: "2021-11-18",
+      priority: "high",
+      isTodoDone: "no"
+    }
+  ];
 
   const _TodoFormPopup = document.querySelector('.todo-form-popup');
   const _todoForm = document.querySelector('.todo-form')
@@ -94,7 +110,7 @@ const todo = (() => {
 
 
 
-  return { getTodoList }
+  return { getTodoList, openNewTodoForm }
 
 
 })();

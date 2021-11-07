@@ -3,6 +3,16 @@ import { todo } from ".";
 
 const create = (() => {
 
+  const newTodoButton = () => {
+    const todoButton = document.createElement('button');
+    todoButton.setAttribute('type', 'button');
+    todoButton.classList.add('add-new-todo-button');
+    todoButton.textContent = '+';
+    todoButton.addEventListener('click', todo.openNewTodoForm)
+
+    return todoButton
+  }
+
   const displayHeader = (buttonClicked) => {
     
     const _headerContainer = document.createElement('header');
@@ -25,7 +35,7 @@ const create = (() => {
 
 
 
-  return { displayHeader }
+  return { displayHeader, newTodoButton }
 })();
 
 
