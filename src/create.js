@@ -57,6 +57,7 @@ const create = (() => {
         let todoIndex = todo.findIndexOf(task, taskArray)
 
         const listedTask = document.createElement('li');
+        listedTask.classList.add('list')
 
         let inputCheckBox = document.createElement('input');
         inputCheckBox.setAttribute('type', 'checkbox');
@@ -80,6 +81,18 @@ const create = (() => {
         inputLabel.textContent = task.title;
 
         listedTask.appendChild(inputLabel);
+
+
+        const editButton = document.createElement('button');
+        editButton.classList.add('hide');
+        editButton.textContent = 'edit';
+        listedTask.appendChild(editButton);
+
+        const expandButton = document.createElement('button');
+        expandButton.classList.add('hide');
+        expandButton.textContent = 'expand';
+        listedTask.appendChild(expandButton);
+
    
 
         unorderdList.appendChild(listedTask);

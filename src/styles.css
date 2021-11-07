@@ -64,6 +64,7 @@ body {
 
 .todo-display li {
   list-style: none;
+  border: 1px solid black;
 }
 
 
@@ -168,3 +169,18 @@ textarea {
 
 
 
+
+
+
+.hide {
+  display: none;
+  margin-left: 20px;
+  font-size: 0.8rem;
+  border: none;
+  cursor: pointer;
+}
+
+.list:hover .hide{
+  display: inline-flex;
+  background-color: green;
+}
