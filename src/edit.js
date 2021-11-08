@@ -68,8 +68,8 @@ const editTodo = (() => {
 
     if (newNotes != "") {
       _todoObj.notes = newNotes;
-
     }
+    
     _todoObj.priority = newPriority;
 
     console.log(_todoObj);
@@ -77,7 +77,7 @@ const editTodo = (() => {
     closeEditForm();
 
 
-    
+
   }
 
 

@@ -11,6 +11,30 @@ const renderTodo = (() => {
   }
 
 
+  const updatePage = () => {
+
+    clearDisplay();
+
+
+  }
+
+  const toggleTaskComplete = (e) => {
+    let task = e.target.labels[0];
+
+    if (e.target.checked) {
+      console.log("task is complete")
+
+      task.classList.add('task-done')
+
+    } else {
+      console.log("task incomplete");
+      task.classList.remove('task-done')
+
+    }
+
+  }
+
+
 
   const clearDisplay = () => {
  
@@ -47,7 +71,7 @@ const renderTodo = (() => {
   const _contentDisplay = document.querySelector('.todo-display');
 
 
-  return { updateSideBar, displayMenuItems }
+  return { updateSideBar, displayMenuItems, updatePage, toggleTaskComplete }
 
 
 })();

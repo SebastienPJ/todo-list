@@ -1,5 +1,6 @@
 import { todo } from ".";
 import { editTodo } from "./edit";
+import { renderTodo } from "./render";
 
 
 
@@ -31,16 +32,6 @@ const create = (() => {
 
   }
 
-  const toggleTaskComplete = (e) => {
-    console.log(e);
-    console.log("task is complete")
-
-    let task = e.target.labels[0];
-    task.classList.toggle('task-done')
-
-
-  }
-
 
   const listOfTodos = (menuClicked) => {
    
@@ -63,7 +54,10 @@ const create = (() => {
 
         let inputCheckBox = document.createElement('input');
         inputCheckBox.setAttribute('type', 'checkbox');
-        inputCheckBox.addEventListener('click', toggleTaskComplete);
+        inputCheckBox.addEventListener('click', () => {
+          renderTodo.toggleTaskComplete();
+          editTodo.updateObject();
+        });
 
         inputCheckBox.dataset['taskIndex'] = todoIndex; 
 
