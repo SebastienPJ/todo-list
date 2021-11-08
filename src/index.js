@@ -12,8 +12,8 @@ const todo = (() => {
     _TodoFormPopup.setAttribute('style', 'display: none');
   };
 
-  const captureFormData = () => {
-    return new FormData(_todoForm)
+  const captureFormData = (form) => {
+    return new FormData(form)
   };
 
 
@@ -49,7 +49,7 @@ const todo = (() => {
     e.preventDefault();
 
 
-    let _formData = captureFormData();
+    let _formData = captureFormData(_todoForm);
 
     let _newTodo = todoFactory(_formData);
 
@@ -116,11 +116,14 @@ const todo = (() => {
   })
 
 
+  const _saveEditChangesButton = document.querySelector('.save-changes');
+  _saveEditChangesButton.addEventListener('click', editTodo.saveEditChanges)
 
 
 
 
-  return { getTodoList, openNewTodoForm, findIndexOf }
+
+  return { getTodoList, openNewTodoForm, findIndexOf, captureFormData }
 
 
 })();

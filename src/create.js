@@ -91,6 +91,7 @@ const create = (() => {
         editButton.addEventListener('click', (e) => {
           editTodo.openEditForm()
           editTodo.prefillEditForm(e);
+          editTodo.tagEditFormWithIndex(e);
         });
         listedTask.appendChild(editButton);
 
