@@ -108,7 +108,8 @@ const todo = (() => {
     button.addEventListener('click', renderTodo.displayMenuItems);
   })
 
-
+  // const button = document.getElementById('all-todo-button');
+  // button.click();
 
   const _closeEditFormButtons = document.querySelectorAll('.close-edit-form');
   _closeEditFormButtons.forEach(button => {
@@ -118,8 +119,6 @@ const todo = (() => {
 
   const _saveEditChangesButton = document.querySelector('.save-changes');
   _saveEditChangesButton.addEventListener('click', editTodo.saveEditChanges)
-
-
 
 
 

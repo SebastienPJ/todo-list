@@ -54,9 +54,9 @@ const create = (() => {
 
         let inputCheckBox = document.createElement('input');
         inputCheckBox.setAttribute('type', 'checkbox');
-        inputCheckBox.addEventListener('click', () => {
-          renderTodo.toggleTaskComplete();
-          editTodo.updateObject();
+        inputCheckBox.addEventListener('click', (e) => {
+          renderTodo.toggleTaskComplete(e);
+          // editTodo.updateObject();
         });
 
         inputCheckBox.dataset['taskIndex'] = todoIndex; 
@@ -90,13 +90,44 @@ const create = (() => {
         listedTask.appendChild(editButton);
 
         const expandButton = document.createElement('button');
-        expandButton.classList.add('hide');
+        expandButton.classList.add('hide', 'expand');
         expandButton.textContent = 'expand';
+        expandButton.addEventListener('click', function() {
+          this.classList.toggle('active');
+          let content = this.nextElementSibling;
+          if (content.style.display === 'block') {
+            content.style.display = 'none'
+          } else {
+            content.style.display = 'block'
+          }
+        })
+
+
         listedTask.appendChild(expandButton);
 
    
 
+
+        const collapsedContainer = document.createElement('div');
+        collapsedContainer.classList.add('todo-detail');
+        listedTask.appendChild(collapsedContainer);
+
+        
+        const todoDetail = document.createElement('p');
+        todoDetail.textContent = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat';
+        collapsedContainer.appendChild(todoDetail);
+
+
+
+
+
+
+
+
         unorderdList.appendChild(listedTask);
+
+
+      
         
       })
 
