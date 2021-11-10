@@ -71,7 +71,8 @@ const todo = (() => {
       description: "Must complete and sell pitch to board",
       dueDate: "2021-12-10",
       priority: "medium",
-      isTodoDone: "no"
+      isTodoDone: "no",
+      notes: "Notes on meeting prep"
     },
 
     {
@@ -79,7 +80,8 @@ const todo = (() => {
       description: "Need foood",
       dueDate: "2021-11-18",
       priority: "high",
-      isTodoDone: "no"
+      isTodoDone: "no",
+      notes: 'go to walmart cheap food'
     }
   ];
 
