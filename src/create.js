@@ -105,6 +105,12 @@ const create = (() => {
 
         listedTask.appendChild(expandButton);
 
+
+        const dueDateContainer = document.createElement('p');
+        dueDateContainer.classList.add('due-date')
+        dueDateContainer.textContent = task.dueDate;
+        listedTask.appendChild(dueDateContainer)
+
    
 
 
@@ -155,6 +161,10 @@ const create = (() => {
 
     }
     
+
+    const projectsList = () => {
+
+    }
     
     const listReturned = {
       'All ToDos': allToDosList,
