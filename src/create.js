@@ -16,6 +16,7 @@ const create = (() => {
     return todoButton
   }
 
+
   const displayHeader = (title) => {
     
     const _headerContainer = document.createElement('header');
@@ -31,6 +32,7 @@ const create = (() => {
     return _headerContainer
 
   }
+  
 
 
   const listOfTodos = (menuClicked) => {
@@ -163,14 +165,22 @@ const create = (() => {
     
 
     const projectsList = () => {
+      console.log("I've got the jects");
+    }
 
+    const todayList = () => {
+      console.log("Do this today");
+    }
+
+    const tomorrowList = () => {
+      console.log("One more day with your lazy behind");
     }
     
     const listReturned = {
       'All ToDos': allToDosList,
-      // 'Today': todayList,
-      // 'Tomorrow': tomorrowList,
-      // 'Projects': projectsList
+      'Today': todayList,
+      'Tomorrow': tomorrowList,
+      'Projects': projectsList
 
     }
 

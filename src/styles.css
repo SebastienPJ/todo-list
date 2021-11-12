@@ -236,3 +236,7 @@ textarea {
 }
 
 
+.current-menu-selected {
+  text-decoration: underline;
+  background-color: coral;
+}

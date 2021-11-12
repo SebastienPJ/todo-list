@@ -23,6 +23,19 @@ const todo = (() => {
   };
 
 
+  const highlightSelectedButton = (selectedButton) => {
+    console.log(selectedButton);
+
+    _menuButtons.forEach(item => {
+      if (item.classList.contains('current-menu-selected')) {
+        item.classList.remove('current-menu-selected')
+      }
+    })
+
+    selectedButton.classList.add('current-menu-selected');
+
+  }
+
 
 
   const todoFactory = (data) => {
@@ -107,17 +120,17 @@ const todo = (() => {
 
   const _menuButtons = document.querySelectorAll('.menu-button');
   _menuButtons.forEach(button => {
-    let menuTitle = button.textContent;
+    button.addEventListener('click', function(e) {
+      renderTodo.displayMenuItems(e);
+      highlightSelectedButton(button);    
+    });
 
-
-    button.addEventListener('click', renderTodo.displayMenuItems.bind(button, menuTitle));
   })
 
 
 
   const _closeEditFormButtons = document.querySelectorAll('.close-edit-form');
-  _closeEditFormButtons.forEach(button => {
- 
+  _closeEditFormButtons.forEach(button => { 
     button.addEventListener('click', editTodo.closeEditForm);
   })
 

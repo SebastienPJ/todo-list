@@ -44,15 +44,15 @@ const renderTodo = (() => {
     };
   }
 
-  const displayMenuItems = (menuClicked) => {
-    
+  const displayMenuItems = (e) => {
+    const menuTitle = e.target.textContent;
     
     clearDisplay();
 
-    _contentDisplay.appendChild(create.displayHeader(menuClicked));
+    _contentDisplay.appendChild(create.displayHeader(menuTitle));
 
 
-    _contentDisplay.appendChild(create.listOfTodos(menuClicked))
+    _contentDisplay.appendChild(create.listOfTodos(menuTitle))
 
     _contentDisplay.appendChild(create.newTodoButton());
 
