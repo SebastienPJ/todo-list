@@ -52,7 +52,14 @@ const create = (() => {
         let todoIndex = todo.findIndexOf(task, taskArray)
 
         const listedTask = document.createElement('li');
-        listedTask.classList.add('list')
+        listedTask.classList.add('list');
+
+
+        const shownContent = document.createElement('div');
+        shownContent.classList.add('shown-content');
+        listedTask.appendChild(shownContent);
+
+
 
         let inputCheckBox = document.createElement('input');
         inputCheckBox.setAttribute('type', 'checkbox');
@@ -66,11 +73,11 @@ const create = (() => {
         inputCheckBox.name = `task${todoIndex}`;
     
         inputCheckBox.id = `task${todoIndex}`;  
-        inputCheckBox.classList.add('task');
-        inputCheckBox.autocomplete = 'off';
+        inputCheckBox.classList.add('checkbox');
+        // inputCheckBox.autocomplete = 'off';
         
         
-        listedTask.appendChild(inputCheckBox);
+        shownContent.appendChild(inputCheckBox);
 
 
         let inputLabel = document.createElement('label');
@@ -78,7 +85,7 @@ const create = (() => {
 
         inputLabel.textContent = task.title;
 
-        listedTask.appendChild(inputLabel);
+        shownContent.appendChild(inputLabel);
 
 
 
@@ -87,22 +94,28 @@ const create = (() => {
 
         switch (task.priority) {
           case 'high':
+            priorityMarker.style.display = 'inline-block'
             priorityMarker.style.backgroundColor = 'red'
             break;
           
           case 'medium':
+            priorityMarker.style.display = 'inline-block'
             priorityMarker.style.backgroundColor = 'orange'
             break;
           
           case 'low':
+            console.log(task.priority);
+            priorityMarker.style.display = 'inline-block'
             priorityMarker.style.backgroundColor = 'cornflowerblue'
+            break;
         
           default:
+            priorityMarker.style.display = 'none'
             break;
         }
         
 
-        listedTask.appendChild(priorityMarker)
+        shownContent.appendChild(priorityMarker)
 
 
         const editButton = document.createElement('button');
@@ -113,29 +126,30 @@ const create = (() => {
           editTodo.prefillEditForm(e);
           editTodo.tagEditFormWithIndex(e);
         });
-        listedTask.appendChild(editButton);
+        shownContent.appendChild(editButton);
 
         const expandButton = document.createElement('button');
         expandButton.classList.add('hide', 'expand');
         expandButton.textContent = 'expand';
         expandButton.addEventListener('click', function() {
           this.classList.toggle('active');
-          let content = this.nextElementSibling;
-          if (content.style.display === 'flex') {
-            content.style.display = 'none';
+          console.log(this);
+          let hiddenContent = this.parentElement.nextElementSibling;
+          if (hiddenContent.style.display === 'block') {
+            hiddenContent.style.display = 'none';
           } else {
-            content.style.display = 'flex';
+            hiddenContent.style.display = 'block';
           }
         })
 
 
-        listedTask.appendChild(expandButton);
+        shownContent.appendChild(expandButton);
 
 
-        // const dueDateContainer = document.createElement('p');
-        // dueDateContainer.classList.add('due-date')
-        // dueDateContainer.textContent = task.dueDate;
-        // listedTask.appendChild(dueDateContainer)
+        const dueDateContainer = document.createElement('p');
+        dueDateContainer.classList.add('due-date')
+        dueDateContainer.textContent = `By: ${task.dueDate}`;
+        shownContent.appendChild(dueDateContainer)
 
    
 
@@ -145,11 +159,6 @@ const create = (() => {
         listedTask.appendChild(collapsedContainer);
 
 
-        const descriptionContainer = document.createElement('div');
-        descriptionContainer.classList.add('detail-container');
-        descriptionContainer.textContent = task.description;
-        collapsedContainer.appendChild(descriptionContainer);
-
 
         const notesContainer = document.createElement('div');
         notesContainer.classList.add('detail-container');
@@ -157,17 +166,6 @@ const create = (() => {
           notesContainer.textContent = task.notes;
         }
         collapsedContainer.appendChild(notesContainer);
-
-
-
-
-
-
-        // const todoDetail = document.createElement('p');
-        // todoDetail.textContent = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat';
-        // collapsedContainer.appendChild(todoDetail);
-
-
 
 
 
@@ -210,6 +208,8 @@ const create = (() => {
 
     return listReturned[menuClicked]();
   }
+
+
 
   const _contentContainer = document.querySelector('.todo-display');
 

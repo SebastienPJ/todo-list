@@ -64,8 +64,11 @@ body {
 }
 
 .todo-display li {
-  list-style: none;
+  list-style: none; 
   border: 1px solid black;
+  /* display: flex;
+  /* justify-content: space-between; */
+  /* align-items: center; */
 }
 
 
@@ -232,7 +235,6 @@ textarea {
 
 .todo-detail {
   display: none;
-  justify-content: space-between;
   overflow: hidden;
   background-color: #f1f1f1;
 }
@@ -240,8 +242,6 @@ textarea {
 
 .detail-container {
   border: 1px solid black;
-  /* margin-left: 5px; */
-  margin-top: 10px;
   padding: 30px;
 
 }
@@ -252,4 +252,15 @@ textarea {
   background-color: coral;
 }
 
+
+.due-date {
+  margin-left: auto;
+}
+
+
+.shown-content {
+  display: flex;
+  align-items: center;
+  
+}
 
