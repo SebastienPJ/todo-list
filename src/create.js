@@ -146,10 +146,28 @@ const create = (() => {
         shownContent.appendChild(expandButton);
 
 
+
+
+        const projectContainer = document.createElement('p');
+        projectContainer.classList.add('project-container');
+        if ('project' in task) {
+          projectContainer.textContent = `Project: ${task.project}`;
+        }
+        shownContent.appendChild(projectContainer)
+
+
+        
+
         const dueDateContainer = document.createElement('p');
         dueDateContainer.classList.add('due-date')
+
         dueDateContainer.textContent = `By: ${task.dueDate}`;
-        shownContent.appendChild(dueDateContainer)
+        shownContent.appendChild(dueDateContainer);
+
+
+
+
+
 
    
 

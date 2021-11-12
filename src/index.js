@@ -85,7 +85,8 @@ const todo = (() => {
       dueDate: "2021-12-10",
       priority: "medium",
       isTodoDone: "no",
-      notes: "Notes on meeting prep"
+      notes: "Notes on meeting prep",
+      project: "Work"
     },
 
     {
