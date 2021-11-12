@@ -107,14 +107,17 @@ const todo = (() => {
 
   const _menuButtons = document.querySelectorAll('.menu-button');
   _menuButtons.forEach(button => {
-    button.addEventListener('click', renderTodo.displayMenuItems);
+    let menuTitle = button.textContent;
+
+
+    button.addEventListener('click', renderTodo.displayMenuItems.bind(button, menuTitle));
   })
 
-  // const button = document.getElementById('all-todo-button');
-  // button.click();
+
 
   const _closeEditFormButtons = document.querySelectorAll('.close-edit-form');
   _closeEditFormButtons.forEach(button => {
+ 
     button.addEventListener('click', editTodo.closeEditForm);
   })
 
@@ -123,12 +126,14 @@ const todo = (() => {
   _saveEditChangesButton.addEventListener('click', editTodo.saveEditChanges)
 
 
+  
 
   return { getTodoList, openNewTodoForm, findIndexOf, captureFormData }
 
 
 })();
 
+document.getElementById('all-todo-button').click();
 
 export { todo }
 
