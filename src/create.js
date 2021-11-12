@@ -81,6 +81,30 @@ const create = (() => {
         listedTask.appendChild(inputLabel);
 
 
+
+        const priorityMarker = document.createElement('div');
+        priorityMarker.classList.add('priority-marker');
+
+        switch (task.priority) {
+          case 'high':
+            priorityMarker.style.backgroundColor = 'red'
+            break;
+          
+          case 'medium':
+            priorityMarker.style.backgroundColor = 'orange'
+            break;
+          
+          case 'low':
+            priorityMarker.style.backgroundColor = 'cornflowerblue'
+        
+          default:
+            break;
+        }
+        
+
+        listedTask.appendChild(priorityMarker)
+
+
         const editButton = document.createElement('button');
         editButton.classList.add('hide');
         editButton.textContent = 'edit';

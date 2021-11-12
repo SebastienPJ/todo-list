@@ -80,6 +80,16 @@ body {
 }
 
 
+.priority-marker {
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-left: 10px;
+  vertical-align: middle;
+}
+
+
 
 
 .add-new-todo-button {
@@ -190,6 +200,7 @@ textarea {
 
 .list {
   margin-bottom: 5px;
+
   /* background-color: #777; */
 }
 
@@ -240,3 +251,5 @@ textarea {
   text-decoration: underline;
   background-color: coral;
 }
+
+

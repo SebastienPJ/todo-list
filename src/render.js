@@ -56,10 +56,6 @@ const renderTodo = (() => {
 
     _contentDisplay.appendChild(create.newTodoButton());
 
-
-
-
-
   }
   
 
