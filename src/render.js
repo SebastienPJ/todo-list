@@ -4,19 +4,60 @@ import { create } from "./create";
 
 const renderTodo = (() => {
 
-  const updateSideBar = (newItem) => {
+  // const updateSideBar = (newItem) => {
 
 
   
+  // }
+
+
+  // const updatePage = () => {
+
+  //   clearDisplay();
+
+
+  // }
+
+  
+
+  const openNewTodoForm = () => {
+    _TodoFormPopup.setAttribute('style', 'display: flex');
+  };
+
+
+
+  const closeTodoForm = () => {
+    _TodoFormPopup.setAttribute('style', 'display: none');
+  };
+
+
+
+  const openProjectForm = () => {
+    _projectFormPopup.setAttribute('style', 'display: flex')
+  };
+
+
+
+  const closeProjectForm = () => {
+    _projectFormPopup.setAttribute('style', 'display: none')
+  };
+
+
+
+  const openEditForm= () => {
+    _editFormPopup.setAttribute('style', 'display: flex');
   }
 
 
-  const updatePage = () => {
 
-    clearDisplay();
-
-
+  const closeEditForm = () => {
+    _editFormPopup.setAttribute('style', 'display: none')
   }
+
+
+
+
+
 
   const toggleTaskComplete = (e) => {
     let task = e.target.labels[0];
@@ -32,7 +73,7 @@ const renderTodo = (() => {
 
     }
 
-  }
+  };
 
 
 
@@ -41,8 +82,8 @@ const renderTodo = (() => {
     while (_contentDisplay.hasChildNodes()) {
  
       _contentDisplay.removeChild(_contentDisplay.firstChild)
-    };
-  }
+    }
+  };
 
   const displayMenuItems = (e) => {
     const menuTitle = e.target.textContent;
@@ -54,20 +95,27 @@ const renderTodo = (() => {
 
     _contentDisplay.appendChild(create.listOfTodos(menuTitle))
 
-    _contentDisplay.appendChild(create.newTodoButton());
+    _contentDisplay.appendChild(create.newTodoButton(menuTitle));
 
-  }
+  };
   
-
-  
-  const _projectsContainer = document.querySelector('.projects-container');
-  const _sideBarAllProjectsList = document.querySelector('.all-projects');
-
 
   const _contentDisplay = document.querySelector('.todo-display');
 
 
-  return { updateSideBar, displayMenuItems, updatePage, toggleTaskComplete }
+
+  const _TodoFormPopup = document.querySelector('.todo-form-popup');
+
+
+  
+  const _editFormPopup = document.querySelector('.edit-todo-popup');
+
+
+  const _projectFormPopup = document.querySelector('.new-project-popup')
+
+  return { displayMenuItems, toggleTaskComplete, openProjectForm, 
+    closeProjectForm, openNewTodoForm, closeTodoForm, openEditForm, 
+    closeEditForm }
 
 
 })();

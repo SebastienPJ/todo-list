@@ -12,52 +12,37 @@
     <div class="side-bar">
 
       <div class="today-container">
+        
         <button type="button" class="menu-button">Today</button>
 
-
-      
-      
       </div>
 
       <div class="tomorrow-container">
-        <button type="button" class="menu-button">Tomorrow</button>
 
-      
+        <button type="button" class="menu-button">Tomorrow</button>
       
       </div>
 
 
       <div class="all-todos-container">
+
         <button type="button" class="menu-button" id="all-todo-button">All ToDos</button>
-
-
 
       </div>
 
       <div class="projects-container">
+  
         <button type="button" class="menu-button">Projects</button>
-
-        <ul class="all-projects side-bar-list">
-          <li>Presentation</li>
-        </ul>
-      
-    
-      
-      
+     
       </div>
     
     </div>
 
 
     <div class="todo-display">
-      <header class="display-menu-header">
 
 
-      <button type="button" class="add-new-todo-button">+</button>
     </div>
-
-
-
 
 
   </div>
@@ -70,7 +55,7 @@
   <div class="todo-form-popup">
     <form action="" class="todo-form">
       <div class="form-header">Add ToDo</div>
-      <div class="close-form close-button">+</div>
+      <div class="close-todo-form x-button">+</div>
   
       <table class="todo-table">
   
@@ -83,6 +68,7 @@
             <input type="text" name="title" id="title">
           </td>
         </tr>
+
   
         <tr>
           <td class="form-label">
@@ -92,6 +78,7 @@
             <textarea name="description" id="description" cols="21" rows="6"></textarea>
           </td>
         </tr>
+
   
         <tr>
           <td class="form-label">
@@ -101,6 +88,7 @@
             <input type="date" name="due-date" id="due-date">
           </td>
         </tr>
+
         
         <tr>
           <td class="form-label">
@@ -122,7 +110,7 @@
   
       <div class="form-buttons">
         <button type="submit" class="submit-form">Submit</button>
-        <button type="button" class="cancel close-form">Cancel</button>
+        <button type="button" class="cancel close-todo-form">Cancel</button>
       </div>         
   
   
@@ -140,7 +128,7 @@
   <div class="edit-todo-popup">
     <form action="" class="edit-todo-form">
       <div class="form-header">Edit Task</div>
-      <div class="close-edit-form close-button">+</div>
+      <div class="close-edit-form x-button">+</div>
   
       <table class="todo-table">
   
@@ -153,6 +141,7 @@
             <input type="text" name="edit-title" id="edit-title">
           </td>
         </tr>
+
   
         <tr>
           <td class="form-label">
@@ -163,6 +152,7 @@
           </td>
         </tr>
 
+
         <tr>
           <td class="form-label">
             <label for="edit-notes">Notes: </label>
@@ -172,6 +162,7 @@
           </td>
         </tr>
   
+
         <tr>
           <td class="form-label">
             <label for="edit-due-date">Due Date: </label>
@@ -180,6 +171,7 @@
             <input type="date" name="edit-due-date" id="edit-due-date">
           </td>
         </tr>
+        
         
         <tr>
           <td class="form-label">
@@ -211,12 +203,15 @@
   </div>
 
 
+
+
+
   <!-- PROJECTS FORM -->
 
-  <div class="new-projects-popup">
-    <form action="" class="new-projects-form">
+  <div class="new-project-popup">
+    <form action="" class="new-project-form">
       <div class="form-header">Create New Project</div>
-      <div class="close-projects-form close-button">+</div>
+      <div class="close-project-form x-button">+</div>
   
       <table class="">
   
@@ -231,27 +226,27 @@
         </tr>
   
         
-        <!-- <tr>
+        <tr>
           <td class="form-label">
-            <label for="edit-priority">Priority: </label>
+            <label for="add-to-project">Add ToDos: </label>
           </td>
           <td>
-            <select name="edit-priority" id="edit-priority">
+            <select name="add-to-project" id="add-to-project" multiple>
               <option value="high">High</option>
               <option value="medium">Medium</option>
               <option value="low">Low</option>
               <option value="" selected></option>
             </select>
           </td>
-        </tr> -->
+        </tr>
   
   
       </table>
   
   
       <div class="form-buttons">
-        <button type="submit" class="save-changes">Save Changes</button>
-        <button type="button" class="cancel-changes close-edit-form">Cancel</button>
+        <button type="submit" class="create-project">Create</button>
+        <button type="button" class="cancel close-project-form">Cancel</button>
       </div>         
   
   

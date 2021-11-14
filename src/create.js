@@ -6,12 +6,22 @@ import { renderTodo } from "./render";
 
 const create = (() => {
 
-  const newTodoButton = () => {
+  const newTodoButton = (menu) => {
     const todoButton = document.createElement('button');
     todoButton.setAttribute('type', 'button');
-    todoButton.classList.add('add-new-todo-button');
     todoButton.textContent = '+';
-    todoButton.addEventListener('click', todo.openNewTodoForm)
+
+    if (menu == 'Projects') {
+      todoButton.classList.add('add-new-project-button');
+      todoButton.addEventListener('click', renderTodo.openProjectForm)
+      
+    } else {
+      todoButton.classList.add('add-new-todo-button');
+      todoButton.addEventListener('click', renderTodo.openNewTodoForm)
+
+    }
+
+
 
     return todoButton
   }
@@ -122,7 +132,7 @@ const create = (() => {
         editButton.classList.add('hide');
         editButton.textContent = 'edit';
         editButton.addEventListener('click', (e) => {
-          editTodo.openEditForm()
+          renderTodo.openEditForm()
           editTodo.prefillEditForm(e);
           editTodo.tagEditFormWithIndex(e);
         });
@@ -212,18 +222,6 @@ const create = (() => {
       if (listOfProjects.length == 0) {
         const newProjectMessage = document.createElement('p');
         newProjectMessage.textContent = 'No projects yet created, click button to create'
-
-
-        const newProjectButton = document.createElement('button');
-        newProjectButton.textContent = 'New Project'
-        newProjectButton.addEventListener('click', function(e) {
-          const projectButton = document.querySelector('.new-projects-popup');
-          projectButton.setAttribute('style', 'display: flex')
-        })
-
-        newProjectMessage.appendChild(newProjectButton);
-
-
 
         return newProjectMessage;
       }

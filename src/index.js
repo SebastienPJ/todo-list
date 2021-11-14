@@ -4,13 +4,7 @@ import './styles.css';
 
 const todo = (() => {
 
-  const openNewTodoForm = () => {
-    _TodoFormPopup.setAttribute('style', 'display: flex');
-  };
 
-  const closeTodoForm = () => {
-    _TodoFormPopup.setAttribute('style', 'display: none');
-  };
 
   const captureFormData = (form) => {
     return new FormData(form)
@@ -89,7 +83,7 @@ const todo = (() => {
     // renderTodo.updateSideBar(_newTodo);
 
     _todoForm.reset();
-    closeTodoForm(); 
+    renderTodo.closeTodoForm(); 
   };   
 
 
@@ -130,17 +124,12 @@ const todo = (() => {
 
   const _projectList = [];
 
-  const _TodoFormPopup = document.querySelector('.todo-form-popup');
   const _todoForm = document.querySelector('.todo-form')
 
 
-  const _addTodoButton = document.querySelector('.add-new-todo-button')
-  _addTodoButton.addEventListener('click', openNewTodoForm);
-
-
-  const _closeTodoFormButtons = document.querySelectorAll('.close-form');
+  const _closeTodoFormButtons = document.querySelectorAll('.close-todo-form');
   _closeTodoFormButtons.forEach(button => {
-    button.addEventListener('click', closeTodoForm);
+    button.addEventListener('click', renderTodo.closeTodoForm);
   });
 
 
@@ -163,7 +152,7 @@ const todo = (() => {
 
   const _closeEditFormButtons = document.querySelectorAll('.close-edit-form');
   _closeEditFormButtons.forEach(button => { 
-    button.addEventListener('click', editTodo.closeEditForm);
+    button.addEventListener('click', renderTodo.closeEditForm);
   })
 
 
@@ -171,9 +160,16 @@ const todo = (() => {
   _saveEditChangesButton.addEventListener('click', editTodo.saveEditChanges)
 
 
+
+  const _closeProjectFormButtons = document.querySelectorAll('.close-project-form');
+  _closeProjectFormButtons.forEach(button => {
+    button.addEventListener('click', renderTodo.closeProjectForm)
+  })
+
+
   
 
-  return { getTodoList, openNewTodoForm, findIndexOf, captureFormData, getProjectList }
+  return { getTodoList, findIndexOf, captureFormData, getProjectList }
 
 
 })();

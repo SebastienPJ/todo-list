@@ -95,7 +95,8 @@ body {
 
 
 
-.add-new-todo-button {
+.add-new-todo-button,
+.add-new-project-button {
   color: white;
   position: absolute;
   background-color: #008CBA;
@@ -108,7 +109,8 @@ body {
   cursor: pointer;
 }
 
-.add-new-todo-button:hover {
+.add-new-todo-button:hover,
+.add-new-project-button:hover {
   background-color: white;
   border: 2px solid #008CBA;
   color: #008CBA;
@@ -117,7 +119,7 @@ body {
 
 
 .todo-form-popup,
-.new-projects-popup {
+.new-project-popup {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.7);
@@ -149,7 +151,7 @@ table {
   margin-bottom: 30px;
 }
 
-.close-button {
+.x-button {
   position: absolute;
   right: 10px;
   transform: rotate(45deg);
@@ -158,7 +160,7 @@ table {
   cursor: pointer;
 }
 
-.close-button:hover {
+.x-button:hover {
   font-size: 1.8rem;
 }
 
@@ -225,7 +227,7 @@ textarea {
 
 
 .edit-todo-form,
-.new-projects-form {
+.new-project-form {
   border: 2px solid black;
   padding: 60px 30px;
   background-color: white;

@@ -3,15 +3,6 @@ import { todo } from "./index";
 
 const editTodo = (() => {
 
-  const openEditForm= () => {
-    _editFormPopup.setAttribute('style', 'display: flex');
-  }
-
-
-
-  const closeEditForm = () => {
-    _editFormPopup.setAttribute('style', 'display: none')
-  }
 
 
   const prefillEditForm = (e) => {
@@ -81,7 +72,6 @@ const editTodo = (() => {
   }
 
 
-  const _editFormPopup = document.querySelector('.edit-todo-popup');
   const _editForm = document.querySelector('.edit-todo-form');  
 
 
@@ -95,8 +85,7 @@ const editTodo = (() => {
 
 
 
-  return { openEditForm, closeEditForm, prefillEditForm, 
-            saveEditChanges, tagEditFormWithIndex }
+  return { prefillEditForm, saveEditChanges, tagEditFormWithIndex }
 })();
 
 
