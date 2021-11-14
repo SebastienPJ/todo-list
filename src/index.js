@@ -57,6 +57,23 @@ const todo = (() => {
   };
 
 
+  const updateProjectList = () => {
+    _todoList.forEach(todoObj => {
+
+      if ('project' in todoObj) {
+        if (_projectList.includes(todoObj['project'])) return
+        _projectList.push(todoObj['project'])
+      }
+    })
+
+    console.log(_projectList);
+  }
+
+
+  const getProjectList = () => {
+    return _projectList;
+  }
+
 
   const startTodoApp = function(e) {
     e.preventDefault();
@@ -95,9 +112,23 @@ const todo = (() => {
       dueDate: "2021-11-18",
       priority: "high",
       isTodoDone: "no",
-      notes: 'go to walmart cheap food'
+      notes: 'go to walmart cheap food',
+      project: "Home"
+    },
+
+    {
+      title: "Fix Car Issues",
+      description: "Need fast car",
+      dueDate: "2021-12-10",
+      priority: "medium",
+      isTodoDone: "no",
+      notes: "vroom vroom",
+      project: "Home"
     }
   ];
+
+
+  const _projectList = [];
 
   const _TodoFormPopup = document.querySelector('.todo-form-popup');
   const _todoForm = document.querySelector('.todo-form')
@@ -142,7 +173,7 @@ const todo = (() => {
 
   
 
-  return { getTodoList, openNewTodoForm, findIndexOf, captureFormData }
+  return { getTodoList, openNewTodoForm, findIndexOf, captureFormData, getProjectList }
 
 
 })();

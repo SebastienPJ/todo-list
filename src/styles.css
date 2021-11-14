@@ -116,7 +116,8 @@ body {
 
 
 
-.todo-form-popup {
+.todo-form-popup,
+.new-projects-popup {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.7);
@@ -223,7 +224,8 @@ textarea {
 }
 
 
-.edit-todo-form {
+.edit-todo-form,
+.new-projects-form {
   border: 2px solid black;
   padding: 60px 30px;
   background-color: white;
@@ -270,3 +272,8 @@ textarea {
   
 }
 
+
+
+/* .new-projects-popup {
+  display: none;
+} */

@@ -206,6 +206,29 @@ const create = (() => {
 
     const projectsList = () => {
       console.log("I've got the jects");
+      
+      const listOfProjects = todo.getProjectList();
+
+      if (listOfProjects.length == 0) {
+        const newProjectMessage = document.createElement('p');
+        newProjectMessage.textContent = 'No projects yet created, click button to create'
+
+
+        const newProjectButton = document.createElement('button');
+        newProjectButton.textContent = 'New Project'
+        newProjectButton.addEventListener('click', function(e) {
+          const projectButton = document.querySelector('.new-projects-popup');
+          projectButton.setAttribute('style', 'display: flex')
+        })
+
+        newProjectMessage.appendChild(newProjectButton);
+
+
+
+        return newProjectMessage;
+      }
+
+    
     }
 
     const todayList = () => {
