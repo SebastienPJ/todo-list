@@ -80,12 +80,33 @@ const todo = (() => {
     _todoList.push(_newTodo);
 
 
-    // renderTodo.updateSideBar(_newTodo);
-
     _todoForm.reset();
     renderTodo.closeForm(todoFormPopup); 
   };   
 
+
+
+  const createProject = function(e) {
+    e.preventDefault();
+
+
+    let _projectData = captureFormData(_projectForm);
+
+    let _projectName = _projectData.get('project-name');
+
+    _projectList.push(_projectName);
+
+    console.log([..._todoSelected.selectedOptions])
+
+
+
+    // console.log([..._todoSelected.selectedOptions].map(option => option.value));
+
+
+    // _projectForm.reset();
+    // renderTodo.closeForm(projectFormPopup); 
+
+  }
 
 
 
@@ -125,6 +146,8 @@ const todo = (() => {
   const _projectList = [];
 
   const _todoForm = document.querySelector('.todo-form');
+  const _projectForm = document.querySelector('.new-project-form')
+  const _todoSelected = document.querySelector('.todos-selected')
 
 
   const todoFormPopup = document.querySelector('.todo-form-popup');
@@ -174,11 +197,14 @@ const todo = (() => {
     button.addEventListener('click', renderTodo.closeForm.bind(button, projectFormPopup))
   })
 
+  const _submitProjectForm = document.querySelector('.create-project');
+  _submitProjectForm.addEventListener('click', createProject)
+
 
   
 
-  return { getTodoList, findIndexOf, captureFormData, getProjectList, todoFormPopup, editFormPopup,
-            projectFormPopup,  }
+  return { getTodoList, findIndexOf, captureFormData, getProjectList, todoFormPopup,
+     editFormPopup, projectFormPopup,  }
 
 
 })();

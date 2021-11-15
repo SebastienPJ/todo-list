@@ -219,6 +219,7 @@ const create = (() => {
       
       const listOfProjects = todo.getProjectList();
 
+
       if (listOfProjects.length == 0) {
         const newProjectMessage = document.createElement('p');
         newProjectMessage.textContent = 'No projects yet created, click button to create'
@@ -226,16 +227,27 @@ const create = (() => {
         return newProjectMessage;
       }
 
+
+      const projList = document.createElement('p');
+      projList.textContent = 'You have the projects'
+
+      return projList
+
+
+
     
-    }
+    };
 
     const todayList = () => {
       console.log("Do this today");
-    }
+    };
 
     const tomorrowList = () => {
       console.log("One more day with your lazy behind");
-    }
+    };
+
+
+    
     
     const listReturned = {
       'All ToDos': allToDosList,
@@ -243,10 +255,10 @@ const create = (() => {
       'Tomorrow': tomorrowList,
       'Projects': projectsList
 
-    }
+    };
 
     return listReturned[menuClicked]();
-  }
+  };
 
 
 
