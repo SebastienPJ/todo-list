@@ -23,7 +23,7 @@ const renderTodo = (() => {
 
   };
 
-  
+
 
   const closeForm = (formChosen) => {
 
@@ -31,6 +31,16 @@ const renderTodo = (() => {
   };
 
 
+
+  const populateProjectOptions = (select, todoArray) => {
+    todoArray.forEach(todo => {
+      let newOption = document.createElement('option');
+      newOption.textContent = todo.title
+      select.add(newOption)
+      
+    });
+
+  }
 
 
   const toggleTaskComplete = (e) => {
@@ -77,7 +87,8 @@ const renderTodo = (() => {
   const _contentDisplay = document.querySelector('.todo-display');
 
  
-  return { displayMenuItems, toggleTaskComplete, openForm, closeForm }
+  return { displayMenuItems, toggleTaskComplete, 
+    openForm, closeForm, populateProjectOptions }
 
 
 })();

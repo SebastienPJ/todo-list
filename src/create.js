@@ -13,7 +13,10 @@ const create = (() => {
 
     if (menu == 'Projects') {
       todoButton.classList.add('add-new-project-button');
-      todoButton.addEventListener('click', renderTodo.openForm.bind(todoButton, todo.projectFormPopup))
+      todoButton.addEventListener('click', function() {
+        renderTodo.openForm(todo.projectFormPopup)
+        renderTodo.populateProjectOptions(todo.todoSelected, todo.getTodoList())
+      })
       
     } else {
       todoButton.classList.add('add-new-todo-button');
@@ -247,7 +250,7 @@ const create = (() => {
     };
 
 
-    
+
     
     const listReturned = {
       'All ToDos': allToDosList,

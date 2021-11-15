@@ -96,11 +96,11 @@ const todo = (() => {
 
     _projectList.push(_projectName);
 
-    console.log([..._todoSelected.selectedOptions])
+    console.log([...todoSelected.selectedOptions])
 
 
 
-    // console.log([..._todoSelected.selectedOptions].map(option => option.value));
+    // console.log([...todoSelected.selectedOptions].map(option => option.value));
 
 
     // _projectForm.reset();
@@ -147,7 +147,7 @@ const todo = (() => {
 
   const _todoForm = document.querySelector('.todo-form');
   const _projectForm = document.querySelector('.new-project-form')
-  const _todoSelected = document.querySelector('.todos-selected')
+  const todoSelected = document.querySelector('.todos-selected')
 
 
   const todoFormPopup = document.querySelector('.todo-form-popup');
@@ -204,7 +204,7 @@ const todo = (() => {
   
 
   return { getTodoList, findIndexOf, captureFormData, getProjectList, todoFormPopup,
-     editFormPopup, projectFormPopup,  }
+     editFormPopup, projectFormPopup, todoSelected }
 
 
 })();
