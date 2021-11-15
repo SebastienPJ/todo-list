@@ -13,11 +13,11 @@ const create = (() => {
 
     if (menu == 'Projects') {
       todoButton.classList.add('add-new-project-button');
-      todoButton.addEventListener('click', renderTodo.openProjectForm)
+      todoButton.addEventListener('click', renderTodo.openForm.bind(todoButton, todo.projectFormPopup))
       
     } else {
       todoButton.classList.add('add-new-todo-button');
-      todoButton.addEventListener('click', renderTodo.openNewTodoForm)
+      todoButton.addEventListener('click', renderTodo.openForm.bind(todoButton, todo.todoFormPopup))
 
     }
 
@@ -132,7 +132,7 @@ const create = (() => {
         editButton.classList.add('hide');
         editButton.textContent = 'edit';
         editButton.addEventListener('click', (e) => {
-          renderTodo.openEditForm()
+          renderTodo.openForm(todo.editFormPopup)
           editTodo.prefillEditForm(e);
           editTodo.tagEditFormWithIndex(e);
         });

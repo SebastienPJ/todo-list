@@ -18,43 +18,17 @@ const renderTodo = (() => {
 
   // }
 
+  const openForm = (form) => {
+    form.setAttribute('style', 'display: flex');
+
+  };
+
   
 
-  const openNewTodoForm = () => {
-    _TodoFormPopup.setAttribute('style', 'display: flex');
+  const closeForm = (formChosen) => {
+
+    formChosen.setAttribute('style', 'display: none')
   };
-
-
-
-  const closeTodoForm = () => {
-    _TodoFormPopup.setAttribute('style', 'display: none');
-  };
-
-
-
-  const openProjectForm = () => {
-    _projectFormPopup.setAttribute('style', 'display: flex')
-  };
-
-
-
-  const closeProjectForm = () => {
-    _projectFormPopup.setAttribute('style', 'display: none')
-  };
-
-
-
-  const openEditForm= () => {
-    _editFormPopup.setAttribute('style', 'display: flex');
-  }
-
-
-
-  const closeEditForm = () => {
-    _editFormPopup.setAttribute('style', 'display: none')
-  }
-
-
 
 
 
@@ -102,20 +76,8 @@ const renderTodo = (() => {
 
   const _contentDisplay = document.querySelector('.todo-display');
 
-
-
-  const _TodoFormPopup = document.querySelector('.todo-form-popup');
-
-
-  
-  const _editFormPopup = document.querySelector('.edit-todo-popup');
-
-
-  const _projectFormPopup = document.querySelector('.new-project-popup')
-
-  return { displayMenuItems, toggleTaskComplete, openProjectForm, 
-    closeProjectForm, openNewTodoForm, closeTodoForm, openEditForm, 
-    closeEditForm }
+ 
+  return { displayMenuItems, toggleTaskComplete, openForm, closeForm }
 
 
 })();
