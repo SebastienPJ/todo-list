@@ -65,8 +65,8 @@ const todo = (() => {
     _editForm.reset();
     renderTodo.closeForm(editFormPopup);
 
-    let currentMenu = findCurrentMenuSelected();
-    renderTodo.updatePage(currentMenu);
+    let _currentMenu = findCurrentMenuSelected();
+    renderTodo.updatePage(_currentMenu);
 
   };
 
@@ -79,10 +79,11 @@ const todo = (() => {
     // let description = data.get('description');
     let dueDate = data.get('due-date');
     let priority = data.get('priority');
-    let isTodoDone = 'no'
+    let isTodoDone = 'no';
+    let project = data.get('part-of-project');
 
 
-    return { title, description, dueDate, priority, isTodoDone }
+    return { title, dueDate, priority, project, isTodoDone }
 
   };
 
@@ -135,7 +136,7 @@ const todo = (() => {
     
     
     let menu = findCurrentMenuSelected();
-    updatePage(menu)
+    renderTodo.updatePage(menu)
 
     // renderTodo.dispayMenuItems(pass in current menu selected)
 
