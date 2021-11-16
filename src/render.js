@@ -31,7 +31,6 @@ const renderTodo = (() => {
     let _currentTodoObject = _allTodoArray[_todoIndex];
 
 
-    console.log(_currentTodoObject);
     _editTitle.value = _currentTodoObject.title;
     // _editDescription.value = _currentTodoObject.description;
     

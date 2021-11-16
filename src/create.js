@@ -1,5 +1,4 @@
 import { todo } from ".";
-import { editTodo } from "./edit";
 import { renderTodo } from "./render";
 
 
@@ -143,7 +142,7 @@ const createElements = (() => {
         renderTodo.openForm(todo.editFormPopup);
         renderTodo.addProjectsToFormOptions(todo.editFormSelectTag, todo.getProjectList())
         renderTodo.prefillEditForm(e);
-        todo.tagEditFormWithIndex(e);
+        todo.tagEditSubmitButtonWithIndex(e);
       });
 
       shownContent.appendChild(editButton);

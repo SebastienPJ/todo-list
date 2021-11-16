@@ -36,40 +36,40 @@ const editTodo = (() => {
 
 
 
-  const saveEditChanges = (e) => {
-    e.preventDefault();
+  // const saveEditChanges = (e) => {
+  //   e.preventDefault();
 
-    let _editedFormData = todo.captureFormData(_editForm);
+  //   let _editedFormData = todo.captureFormData(_editForm);
 
-    let _listOfTodos = todo.getTodoList();
+  //   let _listOfTodos = todo.getTodoList();
 
-    let _objIndex = e.target.dataset.taskIndex;
+  //   let _objIndex = e.target.dataset.taskIndex;
 
-    let _todoObj = _listOfTodos[_objIndex];
+  //   let _todoObj = _listOfTodos[_objIndex];
 
-    let newTitle = _editedFormData.get('edit-title');
-    let newDescription = _editedFormData.get('edit-description');
-    let newNotes = _editedFormData.get('edit-notes');
-    let newDueDate = _editedFormData.get('edit-due-date');
-    let newPriority = _editedFormData.get('edit-priority');
+  //   let newTitle = _editedFormData.get('edit-title');
+  //   let newDescription = _editedFormData.get('edit-description');
+  //   let newNotes = _editedFormData.get('edit-notes');
+  //   let newDueDate = _editedFormData.get('edit-due-date');
+  //   let newPriority = _editedFormData.get('edit-priority');
 
-    _todoObj.title = newTitle;
-    _todoObj.description = newDescription;
-    _todoObj.dueDate = newDueDate;
+  //   _todoObj.title = newTitle;
+  //   _todoObj.description = newDescription;
+  //   _todoObj.dueDate = newDueDate;
 
-    if (newNotes != "") {
-      _todoObj.notes = newNotes;
-    }
+  //   if (newNotes != "") {
+  //     _todoObj.notes = newNotes;
+  //   }
     
-    _todoObj.priority = newPriority;
+  //   _todoObj.priority = newPriority;
 
-    console.log(_todoObj);
-    _editForm.reset();
-    closeEditForm();
+  //   console.log(_todoObj);
+  //   _editForm.reset();
+  //   closeEditForm();
 
 
 
-  }
+  // }
 
 
   const _editForm = document.querySelector('.edit-todo-form');  
@@ -85,7 +85,7 @@ const editTodo = (() => {
 
 
 
-  return { saveEditChanges }
+  return {  }
 })();
 
 

@@ -1,5 +1,4 @@
 import { renderTodo } from "./render";
-import { editTodo } from "./edit";
 import './styles.css';
 
 const todo = (() => {
@@ -24,12 +23,55 @@ const todo = (() => {
   };
 
 
-  const tagEditFormWithIndex = (e) => {
+  const tagEditSubmitButtonWithIndex = (e) => {
     let _saveButton = document.querySelector('.save-changes');
-    let _index = e.target.parentElement.firstChild.dataset.taskIndex
+    let _index = e.target.dataset.taskIndex
 
     _saveButton.dataset.taskIndex = _index;    
-  }
+  };
+
+
+
+  const saveEditChanges = (e) => {
+    e.preventDefault();
+
+    let _editedFormData = captureFormData(_editForm);
+
+    let _listOfTodos = todo.getTodoList();
+
+    let _objIndex = e.target.dataset.taskIndex;
+
+    let _todoObj = _listOfTodos[_objIndex];
+
+    let newTitle = _editedFormData.get('edit-title');
+    // let newDescription = _editedFormData.get('edit-description');
+    let newNotes = _editedFormData.get('edit-notes');
+    let newDueDate = _editedFormData.get('edit-due-date');
+    let newPriority = _editedFormData.get('edit-priority');
+    let newProject = _editedFormData.get('edit-project');
+
+    _todoObj.title = newTitle;
+
+
+    newDueDate == ''? delete _todoObj.dueDate: _todoObj.dueDate = newDueDate;
+
+    newNotes == ''? delete _todoObj.notes: _todoObj.notes = newNotes;
+
+    newPriority == ''? delete _todoObj.priority: _todoObj.priority = newPriority;
+
+    newProject == ''? delete _todoObj.project: _todoObj.project = newProject;
+
+    
+    _editForm.reset();
+    renderTodo.closeForm(editFormPopup);
+
+    let currentMenu = findCurrentMenuSelected();
+    renderTodo.updatePage(currentMenu);
+
+  };
+
+
+
 
   
   const todoFactory = (data) => {
@@ -102,20 +144,10 @@ const todo = (() => {
 
 
 
-
-
-
-
-
-
-
-
-
-
   const _todoList = [
     {
       title: "Complete Presentation",
-      description: "Must complete and sell pitch to board",
+      // description: "Must complete and sell pitch to board",
       dueDate: "2021-12-10",
       priority: "medium",
       isTodoDone: "no",
@@ -125,7 +157,7 @@ const todo = (() => {
 
     {
       title: "Do groceries",
-      description: "Need foood",
+      // description: "Need foood",
       dueDate: "2021-11-18",
       priority: "high",
       isTodoDone: "no",
@@ -135,7 +167,7 @@ const todo = (() => {
 
     {
       title: "Fix Car Issues",
-      description: "Need fast car",
+      // description: "Need fast car",
       dueDate: "2021-12-10",
       priority: "medium",
       isTodoDone: "no",
@@ -151,6 +183,8 @@ const todo = (() => {
 
   const _todoForm = document.querySelector('.todo-form');
   const _projectForm = document.querySelector('.new-project-form');
+  const _editForm = document.querySelector('.edit-todo-form');  
+
 
 
   const projFormSelectTag = document.querySelector('.project-form-select-tag');
@@ -179,6 +213,11 @@ const todo = (() => {
 
 
 
+  const _saveEditChangesButton = document.querySelector('.save-changes');
+  _saveEditChangesButton.addEventListener('click', saveEditChanges)
+
+
+
   const _closeFormButtons = document.querySelectorAll('.close-form');
   _closeFormButtons.forEach(button => {
     button.addEventListener('click', function() {
@@ -195,7 +234,7 @@ const todo = (() => {
 
   return { todoFormPopup, editFormPopup, projectFormPopup, projFormSelectTag,
     todoFormSelectTag, editFormSelectTag, getTodoList, getProjectList, findIndexOf, 
-    tagEditFormWithIndex }
+    tagEditSubmitButtonWithIndex }
 
 
 })();
