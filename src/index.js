@@ -8,6 +8,12 @@ const todo = (() => {
     return _todoList
   };
 
+
+  const getProjectList = () => {
+    return _projectList;
+  };
+
+
   const captureFormData = (form) => {
     return new FormData(form)
   };
@@ -30,7 +36,7 @@ const todo = (() => {
     return [..._menuButtons].filter(button => button.classList.contains('current-menu-selected'))[0];
   };
 
-  
+
 
   const findCurrentFormInUse = () => {
 
@@ -128,13 +134,14 @@ const todo = (() => {
 
 
 
-  const _projectList = [];
+  const _projectList = ['Home', 'Work', 'Car'];
 
   const _todoForm = document.querySelector('.todo-form');
   const _projectForm = document.querySelector('.new-project-form');
 
 
-  const todoSelectedForProject = document.querySelector('.project-form-select-tag');
+  const projFormSelectTag = document.querySelector('.project-form-select-tag');
+  const todoFormSelectTag = document.querySelector('.todo-form-select')
   const todoFormPopup = document.querySelector('.todo-form-popup');
   const editFormPopup = document.querySelector('.edit-todo-popup');
   const projectFormPopup = document.querySelector('.new-project-popup');
@@ -174,8 +181,8 @@ const todo = (() => {
 
   
 
-  return { todoFormPopup, editFormPopup,
-     projectFormPopup, todoSelectedForProject, getTodoList }
+  return { todoFormPopup, editFormPopup,projectFormPopup, projFormSelectTag,
+    todoFormSelectTag, getTodoList, getProjectList }
 
 
 })();

@@ -37,6 +37,14 @@ const renderTodo = (() => {
     });
   };
 
+  const populateTodoFormOptions = (selectTag, allProjectsArray) => {
+    allProjectsArray.forEach(project => {
+      let option = document.createElement('option');
+      option.textContent = project
+      selectTag.add(option)      
+    });
+  };
+
 
   const updatePage = (menuSelected) => {
 
@@ -62,7 +70,8 @@ const renderTodo = (() => {
 
 
  
-  return { openForm, closeForm, updatePage, populateProjectFormOptions,  }
+  return { openForm, closeForm, updatePage, populateProjectFormOptions,
+          populateTodoFormOptions }
 
 
 })();

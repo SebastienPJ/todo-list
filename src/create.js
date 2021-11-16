@@ -17,14 +17,17 @@ const createElements = (() => {
     if (currentMenuTitle == 'Projects') {
       todoButton.classList.add('add-new-project-button');
       todoButton.addEventListener('click', function() {
-        console.log('project form')
         renderTodo.openForm(todo.projectFormPopup)
-        renderTodo.populateProjectFormOptions(todo.todoSelectedForProject, todo.getTodoList())
+        renderTodo.populateProjectFormOptions(todo.projFormSelectTag, todo.getTodoList())
       })
       
     } else {
       todoButton.classList.add('add-new-todo-button');
-      todoButton.addEventListener('click', renderTodo.openForm.bind(todoButton, todo.todoFormPopup))
+      todoButton.addEventListener('click', function() {
+        renderTodo.openForm(todo.todoFormPopup)
+        renderTodo.populateTodoFormOptions(todo.todoFormSelectTag, todo.getProjectList())
+
+      })
 
     }
 
