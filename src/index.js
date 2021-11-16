@@ -69,6 +69,29 @@ const todo = (() => {
   }
 
 
+  const addProjectToTaskObj = (projName, projTasks) => {
+
+    projTasks.forEach(taskName => {
+      _todoList.forEach(todo => {
+        if (taskName == todo.title) {
+          todo.project = projName
+
+          console.log(todo);
+        }
+      })
+    })
+
+
+    // _todoList.forEach(todo => {
+    //   projTasks.forEach(taskName => {
+    //     if (todo.title == taskName) {
+    //       console.log(todo);
+    //     }
+    //   })
+    // })
+  }
+
+
   const startTodoApp = function(e) {
     e.preventDefault();
 
@@ -94,17 +117,27 @@ const todo = (() => {
 
     let _projectName = _projectData.get('project-name');
 
+    if (_projectList.includes(_projectName)) {
+      alert('project already exists');
+      return;
+    }   
+
     _projectList.push(_projectName);
 
-    console.log([...todoSelected.selectedOptions])
 
+    let _taskAddedToProj = [...todoSelected.selectedOptions].map(option => option.value)
+
+    addProjectToTaskObj(_projectName, _taskAddedToProj)
+
+
+    renderTodo.displayProjectPage(_todoList)
 
 
     // console.log([...todoSelected.selectedOptions].map(option => option.value));
 
 
-    // _projectForm.reset();
-    // renderTodo.closeForm(projectFormPopup); 
+    _projectForm.reset();
+    renderTodo.closeForm(projectFormPopup); 
 
   }
 

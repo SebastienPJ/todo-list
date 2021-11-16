@@ -69,6 +69,35 @@ const renderTodo = (() => {
     }
   };
 
+
+  const displayProjectPage = (allTasksArray) => {
+
+    clearDisplay();
+
+
+    let pageTitle = "Projects"
+
+
+    _contentDisplay.appendChild(create.displayHeader(pageTitle))
+
+    _contentDisplay.appendChild(create.listOfTodos(pageTitle))
+
+
+    _contentDisplay.appendChild(create.newTodoButton(pageTitle));
+
+
+    console.log(allTasksArray);
+
+
+
+
+
+  };
+
+
+
+
+
   const displayMenuItems = (e) => {
     const menuTitle = e.target.textContent;
     
@@ -88,7 +117,8 @@ const renderTodo = (() => {
 
  
   return { displayMenuItems, toggleTaskComplete, 
-    openForm, closeForm, populateProjectOptions }
+    openForm, closeForm, populateProjectOptions,
+    displayProjectPage }
 
 
 })();
