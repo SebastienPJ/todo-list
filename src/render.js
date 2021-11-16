@@ -29,15 +29,32 @@ const renderTodo = (() => {
   };
 
 
+  const clearOldOptions = (tag) => {
+    let options = [...tag.options];
+  
+    options.forEach(option => {
+      if (option.textContent != "") {
+        option.remove()
+      }
+    })
+
+  }
+
   const populateProjectFormOptions = (selectTag, allTodosArray) => {
+    clearOldOptions(selectTag);
+
     allTodosArray.forEach(todo => {
       let newOption = document.createElement('option');
       newOption.textContent = todo.title
       selectTag.add(newOption)      
     });
+
+
   };
 
   const populateTodoFormOptions = (selectTag, allProjectsArray) => {
+    clearOldOptions(selectTag);
+
     allProjectsArray.forEach(project => {
       let option = document.createElement('option');
       option.textContent = project
