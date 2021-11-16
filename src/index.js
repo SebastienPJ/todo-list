@@ -18,6 +18,19 @@ const todo = (() => {
     return new FormData(form)
   };
 
+
+  const findIndexOf = (item, list) => {
+    return list.indexOf(item);
+  };
+
+
+  const tagEditFormWithIndex = (e) => {
+    let _saveButton = document.querySelector('.save-changes');
+    let _index = e.target.parentElement.firstChild.dataset.taskIndex
+
+    _saveButton.dataset.taskIndex = _index;    
+  }
+
   
   const todoFactory = (data) => {
     let title = data.get('title');
@@ -141,7 +154,8 @@ const todo = (() => {
 
 
   const projFormSelectTag = document.querySelector('.project-form-select-tag');
-  const todoFormSelectTag = document.querySelector('.todo-form-select')
+  const todoFormSelectTag = document.querySelector('.todo-form-select');
+  const editFormSelectTag = document.querySelector('#edit-project');
   const todoFormPopup = document.querySelector('.todo-form-popup');
   const editFormPopup = document.querySelector('.edit-todo-popup');
   const projectFormPopup = document.querySelector('.new-project-popup');
@@ -152,8 +166,6 @@ const todo = (() => {
   const _menuButtons = document.querySelectorAll('.menu-button');
   _menuButtons.forEach(button => {
     button.addEventListener('click', function(e) {
-      // console.log(e);
-      // renderTodo.displayMenuItems(e);
       highlightSelectedButton(e);    
       let currentMenu = findCurrentMenuSelected();
       renderTodo.updatePage(currentMenu);
@@ -181,8 +193,9 @@ const todo = (() => {
 
   
 
-  return { todoFormPopup, editFormPopup,projectFormPopup, projFormSelectTag,
-    todoFormSelectTag, getTodoList, getProjectList }
+  return { todoFormPopup, editFormPopup, projectFormPopup, projFormSelectTag,
+    todoFormSelectTag, editFormSelectTag, getTodoList, getProjectList, findIndexOf, 
+    tagEditFormWithIndex }
 
 
 })();
