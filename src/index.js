@@ -4,37 +4,18 @@ import './styles.css';
 
 const todo = (() => {
 
-
+  const getTodoList = () => {
+    return _todoList
+  };
 
   const captureFormData = (form) => {
     return new FormData(form)
   };
 
-
-
-  const getTodoList = () => {
-    return _todoList
-  };
-
-
-  const highlightSelectedButton = (selectedButton) => {
-    console.log(selectedButton);
-
-    _menuButtons.forEach(item => {
-      if (item.classList.contains('current-menu-selected')) {
-        item.classList.remove('current-menu-selected')
-      }
-    })
-
-    selectedButton.classList.add('current-menu-selected');
-
-  }
-
-
-
+  
   const todoFactory = (data) => {
     let title = data.get('title');
-    let description = data.get('description');
+    // let description = data.get('description');
     let dueDate = data.get('due-date');
     let priority = data.get('priority');
     let isTodoDone = 'no'
@@ -45,54 +26,39 @@ const todo = (() => {
   };
 
 
+  const findCurrentMenuSelected = () => {
+    return [..._menuButtons].filter(button => button.classList.contains('current-menu-selected'))[0];
+  };
 
-  const findIndexOf = (item, list) => {
-    return list.indexOf(item);
+  
+
+  const findCurrentFormInUse = () => {
+
+    let allForms = [...document.querySelectorAll('.form-container')];
+    
+    let currentForm = allForms.filter(form => form.classList.contains('current-form-inuse'))[0]
+ 
+    return currentForm;
   };
 
 
-  const updateProjectList = () => {
-    _todoList.forEach(todoObj => {
 
-      if ('project' in todoObj) {
-        if (_projectList.includes(todoObj['project'])) return
-        _projectList.push(todoObj['project'])
+  const highlightSelectedButton = (event) => {
+
+    const selectedButton = event.target;
+
+    _menuButtons.forEach(item => {
+      if (item.classList.contains('current-menu-selected')) {
+        item.classList.remove('current-menu-selected')
       }
     })
 
-    console.log(_projectList);
-  }
+    selectedButton.classList.add('current-menu-selected');
+
+  };
 
 
-  const getProjectList = () => {
-    return _projectList;
-  }
-
-
-  const addProjectToTaskObj = (projName, projTasks) => {
-
-    projTasks.forEach(taskName => {
-      _todoList.forEach(todo => {
-        if (taskName == todo.title) {
-          todo.project = projName
-
-          console.log(todo);
-        }
-      })
-    })
-
-
-    // _todoList.forEach(todo => {
-    //   projTasks.forEach(taskName => {
-    //     if (todo.title == taskName) {
-    //       console.log(todo);
-    //     }
-    //   })
-    // })
-  }
-
-
-  const startTodoApp = function(e) {
+  const createTodo = function(e) {
     e.preventDefault();
 
 
@@ -104,42 +70,26 @@ const todo = (() => {
 
 
     _todoForm.reset();
-    renderTodo.closeForm(todoFormPopup); 
+    renderTodo.closeForm(todoFormPopup);
+    
+    
+    let menu = findCurrentMenuSelected();
+    updatePage(menu)
+
+    // renderTodo.dispayMenuItems(pass in current menu selected)
+
   };   
 
 
 
-  const createProject = function(e) {
-    e.preventDefault();
 
 
-    let _projectData = captureFormData(_projectForm);
-
-    let _projectName = _projectData.get('project-name');
-
-    if (_projectList.includes(_projectName)) {
-      alert('project already exists');
-      return;
-    }   
-
-    _projectList.push(_projectName);
 
 
-    let _taskAddedToProj = [...todoSelected.selectedOptions].map(option => option.value)
-
-    addProjectToTaskObj(_projectName, _taskAddedToProj)
 
 
-    renderTodo.displayProjectPage(_todoList)
 
 
-    // console.log([...todoSelected.selectedOptions].map(option => option.value));
-
-
-    _projectForm.reset();
-    renderTodo.closeForm(projectFormPopup); 
-
-  }
 
 
 
@@ -176,13 +126,15 @@ const todo = (() => {
   ];
 
 
+
+
   const _projectList = [];
 
   const _todoForm = document.querySelector('.todo-form');
-  const _projectForm = document.querySelector('.new-project-form')
-  const todoSelected = document.querySelector('.todos-selected')
+  const _projectForm = document.querySelector('.new-project-form');
 
 
+  const todoSelectedForProject = document.querySelector('.project-form-select-tag');
   const todoFormPopup = document.querySelector('.todo-form-popup');
   const editFormPopup = document.querySelector('.edit-todo-popup');
   const projectFormPopup = document.querySelector('.new-project-popup');
@@ -190,54 +142,40 @@ const todo = (() => {
 
 
 
-
-  const _closeTodoFormButtons = document.querySelectorAll('.close-todo-form');
-  _closeTodoFormButtons.forEach(button => {
-    button.addEventListener('click', renderTodo.closeForm.bind(button, todoFormPopup));
-  });
-
-
-
-  const _submitTodoForm = document.querySelector('.submit-form');
-  _submitTodoForm.addEventListener('click', startTodoApp);
-
-
-
   const _menuButtons = document.querySelectorAll('.menu-button');
   _menuButtons.forEach(button => {
     button.addEventListener('click', function(e) {
-      renderTodo.displayMenuItems(e);
-      highlightSelectedButton(button);    
+      // console.log(e);
+      // renderTodo.displayMenuItems(e);
+      highlightSelectedButton(e);    
+      let currentMenu = findCurrentMenuSelected();
+      renderTodo.updatePage(currentMenu);
     });
 
+  });
+
+
+  const _submitTodoForm = document.querySelector('.submit-form');
+  _submitTodoForm.addEventListener('click', createTodo);
+
+
+
+  const _closeFormButtons = document.querySelectorAll('.close-form');
+  _closeFormButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      renderTodo.closeForm(findCurrentFormInUse())
+
+    })
   })
 
 
 
-  const _closeEditFormButtons = document.querySelectorAll('.close-edit-form');
-  _closeEditFormButtons.forEach(button => { 
-    button.addEventListener('click', renderTodo.closeForm.bind(button, editFormPopup));
-  })
-
-
-  const _saveEditChangesButton = document.querySelector('.save-changes');
-  _saveEditChangesButton.addEventListener('click', editTodo.saveEditChanges)
-
-
-
-  const _closeProjectFormButtons = document.querySelectorAll('.close-project-form');
-  _closeProjectFormButtons.forEach(button => {
-    button.addEventListener('click', renderTodo.closeForm.bind(button, projectFormPopup))
-  })
-
-  const _submitProjectForm = document.querySelector('.create-project');
-  _submitProjectForm.addEventListener('click', createProject)
 
 
   
 
-  return { getTodoList, findIndexOf, captureFormData, getProjectList, todoFormPopup,
-     editFormPopup, projectFormPopup, todoSelected }
+  return { todoFormPopup, editFormPopup,
+     projectFormPopup, todoSelectedForProject, getTodoList }
 
 
 })();
