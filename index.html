@@ -62,10 +62,21 @@
         
         <tr>
           <td class="form-label">
-            <label for="title">*Name of task: </label>
+            <label for="title">Name (required): </label>
           </td>
           <td>
             <input type="text" name="title" id="title">
+          </td>
+        </tr>
+
+
+
+        <tr>
+          <td class="form-label">
+            <label for="notes">Notes: </label>
+          </td>
+          <td>
+            <textarea name="notes" id="notes" cols="21" rows="6"></textarea>
           </td>
         </tr>
 
@@ -121,14 +132,6 @@
 
 
 
-        <tr>
-          <td class="form-label">
-            <label for="notes">Notes: </label>
-          </td>
-          <td>
-            <textarea name="notes" id="notes" cols="21" rows="6"></textarea>
-          </td>
-        </tr>
   
   
 
@@ -209,6 +212,21 @@
               <option value="high">High</option>
               <option value="medium">Medium</option>
               <option value="low">Low</option>
+              <option value="" selected></option>
+            </select>
+          </td>
+        </tr>
+
+
+
+
+        <tr>
+          <td class="form-label">
+            <label for="edit-project">Project: </label>
+          </td>
+          <td>
+            <select name="edit-project" id="edit-project">
+
               <option value="" selected></option>
             </select>
           </td>
