@@ -263,7 +263,7 @@ textarea {
 }
 
 
-.project-container {
+.project-section {
   margin-left: auto;
   margin-right: 20px;
 }
@@ -276,6 +276,8 @@ textarea {
 
 
 
-/* .new-projects-popup {
-  display: none;
-} */
+.project-container {
+  border: 2px solid black;
+  padding: 10px 0;
+}
+

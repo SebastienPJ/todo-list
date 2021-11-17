@@ -119,6 +119,57 @@ const todo = (() => {
 
   };
 
+  const addProjectToTaskObj = (projName, projTasks) => {
+
+    projTasks.forEach(taskName => {
+      _todoList.forEach(todo => {
+        if (taskName == todo.title) {
+          todo.project = projName
+
+          console.log(todo);
+        }
+      })
+    })
+
+
+    // _todoList.forEach(todo => {
+    //   projTasks.forEach(taskName => {
+    //     if (todo.title == taskName) {
+    //       console.log(todo);
+    //     }
+    //   })
+    // })
+  }
+
+
+  const createProject = () => {
+    e.preventDefault();
+
+    let _projectData = captureFormData(_projectForm);
+
+    let _projectName = _projectData.get('project-name');
+
+    if (_projectList.includes(_projectName)) {
+      alert('project already exists');
+      return;
+    };
+
+    _projectList.push(_projectName);
+
+
+    let _taskAddedToProj = [...todoSelected.selectedOptions].map(option => option.value)
+
+    addProjectToTaskObj(_projectName, _taskAddedToProj)
+
+
+
+    // renderTodo.displayProjectPage(_todoList);
+
+
+    _projectForm.reset();
+    renderTodo.closeForm(projectFormPopup); 
+  }
+
 
   const createTodo = function(e) {
     e.preventDefault();
@@ -182,6 +233,11 @@ const todo = (() => {
 
   const _projectList = ['Home', 'Work', 'Car'];
 
+  // const _projectList = [];
+
+
+
+
   const _todoForm = document.querySelector('.todo-form');
   const _projectForm = document.querySelector('.new-project-form');
   const _editForm = document.querySelector('.edit-todo-form');  
@@ -215,7 +271,11 @@ const todo = (() => {
 
 
   const _saveEditChangesButton = document.querySelector('.save-changes');
-  _saveEditChangesButton.addEventListener('click', saveEditChanges)
+  _saveEditChangesButton.addEventListener('click', saveEditChanges);
+
+
+  const _submitProjectForm = document.querySelector('.create-project');
+  _submitProjectForm.addEventListener('click', createProject);
 
 
 

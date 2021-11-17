@@ -174,7 +174,7 @@ const createElements = (() => {
 
 
       const projectContainer = document.createElement('p');
-      projectContainer.classList.add('project-container');
+      projectContainer.classList.add('project-section');
       if ('project' in task) {
         projectContainer.textContent = `Project: ${task.project}`;
       };
@@ -185,8 +185,9 @@ const createElements = (() => {
 
       const dueDateContainer = document.createElement('p');
       dueDateContainer.classList.add('due-date')
-
-      dueDateContainer.textContent = `Due: ${task.dueDate}`;
+      if ('dueDate' in task) {
+        dueDateContainer.textContent = `Due: ${task.dueDate}`;
+      }
       shownContent.appendChild(dueDateContainer);
 
 
@@ -202,9 +203,8 @@ const createElements = (() => {
 
       const notesContainer = document.createElement('div');
       notesContainer.classList.add('detail-container');
-      if ('notes' in task) {
-        notesContainer.textContent = task.notes;
-      }
+      'notes' in task? notesContainer.textContent = task.notes: 
+                        notesContainer.textContent = 'No notes for this task. Edit task to add notes';
       collapsedContainer.appendChild(notesContainer);
 
 
@@ -227,6 +227,104 @@ const createElements = (() => {
   };
 
 
+  const createProjectsList = () => {
+
+    const _listOfTasks = todo.getTodoList();
+    const _listOfProjects = todo.getProjectList();
+
+
+    if (_listOfProjects.length == 0) {
+      const _noProjectMessage = document.createElement('p');
+      _noProjectMessage.textContent = 'No projects yet created, click button to create a new project'
+
+      return _noProjectMessage;
+    };
+
+
+
+
+
+    const _pageDisplay = document.createElement('div');
+
+    _listOfProjects.forEach(_projectName => {
+      const _projContainer = document.createElement('div');
+      _projContainer.classList.add('project-container');
+      _pageDisplay.appendChild(_projContainer);
+
+
+      const _projHeader = document.createElement('h2');
+      _projHeader.textContent = _projectName;
+      _projContainer.appendChild(_projHeader);
+
+
+      const _uL = document.createElement('ul');
+      _projContainer.appendChild(_uL)
+
+
+      let _tasksBelongingToProj = _listOfTasks.filter(task => task.project == _projectName)
+
+      _tasksBelongingToProj.forEach(_task => {
+        let _taskIndex = todo.findIndexOf(_task, _tasksBelongingToProj);
+        let _projIndex = todo.findIndexOf(_projectName, _listOfProjects);  
+
+        const _list = document.createElement('li');
+        _list.classList.add('list');
+        _uL.appendChild(_list);
+
+
+
+
+
+        let _checkBox = document.createElement('input');
+        _checkBox.setAttribute('type', 'checkbox');
+        _checkBox.addEventListener('click', (e) => {
+          renderTodo.toggleTaskComplete(e);
+          // editTodo.updateObject();
+        });
+
+        _checkBox.dataset['projectIndex'] = _projIndex; 
+        _checkBox.dataset['taskIndex'] = _taskIndex; 
+        _checkBox.name = `obj${_projIndex}task${_taskIndex}`;    
+        _checkBox.id = `obj${_projIndex}task${_taskIndex}`;  
+        _checkBox.classList.add('checkbox');
+
+        _list.appendChild(_checkBox);
+
+
+
+
+
+
+        let _label = document.createElement('label');
+        _label.setAttribute('for', `obj${_projIndex}task${_taskIndex}`);
+
+        _label.textContent = _task.title;
+
+        _list.appendChild(_label)
+
+
+
+
+
+
+
+      })
+
+
+      
+
+    })
+
+
+
+
+    return _pageDisplay
+
+
+
+
+
+  };
 
 
 
@@ -237,7 +335,7 @@ const createElements = (() => {
       'All ToDos': createAllTodosList,
       // 'Today': todayList,
       // 'Tomorrow': tomorrowList,
-      // 'Projects': projectsList,
+      'Projects': createProjectsList,
 
     };
 
