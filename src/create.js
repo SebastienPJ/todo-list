@@ -272,6 +272,11 @@ const createElements = (() => {
         _uL.appendChild(_list);
 
 
+        const _visibleContent = document.createElement('div');
+        _visibleContent.classList.add('shown-content');
+        _list.appendChild(_visibleContent);
+
+
 
 
 
@@ -288,7 +293,7 @@ const createElements = (() => {
         _checkBox.id = `obj${_projIndex}task${_taskIndex}`;  
         _checkBox.classList.add('checkbox');
 
-        _list.appendChild(_checkBox);
+        _visibleContent.appendChild(_checkBox);
 
 
 
@@ -300,8 +305,85 @@ const createElements = (() => {
 
         _label.textContent = _task.title;
 
-        _list.appendChild(_label)
+        _visibleContent.appendChild(_label)
 
+
+
+
+        const _priorityMarker = document.createElement('div');
+        _priorityMarker.classList.add('priority-marker');
+
+        switch (_task.priority) {
+          case 'high':
+            _priorityMarker.style.display = 'inline-block'
+            _priorityMarker.style.backgroundColor = HIGH_PRIORITY
+            break;
+          
+          case 'medium':
+            _priorityMarker.style.display = 'inline-block'
+            _priorityMarker.style.backgroundColor = MEDIUM_PRIORITY
+            break;
+          
+          case 'low':
+            _priorityMarker.style.display = 'inline-block'
+            _priorityMarker.style.backgroundColor = LOW_PRIORITY
+            break;
+        
+          default:
+            _priorityMarker.style.display = 'none'
+            break;
+        };
+
+
+        _visibleContent.appendChild(_priorityMarker);
+
+
+
+
+        const _expandButton = document.createElement('button');
+        _expandButton.classList.add('hide', 'expand');
+        _expandButton.textContent = 'expand';
+        _expandButton.addEventListener('click', function() {
+          this.classList.toggle('active');
+          let _hiddenContent = this.parentElement.nextElementSibling;
+          if (_hiddenContent.style.display === 'block') {
+            _hiddenContent.style.display = 'none';
+          } else {
+            _hiddenContent.style.display = 'block';
+          }
+        });
+        
+        _visibleContent.appendChild(_expandButton);
+
+
+
+        
+  
+  
+  
+        const _dueDateContainer = document.createElement('p');
+        _dueDateContainer.classList.add('due-date-section');
+        if ('dueDate' in _task) {
+          _dueDateContainer.textContent = `Due: ${_task.dueDate}`;
+        }
+        _visibleContent.appendChild(_dueDateContainer);
+  
+  
+  
+  
+  
+  
+        const _collapsedContainer = document.createElement('div');
+        _collapsedContainer.classList.add('todo-detail');
+        _list.appendChild(_collapsedContainer);
+  
+  
+  
+        const _notesContainer = document.createElement('div');
+        _notesContainer.classList.add('detail-container');
+        'notes' in _task? _notesContainer.textContent = _task.notes: 
+                          _notesContainer.textContent = 'No notes for this task. Edit task to add notes';
+        _collapsedContainer.appendChild(_notesContainer);
 
 
 
@@ -352,8 +434,8 @@ const createElements = (() => {
 
 
   const HIGH_PRIORITY = 'red';
-  const MEDIUM_PRIORITY = 'orange'
-  const LOW_PRIORITY = 'cornflowerblue'
+  const MEDIUM_PRIORITY = 'orange';
+  const LOW_PRIORITY = 'cornflowerblue';
 
 
 

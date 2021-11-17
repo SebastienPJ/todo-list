@@ -263,7 +263,8 @@ textarea {
 }
 
 
-.project-section {
+.project-section,
+.due-date-section {
   margin-left: auto;
   margin-right: 20px;
 }
