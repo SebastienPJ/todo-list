@@ -12,12 +12,10 @@ const todo = (() => {
     return _projectList;
   };
 
-  
 
   const captureFormData = (form) => {
     return new FormData(form)
   };
-  
 
 
   const findIndexOf = (item, list) => {
@@ -42,6 +40,7 @@ const todo = (() => {
     let _listOfTodos = todo.getTodoList();
 
     let _objIndex = e.target.dataset.taskIndex;
+    console.log(e);
 
     let _todoObj = _listOfTodos[_objIndex];
 

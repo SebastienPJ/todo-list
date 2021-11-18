@@ -93,6 +93,7 @@ const renderTodo = (() => {
       newOption.textContent = todo.title
       selectTag.add(newOption)      
     });
+    
 
 
   };

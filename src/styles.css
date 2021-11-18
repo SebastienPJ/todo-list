@@ -247,14 +247,14 @@ textarea {
 }
 
 
-.todo-detail {
+.hidden-container {
   display: none;
   overflow: hidden;
   background-color: #f1f1f1;
 }
 
 
-.detail-container {
+.notes-container {
   border: 1px solid black;
   padding: 30px;
 
@@ -267,14 +267,13 @@ textarea {
 }
 
 
-.due-date {
+.due-date-section {
   /* margin-left: auto; */
   padding-right: 10px;
 }
 
 
-.project-section,
-.due-date-section {
+.project-section {
   margin-left: auto;
   margin-right: 20px;
 }
@@ -291,4 +290,6 @@ textarea {
   border: 2px solid black;
   padding: 10px 0;
 }
+
+
 

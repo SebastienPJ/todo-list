@@ -53,6 +53,156 @@ const createElements = (() => {
 
     return todoButton
   };
+
+
+  const listFactory = (task) => {
+    const list = document.createElement('li');
+    list.classList.add('list');
+  
+  
+  
+    let _visibleContent = document.createElement('div');
+    _visibleContent.classList.add('shown-content');
+    list.appendChild(_visibleContent);
+  
+  
+    let checkBox = document.createElement('input');
+    checkBox.setAttribute('type', 'checkbox');
+    checkBox.addEventListener('click', (e) => {
+      renderTodo.toggleTaskComplete(e);
+      // todo.updateObject()
+    });
+    checkBox.classList.add('checkbox');
+  
+    _visibleContent.appendChild(checkBox);
+  
+  
+  
+    let label = document.createElement('label');
+    label.classList.add('task-label');
+    label.textContent = task.title;
+    _visibleContent.appendChild(label);
+  
+  
+  
+    let _priorityMarker = document.createElement('div');
+    _priorityMarker.classList.add('priority-marker');
+  
+  
+    switch (task.priority) {
+      case 'high':
+        _priorityMarker.style.display = 'inline-block'
+        _priorityMarker.style.backgroundColor = HIGH_PRIORITY;
+        break;
+    
+  
+  
+      case 'medium':
+        _priorityMarker.style.display = 'inline-block'
+        _priorityMarker.style.backgroundColor = MEDIUM_PRIORITY;
+        break;
+  
+      
+  
+  
+      case 'low':
+        _priorityMarker.style.display = 'inline-block'
+        _priorityMarker.style.backgroundColor = LOW_PRIORITY;
+        break;
+  
+  
+  
+      default:
+        _priorityMarker.style.display = 'none'
+        break;
+    };
+  
+    _visibleContent.appendChild(_priorityMarker);
+  
+  
+  
+    let editButton = document.createElement('button');
+    editButton.classList.add('hide', 'edit-task-button')
+    editButton.textContent = 'edit';
+    editButton.addEventListener('click', (e) => {
+      renderTodo.openForm(todo.editFormPopup);
+      renderTodo.addProjectsToFormOptions(todo.editFormSelectTag, todo.getProjectList());
+      renderTodo.prefillEditForm(e);
+    })
+  
+  
+    _visibleContent.appendChild(editButton);
+  
+  
+  
+  
+    let _expandButton = document.createElement('button');
+    _expandButton.classList.add('hide', 'expand-button')
+    _expandButton.textContent = 'expand'
+  
+    _expandButton.addEventListener('click', function() {
+
+      console.log(this);
+      this.classList.toggle('active');
+      this.classList.toggle('hide');
+      this.previousSibling.classList.toggle('hide');
+      this.previousSibling.classList.toggle('active');
+      this.textContent == 'expand'? this.textContent = 'collapse' : this.textContent = 'expand';
+  
+  
+      let _hiddenContent = this.parentElement.nextElementSibling;
+      if (_hiddenContent.style.display === 'block') {
+        _hiddenContent.style.display = 'none';
+      } else {
+        _hiddenContent.style.display = 'block';
+      }
+    });
+  
+    _visibleContent.appendChild(_expandButton);
+  
+  
+  
+  
+    let _projContainer = document.createElement('p');
+    _projContainer.classList.add('project-section');
+    if ('project' in task) {
+      _projContainer.textContent = `Project: ${task.project}`;
+    };
+  
+    _visibleContent.appendChild(_projContainer);
+  
+  
+  
+    let _dueDateContainer = document.createElement('p');
+    _dueDateContainer.classList.add('due-date-section');
+    if ('dueDate' in task) {
+      _dueDateContainer.textContent = `Due: ${task.dueDate}`;
+    };
+  
+    _visibleContent.appendChild(_dueDateContainer);
+  
+  
+  
+  
+    let _collapsedContainer = document.createElement('div');
+    _collapsedContainer.classList.add('hidden-container');
+  
+    list.appendChild(_collapsedContainer);
+  
+  
+  
+    let _notesContainer = document.createElement('div');
+    _notesContainer.classList.add('notes-container');
+    'notes' in task ? _notesContainer.textContent = task.notes : 
+              _notesContainer.textContent = 'No notes for this task. Edit task to add notes';
+    
+    _collapsedContainer.appendChild(_notesContainer);
+    
+  
+  
+  
+    return {list, checkBox, label, editButton}
+  }
   
 
 
@@ -66,161 +216,26 @@ const createElements = (() => {
 
     let allTasksArray = todo.getTodoList();
 
-    allTasksArray.forEach(task => {
-      let todoIndex = todo.findIndexOf(task, allTasksArray);
+    allTasksArray.forEach(_task => {
 
-      const listedTask = document.createElement('li');
-      listedTask.classList.add('list');
+      let listElement = listFactory(_task);
 
-
-      const shownContent = document.createElement('div');
-      shownContent.classList.add('shown-content');
-      listedTask.appendChild(shownContent);
+      unorderdList.appendChild(listElement.list);
 
 
-      let inputCheckBox = document.createElement('input');
-      inputCheckBox.setAttribute('type', 'checkbox');
-      inputCheckBox.addEventListener('click', (e) => {
-        renderTodo.toggleTaskComplete(e);
-        // editTodo.updateObject();
-      });
+      let todoIndex = todo.findIndexOf(_task, allTasksArray);
+
+      listElement.checkBox.dataset['taskIndex'] = todoIndex;
+      listElement.checkBox.name = `task${todoIndex}`;
+      listElement.checkBox.id = `task${todoIndex}`;
 
 
 
-      inputCheckBox.dataset['taskIndex'] = todoIndex; 
-      inputCheckBox.name = `task${todoIndex}`;  
-      inputCheckBox.id = `task${todoIndex}`;  
-      inputCheckBox.classList.add('checkbox');
-      shownContent.appendChild(inputCheckBox);
+      listElement.label.setAttribute('for', `task${todoIndex}`);
 
 
-
-      let inputLabel = document.createElement('label');
-      inputLabel.setAttribute('for', `task${todoIndex}`);
-      inputLabel.textContent = task.title;
-      shownContent.appendChild(inputLabel);
-
-
-
-
-      const priorityMarker = document.createElement('div');
-      priorityMarker.classList.add('priority-marker');
-
-      switch (task.priority) {
-        case 'high':
-          priorityMarker.style.display = 'inline-block'
-          priorityMarker.style.backgroundColor = HIGH_PRIORITY
-          break;
-        
-        case 'medium':
-          priorityMarker.style.display = 'inline-block'
-          priorityMarker.style.backgroundColor = MEDIUM_PRIORITY
-          break;
-        
-        case 'low':
-          console.log(task.priority);
-          priorityMarker.style.display = 'inline-block'
-          priorityMarker.style.backgroundColor = LOW_PRIORITY
-          break;
-      
-        default:
-          priorityMarker.style.display = 'none'
-          break;
-      };     
-
-      shownContent.appendChild(priorityMarker);
-
-
-
-
-
-      const editButton = document.createElement('button');
-      editButton.dataset['taskIndex'] = todoIndex; 
-      editButton.classList.add('hide');
-      editButton.textContent = 'edit';
-      editButton.addEventListener('click', (e) => {
-        renderTodo.openForm(todo.editFormPopup);
-        renderTodo.addProjectsToFormOptions(todo.editFormSelectTag, todo.getProjectList())
-        renderTodo.prefillEditForm(e);
-        todo.tagEditSubmitButtonWithIndex(e);
-      });
-
-      shownContent.appendChild(editButton);
-
-
-
-
-
-
-      const expandButton = document.createElement('button');
-      expandButton.classList.add('hide', 'expand');
-      expandButton.textContent = 'expand';
-      expandButton.addEventListener('click', function() {
-        this.classList.toggle('hide');
-        this.classList.toggle('active');
-        this.previousSibling.classList.toggle('hide');
-        this.previousSibling.classList.toggle('active')
-        this.textContent == 'expand'? this.textContent = 'collaspe': 
-                  this.textContent = 'expand';
-
-
-        // console.log(this);
-        let hiddenContent = this.parentElement.nextElementSibling;
-        if (hiddenContent.style.display === 'block') {
-          hiddenContent.style.display = 'none';
-        } else {
-          hiddenContent.style.display = 'block';
-        }
-      });
-      
-      shownContent.appendChild(expandButton);
-
-
-
-
-
-
-      const projectContainer = document.createElement('p');
-      projectContainer.classList.add('project-section');
-      if ('project' in task) {
-        projectContainer.textContent = `Project: ${task.project}`;
-      };
-      shownContent.appendChild(projectContainer);
-
-
-
-
-      const dueDateContainer = document.createElement('p');
-      dueDateContainer.classList.add('due-date')
-      if ('dueDate' in task) {
-        dueDateContainer.textContent = `Due: ${task.dueDate}`;
-      }
-      shownContent.appendChild(dueDateContainer);
-
-
-
-
-
-
-      const collapsedContainer = document.createElement('div');
-      collapsedContainer.classList.add('todo-detail');
-      listedTask.appendChild(collapsedContainer);
-
-
-
-      const notesContainer = document.createElement('div');
-      notesContainer.classList.add('detail-container');
-      'notes' in task? notesContainer.textContent = task.notes: 
-                        notesContainer.textContent = 'No notes for this task. Edit task to add notes';
-      collapsedContainer.appendChild(notesContainer);
-
-
-
-
-
-
-      unorderdList.appendChild(listedTask);
-
+      listElement.editButton.dataset['taskIndex'] = todoIndex;
+      listElement.editButton.addEventListener('click', todo.tagEditSubmitButtonWithIndex)
 
 
 
@@ -271,142 +286,26 @@ const createElements = (() => {
       let _tasksBelongingToProj = _listOfTasks.filter(task => task.project == _projectName)
 
       _tasksBelongingToProj.forEach(_task => {
+
+        let _listTag = listFactory(_task)
+
+        _uL.appendChild(_listTag.list);
+
+
         let _taskIndex = todo.findIndexOf(_task, _tasksBelongingToProj);
-        let _projIndex = todo.findIndexOf(_projectName, _listOfProjects);  
-
-        const _list = document.createElement('li');
-        _list.classList.add('list');
-        _uL.appendChild(_list);
-
-
-        const _visibleContent = document.createElement('div');
-        _visibleContent.classList.add('shown-content');
-        _list.appendChild(_visibleContent);
-
-
-
-
-
-        let _checkBox = document.createElement('input');
-        _checkBox.setAttribute('type', 'checkbox');
-        _checkBox.addEventListener('click', (e) => {
-          renderTodo.toggleTaskComplete(e);
-          // editTodo.updateObject();
-        });
-
-        _checkBox.dataset['projectIndex'] = _projIndex; 
-        _checkBox.dataset['taskIndex'] = _taskIndex; 
-        _checkBox.name = `obj${_projIndex}task${_taskIndex}`;    
-        _checkBox.id = `obj${_projIndex}task${_taskIndex}`;  
-        _checkBox.classList.add('checkbox');
-
-        _visibleContent.appendChild(_checkBox);
-
-
-
-
-
-
-        let _label = document.createElement('label');
-        _label.setAttribute('for', `obj${_projIndex}task${_taskIndex}`);
-
-        _label.textContent = _task.title;
-
-        _visibleContent.appendChild(_label)
-
-
-
-
-        const _priorityMarker = document.createElement('div');
-        _priorityMarker.classList.add('priority-marker');
-
-        switch (_task.priority) {
-          case 'high':
-            _priorityMarker.style.display = 'inline-block'
-            _priorityMarker.style.backgroundColor = HIGH_PRIORITY
-            break;
-          
-          case 'medium':
-            _priorityMarker.style.display = 'inline-block'
-            _priorityMarker.style.backgroundColor = MEDIUM_PRIORITY
-            break;
-          
-          case 'low':
-            _priorityMarker.style.display = 'inline-block'
-            _priorityMarker.style.backgroundColor = LOW_PRIORITY
-            break;
+        let _projIndex = todo.findIndexOf(_projectName, _listOfProjects); 
         
-          default:
-            _priorityMarker.style.display = 'none'
-            break;
-        };
-
-
-        _visibleContent.appendChild(_priorityMarker);
-
-
-
-
-        const _expandButton = document.createElement('button');
-        _expandButton.classList.add('hide', 'expand');
-        _expandButton.textContent = 'expand';
-        _expandButton.addEventListener('click', function() {
-          this.classList.toggle('active');
-          this.classList.toggle('hide');
-          this.previousSibling.classList.toggle('hide');
-          this.previousSibling.classList.toggle('active')
-          this.textContent == 'expand'? this.textContent = 'collaspe': this.textContent = 'expand';
-
-          // console.log(this.previousSibling);
-
-          let _hiddenContent = this.parentElement.nextElementSibling;
-          if (_hiddenContent.style.display === 'block') {
-            _hiddenContent.style.display = 'none';
-          } else {
-            _hiddenContent.style.display = 'block';
-          }
-        });
-        
-        _visibleContent.appendChild(_expandButton);
-
-
-
-        
+        _listTag.checkBox.dataset['projectIndex'] = _projIndex;
+        _listTag.checkBox.dataset['taskIndex'] = _taskIndex; 
+        _listTag.checkBox.name = `obj${_projIndex}task${_taskIndex}`;    
+        _listTag.checkBox.id = `obj${_projIndex}task${_taskIndex}`;  
   
   
-  
-        const _dueDateContainer = document.createElement('p');
-        _dueDateContainer.classList.add('due-date-section');
-        if ('dueDate' in _task) {
-          _dueDateContainer.textContent = `Due: ${_task.dueDate}`;
-        }
-        _visibleContent.appendChild(_dueDateContainer);
-  
-  
-  
-  
-  
-  
-        const _collapsedContainer = document.createElement('div');
-        _collapsedContainer.classList.add('todo-detail');
-        _list.appendChild(_collapsedContainer);
-  
-  
-  
-        const _notesContainer = document.createElement('div');
-        _notesContainer.classList.add('detail-container');
-        'notes' in _task? _notesContainer.textContent = _task.notes: 
-                          _notesContainer.textContent = 'No notes for this task. Edit task to add notes';
-        _collapsedContainer.appendChild(_notesContainer);
 
 
+        _listTag.label.setAttribute('for', `obj${_projIndex}task${_taskIndex}`);
 
-
-
-
-      })
-
-
+      });
       
 
     })
@@ -439,8 +338,6 @@ const createElements = (() => {
     return returnedList[menuSelected]();
     
   }
-
-
 
   
 
