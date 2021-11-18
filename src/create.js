@@ -156,7 +156,14 @@ const createElements = (() => {
       expandButton.classList.add('hide', 'expand');
       expandButton.textContent = 'expand';
       expandButton.addEventListener('click', function() {
+        this.classList.toggle('hide');
         this.classList.toggle('active');
+        this.previousSibling.classList.toggle('hide');
+        this.previousSibling.classList.toggle('active')
+        this.textContent == 'expand'? this.textContent = 'collaspe': 
+                  this.textContent = 'expand';
+
+
         // console.log(this);
         let hiddenContent = this.parentElement.nextElementSibling;
         if (hiddenContent.style.display === 'block') {
@@ -345,6 +352,13 @@ const createElements = (() => {
         _expandButton.textContent = 'expand';
         _expandButton.addEventListener('click', function() {
           this.classList.toggle('active');
+          this.classList.toggle('hide');
+          this.previousSibling.classList.toggle('hide');
+          this.previousSibling.classList.toggle('active')
+          this.textContent == 'expand'? this.textContent = 'collaspe': this.textContent = 'expand';
+
+          // console.log(this.previousSibling);
+
           let _hiddenContent = this.parentElement.nextElementSibling;
           if (_hiddenContent.style.display === 'block') {
             _hiddenContent.style.display = 'none';

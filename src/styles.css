@@ -204,6 +204,16 @@ textarea {
 }
 
 
+.active {
+  display: inline-flex;
+  background-color: green;
+  margin-left: 20px;
+  font-size: 0.8rem;
+  border: none;
+  cursor: pointer;
+}
+
+
 .list {
   margin-bottom: 5px;
 
