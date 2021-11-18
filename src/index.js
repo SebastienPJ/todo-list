@@ -17,6 +17,7 @@ const todo = (() => {
   const captureFormData = (form) => {
     return new FormData(form)
   };
+  
 
 
   const findIndexOf = (item, list) => {
