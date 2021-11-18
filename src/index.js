@@ -143,7 +143,7 @@ const todo = (() => {
   }
 
 
-  const createProject = () => {
+  const createProject = (e) => {
     e.preventDefault();
 
     let _projectData = captureFormData(_projectForm);
@@ -158,14 +158,14 @@ const todo = (() => {
     _projectList.push(_projectName);
 
 
-    let _taskAddedToProj = [...todoSelected.selectedOptions].map(option => option.value)
+    let _taskAddedToProj = [...projFormSelectTag.selectedOptions].map(option => option.value)
 
     addProjectToTaskObj(_projectName, _taskAddedToProj)
 
 
 
-    // renderTodo.displayProjectPage(_todoList);
-
+    let currentMenu = findCurrentMenuSelected();
+    renderTodo.updatePage(currentMenu)
 
     _projectForm.reset();
     renderTodo.closeForm(projectFormPopup); 
@@ -286,7 +286,7 @@ const todo = (() => {
       renderTodo.closeForm(findCurrentFormInUse())
 
     })
-  })
+  });
 
 
 
