@@ -220,26 +220,20 @@ const createElements = (() => {
     let allTasksArray = todo.getTodoList();
 
     allTasksArray.forEach(_task => {
-      let todoIndex = todo.findIndexOf(_task, allTasksArray);
+      let _overallTodoIndex = todo.findIndexOf(_task, allTasksArray);
 
-      let listElement = listFactory(_task, todoIndex);
+      let listElement = listFactory(_task, _overallTodoIndex);
 
       unorderdList.appendChild(listElement.list);
 
 
-      listElement.checkBox.dataset['overallIndex'] = todoIndex;
-      listElement.checkBox.name = `task${todoIndex}`;
-      listElement.checkBox.id = `task${todoIndex}`;
+      listElement.checkBox.dataset['overallIndex'] = _overallTodoIndex;
+      listElement.checkBox.name = `task${_overallTodoIndex}`;
+      listElement.checkBox.id = `task${_overallTodoIndex}`;
 
 
 
-      listElement.label.setAttribute('for', `task${todoIndex}`);
-
-
-      // listElement.editButton.dataset['overallTaskIndex'] = todoIndex;
-      // listElement.editButton.addEventListener('click', todo.tagEditSubmitButtonWithIndex)
-
-
+      listElement.label.setAttribute('for', `task${_overallTodoIndex}`);
 
 
 
@@ -275,10 +269,24 @@ const createElements = (() => {
       _projContainer.classList.add('project-container');
       _pageDisplay.appendChild(_projContainer);
 
+      const _projHeader = document.createElement('div');
+      _projHeader.classList.add('project-title')
+      _projContainer.appendChild(_projHeader)
 
-      const _projHeader = document.createElement('h2');
-      _projHeader.textContent = _projectName;
-      _projContainer.appendChild(_projHeader);
+
+      const _projNameSection = document.createElement('h2');
+      _projNameSection.textContent = _projectName;
+      _projHeader.appendChild(_projNameSection);
+
+
+      const _editProjButton = document.createElement('button');
+      _editProjButton.textContent = 'Edit Project';
+      _editProjButton.classList.add('edit-project-button')
+      _editProjButton.addEventListener('click', renderTodo.openForm.bind(_editProjButton, todo.editProjFormPopup))
+
+      _projHeader.appendChild(_editProjButton);
+
+
 
 
       const _uL = document.createElement('ul');
@@ -304,8 +312,6 @@ const createElements = (() => {
         _listTag.checkBox.id = `obj${_projIndex}task${_taskIndexLocal}`;  
   
   
-        // _listTag.editButton.dataset['overallTaskIndex'] = _overallTaskIndex;
-
 
         _listTag.label.setAttribute('for', `obj${_projIndex}task${_taskIndexLocal}`);
 

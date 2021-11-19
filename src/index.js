@@ -74,6 +74,13 @@ const todo = (() => {
 
 
 
+  const saveProjectChanges = () => {
+
+  }
+
+
+
+
   
   const todoFactory = (data) => {
     let title = data.get('title');
@@ -248,10 +255,11 @@ const todo = (() => {
   const projFormSelectTag = document.querySelector('.project-form-select-tag');
   const todoFormSelectTag = document.querySelector('.todo-form-select');
   const editFormSelectTag = document.querySelector('#edit-project');
+  const editProjSelectTag = document.querySelector('#edit-project-todos');
   const todoFormPopup = document.querySelector('.todo-form-popup');
   const editFormPopup = document.querySelector('.edit-todo-popup');
   const projectFormPopup = document.querySelector('.new-project-popup');
-
+  const editProjFormPopup = document.querySelector('.edit-project-popup')
 
 
 
@@ -290,12 +298,17 @@ const todo = (() => {
 
 
 
+  const _saveProjectChangesButton = document.querySelector('.save-project-changes');
+  _saveProjectChangesButton.addEventListener('click', saveProjectChanges)
+
+
+
 
 
   
 
-  return { todoFormPopup, editFormPopup, projectFormPopup, projFormSelectTag,
-    todoFormSelectTag, editFormSelectTag, getTodoList, getProjectList, findIndexOf, 
+  return { todoFormPopup, editFormPopup, projectFormPopup, editProjFormPopup, projFormSelectTag,
+    todoFormSelectTag, editFormSelectTag, editProjSelectTag, getTodoList, getProjectList, findIndexOf, 
     tagEditSubmitButtonWithIndex }
 
 
