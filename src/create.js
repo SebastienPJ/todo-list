@@ -55,7 +55,7 @@ const createElements = (() => {
   };
 
 
-  const listFactory = (task) => {
+  const listFactory = (task, index) => {
     const list = document.createElement('li');
     list.classList.add('list');
   
@@ -124,10 +124,13 @@ const createElements = (() => {
     let editButton = document.createElement('button');
     editButton.classList.add('hide', 'edit-task-button')
     editButton.textContent = 'edit';
+    editButton.dataset['overallTaskIndex'] = index;
     editButton.addEventListener('click', (e) => {
       renderTodo.openForm(todo.editFormPopup);
       renderTodo.addProjectsToFormOptions(todo.editFormSelectTag, todo.getProjectList());
       renderTodo.prefillEditForm(e);
+      todo.tagEditSubmitButtonWithIndex(e);
+
     })
   
   
@@ -217,15 +220,14 @@ const createElements = (() => {
     let allTasksArray = todo.getTodoList();
 
     allTasksArray.forEach(_task => {
+      let todoIndex = todo.findIndexOf(_task, allTasksArray);
 
-      let listElement = listFactory(_task);
+      let listElement = listFactory(_task, todoIndex);
 
       unorderdList.appendChild(listElement.list);
 
 
-      let todoIndex = todo.findIndexOf(_task, allTasksArray);
-
-      listElement.checkBox.dataset['taskIndex'] = todoIndex;
+      listElement.checkBox.dataset['overallIndex'] = todoIndex;
       listElement.checkBox.name = `task${todoIndex}`;
       listElement.checkBox.id = `task${todoIndex}`;
 
@@ -234,8 +236,8 @@ const createElements = (() => {
       listElement.label.setAttribute('for', `task${todoIndex}`);
 
 
-      listElement.editButton.dataset['taskIndex'] = todoIndex;
-      listElement.editButton.addEventListener('click', todo.tagEditSubmitButtonWithIndex)
+      // listElement.editButton.dataset['overallTaskIndex'] = todoIndex;
+      // listElement.editButton.addEventListener('click', todo.tagEditSubmitButtonWithIndex)
 
 
 
@@ -286,27 +288,29 @@ const createElements = (() => {
       let _tasksBelongingToProj = _listOfTasks.filter(task => task.project == _projectName)
 
       _tasksBelongingToProj.forEach(_task => {
+        let _overallTaskIndex = todo.findIndexOf(_task, todo.getTodoList())
 
-        let _listTag = listFactory(_task)
+
+        let _listTag = listFactory(_task, _overallTaskIndex)
 
         _uL.appendChild(_listTag.list);
 
-
-        let _taskIndex = todo.findIndexOf(_task, _tasksBelongingToProj);
+        let _taskIndexLocal = todo.findIndexOf(_task, _tasksBelongingToProj);
         let _projIndex = todo.findIndexOf(_projectName, _listOfProjects); 
         
         _listTag.checkBox.dataset['projectIndex'] = _projIndex;
-        _listTag.checkBox.dataset['taskIndex'] = _taskIndex; 
-        _listTag.checkBox.name = `obj${_projIndex}task${_taskIndex}`;    
-        _listTag.checkBox.id = `obj${_projIndex}task${_taskIndex}`;  
+        _listTag.checkBox.dataset['localTaskIndex'] = _taskIndexLocal; 
+        _listTag.checkBox.name = `obj${_projIndex}task${_taskIndexLocal}`;    
+        _listTag.checkBox.id = `obj${_projIndex}task${_taskIndexLocal}`;  
   
   
+        // _listTag.editButton.dataset['overallTaskIndex'] = _overallTaskIndex;
 
 
-        _listTag.label.setAttribute('for', `obj${_projIndex}task${_taskIndex}`);
+        _listTag.label.setAttribute('for', `obj${_projIndex}task${_taskIndexLocal}`);
 
 
-        
+
 
 
       });

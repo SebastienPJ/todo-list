@@ -25,9 +25,9 @@ const todo = (() => {
 
   const tagEditSubmitButtonWithIndex = (e) => {
     let _saveButton = document.querySelector('.save-changes');
-    let _index = e.target.dataset.taskIndex
+    let _index = e.target.dataset.overallTaskIndex
 
-    _saveButton.dataset.taskIndex = _index;    
+    _saveButton.dataset.overallTaskIndex = _index;    
   };
 
 
@@ -39,7 +39,7 @@ const todo = (() => {
 
     let _listOfTodos = todo.getTodoList();
 
-    let _objIndex = e.target.dataset.taskIndex;
+    let _objIndex = e.target.dataset.overallTaskIndex;
     console.log(e);
 
     let _todoObj = _listOfTodos[_objIndex];
