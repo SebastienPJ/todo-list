@@ -187,6 +187,7 @@ const todo = (() => {
 
     let _newTodo = todoFactory(_formData);
 
+  
     _todoList.push(_newTodo);
 
 

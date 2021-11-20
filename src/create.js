@@ -265,6 +265,9 @@ const createElements = (() => {
     const _pageDisplay = document.createElement('div');
 
     _listOfProjects.forEach(_projectName => {
+      let _projIndex = todo.findIndexOf(_projectName, _listOfProjects); 
+
+
       const _projContainer = document.createElement('div');
       _projContainer.classList.add('project-container');
       _pageDisplay.appendChild(_projContainer);
@@ -279,10 +282,23 @@ const createElements = (() => {
       _projHeader.appendChild(_projNameSection);
 
 
+
+
+      let _tasksBelongingToProj = _listOfTasks.filter(task => task.project == _projectName)
+
       const _editProjButton = document.createElement('button');
       _editProjButton.textContent = 'Edit Project';
-      _editProjButton.classList.add('edit-project-button')
-      _editProjButton.addEventListener('click', renderTodo.openForm.bind(_editProjButton, todo.editProjFormPopup))
+      _editProjButton.classList.add('edit-project-button');
+      _editProjButton.dataset['projectIndex'] = _projIndex;
+      _editProjButton.addEventListener('click', function(e) {
+
+        console.log(e);
+        renderTodo.openForm(todo.editProjFormPopup)
+
+        renderTodo.addTodosToFormOptions(todo.editProjSelectTag, _tasksBelongingToProj)
+
+        renderTodo.prefillProjForm(e);
+      })
 
       _projHeader.appendChild(_editProjButton);
 
@@ -293,18 +309,16 @@ const createElements = (() => {
       _projContainer.appendChild(_uL)
 
 
-      let _tasksBelongingToProj = _listOfTasks.filter(task => task.project == _projectName)
 
       _tasksBelongingToProj.forEach(_task => {
         let _overallTaskIndex = todo.findIndexOf(_task, todo.getTodoList())
+        let _taskIndexLocal = todo.findIndexOf(_task, _tasksBelongingToProj);
 
 
         let _listTag = listFactory(_task, _overallTaskIndex)
 
         _uL.appendChild(_listTag.list);
 
-        let _taskIndexLocal = todo.findIndexOf(_task, _tasksBelongingToProj);
-        let _projIndex = todo.findIndexOf(_projectName, _listOfProjects); 
         
         _listTag.checkBox.dataset['projectIndex'] = _projIndex;
         _listTag.checkBox.dataset['localTaskIndex'] = _taskIndexLocal; 
@@ -314,11 +328,6 @@ const createElements = (() => {
   
 
         _listTag.label.setAttribute('for', `obj${_projIndex}task${_taskIndexLocal}`);
-
-
-
-
-
       });
       
 

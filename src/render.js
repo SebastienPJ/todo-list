@@ -62,6 +62,12 @@ const renderTodo = (() => {
 
 
 
+  const prefillProjForm = (e) => {
+
+  }
+
+
+
   const clearDisplay = () => {
  
     while (_contentDisplay.hasChildNodes()) {
@@ -173,7 +179,7 @@ const renderTodo = (() => {
 
  
   return { openForm, closeForm, updatePage, addTodosToFormOptions,
-          addProjectsToFormOptions, toggleTaskComplete, prefillEditForm }
+          addProjectsToFormOptions, toggleTaskComplete, prefillEditForm, prefillProjForm }
 
 
 })();
