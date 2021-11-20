@@ -297,7 +297,9 @@ const createElements = (() => {
 
         renderTodo.addTodosToFormOptions(todo.editProjSelectTag, _tasksBelongingToProj)
 
-        renderTodo.prefillProjForm(e);
+        let _options = todo.editProjSelectTag.options;
+        let _valuesNeeded = {'projectIndex': _projIndex, 'listOfProjects': _listOfProjects, 'tasksBelongingToProj': _tasksBelongingToProj};
+        renderTodo.prefillProjForm(_valuesNeeded, _options);
       })
 
       _projHeader.appendChild(_editProjButton);

@@ -14,6 +14,7 @@ const renderTodo = (() => {
 
 
   const closeForm = (formChosen) => {
+    ////// Need to reset form when being closed, now data stays
     formChosen.classList.remove('current-form-inuse');
     formChosen.setAttribute('style', 'display: none');
 
@@ -62,9 +63,25 @@ const renderTodo = (() => {
 
 
 
-  const prefillProjForm = (e) => {
+  const prefillProjForm = (values, optionsArray) => {
 
-  }
+    let _currentProjName = values.listOfProjects[values.projectIndex]
+
+    _editProjName.value = _currentProjName
+
+    let _selectedValues = values.tasksBelongingToProj.map(task => task.title)
+    
+    for (const option of optionsArray) {
+  
+      option.removeAttribute('selected');
+
+      if (_selectedValues.includes(option.value)) {
+        option.setAttribute('selected', 'selected');
+      }
+    
+    };
+
+  };
 
 
 
@@ -174,6 +191,10 @@ const renderTodo = (() => {
   const _editDueDate = document.querySelector('#edit-due-date');
   const _editPriority = document.querySelector('#edit-priority');
   const _editProject = document.querySelector('#edit-project')
+
+
+  const _editProjName = document.querySelector('#edit-project-name');
+
 
 
 
