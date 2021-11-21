@@ -292,7 +292,6 @@ const createElements = (() => {
       _editProjButton.dataset['projectIndex'] = _projIndex;
       _editProjButton.addEventListener('click', function(e) {
 
-        console.log(e);
         renderTodo.openForm(todo.editProjFormPopup);
         renderTodo.addTodosToFormOptions(todo.editProjSelectTag, _tasksBelongingToProj)
 
@@ -304,8 +303,10 @@ const createElements = (() => {
 
         let _todoListTitlesArray = todo.getTodoList().map(item => item.title)
         todo.tagWithIndex([...todo.editProjSelectTag.selectedOptions], _todoListTitlesArray)
-        
+
         todo.tagWithIndex([todo.projectNameInput], todo.getProjectList())
+
+        todo.deleteProjectButton.dataset['overallIndex'] = _projIndex
       })
 
       _projHeader.appendChild(_editProjButton);

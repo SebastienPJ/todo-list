@@ -37,7 +37,7 @@ const todo = (() => {
 
     let _editedFormData = captureFormData(_editForm);
 
-    let _listOfTodos = todo.getTodoList();
+    let _listOfTodos = getTodoList();
 
     let _objIndex = e.target.dataset.overallTaskIndex;
 
@@ -77,8 +77,8 @@ const todo = (() => {
     e.preventDefault();
 
     let _editedProjFormData = captureFormData(_editProjectForm);
-    let _completeListOfTasks = todo.getTodoList();
-    let _completeListOfObjects = todo.getProjectList();
+    let _completeListOfTasks = getTodoList();
+    let _completeListOfObjects = getProjectList();
 
     let _formOptions = [...editProjSelectTag.options];
     let _projIndex = projectNameInput.dataset.overallIndex;
@@ -101,6 +101,19 @@ const todo = (() => {
     renderTodo.closeForm(editProjFormPopup);
     renderTodo.updatePage(findCurrentMenuSelected())
 
+  }
+
+
+  const deleteFromList = (item, list) => {
+    let itemIndex = list.indexOf(item);
+    list.splice(itemIndex, 1);
+  };
+
+
+  const deleteKeyFromObj = (key, objects) => {
+    objects.forEach(object => {
+      delete object[key]
+    })
   }
 
 
@@ -283,7 +296,7 @@ const todo = (() => {
   const _projectForm = document.querySelector('.new-project-form');
   const _editForm = document.querySelector('.edit-todo-form');  
   const _editProjectForm = document.querySelector('.edit-project-form')
-
+ 
 
 
   const projFormSelectTag = document.querySelector('.project-form-select-tag');
@@ -337,13 +350,38 @@ const todo = (() => {
 
 
 
+  const deleteProjectButton = document.querySelector('.delete-project')
+  deleteProjectButton.addEventListener('click', function(e) {
+    let indexOfProject = e.target.dataset.overallIndex
+    let proj = getProjectList()[indexOfProject]
+
+    deleteFromList(proj, getProjectList())
+
+    // console.log(getProjectList());
+
+    let optionsInTask = [...editProjSelectTag.options];
+    optionsInTask.forEach(item => {
+      if (item.value !== "") {
+        let itemIndex = item.dataset.overallIndex;
+        let itemObj = getTodoList()[itemIndex];
+        delete itemObj.project
+      }
+ 
+    })
+
+    console.log(getProjectList());
+    console.log(getTodoList());
+
+    renderTodo.closeForm(editProjFormPopup)
+    renderTodo.updatePage(findCurrentMenuSelected())
+  })
 
 
   
 
   return { todoFormPopup, editFormPopup, projectFormPopup, editProjFormPopup, projFormSelectTag,
-    todoFormSelectTag, editFormSelectTag, editProjSelectTag, projectNameInput, getTodoList, getProjectList, findIndexOf, 
-    tagEditSubmitButtonWithIndex, tagWithIndex }
+    todoFormSelectTag, editFormSelectTag, editProjSelectTag, projectNameInput, deleteProjectButton, getTodoList, getProjectList, findIndexOf, 
+    tagEditSubmitButtonWithIndex, tagWithIndex, deleteFromList }
 
 
 })();

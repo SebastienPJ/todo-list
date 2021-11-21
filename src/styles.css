@@ -189,15 +189,63 @@ textarea {
 }
 
 .form-buttons {
+  /* border: 1px solid black; */
   margin-top: 20px;
   width: 100%;
   text-align: center;
 
 }
 
+.form-buttons button {
+  border: 1px solid white;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+/* .save-project-changes {
+   background-color: rgb(45, 231, 255); 
+} */
+
+.save-project-changes:hover {
+  background-color: rgb(45, 231, 255);
+  border: 1px solid black;
+}
+
+.cancel-proj-changes:hover {
+  background-color: rgb(180, 180, 180);
+border: 1px solid black;
+}
+
 .cancel,
 .cancel-changes {
   margin-left: 10px;
+}
+
+.delete-button-container {
+  /* border: 1px solid black; */
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+  margin-top: 20px;
+}
+
+.delete-button-container button {
+  width: 100%;
+  margin-bottom: 5px;
+  padding: 5px 10px;
+  /* background-color: red; */
+  border: 1px solid white;
+  cursor: pointer;
+}
+
+.delete-button-container button:hover {
+  background-color: red;
+  /* color: red; */
+  border: 1px solid black;
+
+  font-weight: bold;
+  /* text-decoration:underline overline; */
 }
 
 
