@@ -40,7 +40,6 @@ const todo = (() => {
     let _listOfTodos = todo.getTodoList();
 
     let _objIndex = e.target.dataset.overallTaskIndex;
-    console.log(e);
 
     let _todoObj = _listOfTodos[_objIndex];
 
@@ -74,11 +73,44 @@ const todo = (() => {
 
 
 
-  const saveProjectChanges = () => {
+  const saveProjectChanges = (e) => {
+    e.preventDefault();
+
+    let _editedProjFormData = captureFormData(_editProjectForm);
+    let _completeListOfTasks = todo.getTodoList();
+    let _completeListOfObjects = todo.getProjectList();
+
+    let _formOptions = [...editProjSelectTag.options];
+    let _projIndex = projectNameInput.dataset.overallIndex;
+
+   
+    _formOptions.forEach(option => {
+      if (!option.selected && option.value !== "") {
+        let taskIndex = option.dataset.overallIndex;
+        let taskObject = _completeListOfTasks[taskIndex];
+        delete taskObject.project;
+      }
+    })
+
+  
+    let _newProjName = _editedProjFormData.get('edit-project-name');
+
+    _completeListOfObjects[_projIndex] = _newProjName;
+
+    _editProjectForm.reset();
+    renderTodo.closeForm(editProjFormPopup);
+    renderTodo.updatePage(findCurrentMenuSelected())
 
   }
 
 
+
+  const tagWithIndex = (inputs, array) => {
+    inputs.forEach(input => {
+      let index = array.indexOf(input.value);
+      input.dataset['overallIndex'] = index;
+    })
+  }
 
 
   
@@ -250,6 +282,7 @@ const todo = (() => {
   const _todoForm = document.querySelector('.todo-form');
   const _projectForm = document.querySelector('.new-project-form');
   const _editForm = document.querySelector('.edit-todo-form');  
+  const _editProjectForm = document.querySelector('.edit-project-form')
 
 
 
@@ -261,7 +294,7 @@ const todo = (() => {
   const editFormPopup = document.querySelector('.edit-todo-popup');
   const projectFormPopup = document.querySelector('.new-project-popup');
   const editProjFormPopup = document.querySelector('.edit-project-popup')
-
+  const projectNameInput = document.querySelector('#edit-project-name')
 
 
   const _menuButtons = document.querySelectorAll('.menu-button');
@@ -309,8 +342,8 @@ const todo = (() => {
   
 
   return { todoFormPopup, editFormPopup, projectFormPopup, editProjFormPopup, projFormSelectTag,
-    todoFormSelectTag, editFormSelectTag, editProjSelectTag, getTodoList, getProjectList, findIndexOf, 
-    tagEditSubmitButtonWithIndex }
+    todoFormSelectTag, editFormSelectTag, editProjSelectTag, projectNameInput, getTodoList, getProjectList, findIndexOf, 
+    tagEditSubmitButtonWithIndex, tagWithIndex }
 
 
 })();

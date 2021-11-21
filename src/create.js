@@ -293,13 +293,19 @@ const createElements = (() => {
       _editProjButton.addEventListener('click', function(e) {
 
         console.log(e);
-        renderTodo.openForm(todo.editProjFormPopup)
-
+        renderTodo.openForm(todo.editProjFormPopup);
         renderTodo.addTodosToFormOptions(todo.editProjSelectTag, _tasksBelongingToProj)
+
 
         let _options = todo.editProjSelectTag.options;
         let _valuesNeeded = {'projectIndex': _projIndex, 'listOfProjects': _listOfProjects, 'tasksBelongingToProj': _tasksBelongingToProj};
         renderTodo.prefillProjForm(_valuesNeeded, _options);
+
+
+        let _todoListTitlesArray = todo.getTodoList().map(item => item.title)
+        todo.tagWithIndex([...todo.editProjSelectTag.selectedOptions], _todoListTitlesArray)
+        
+        todo.tagWithIndex([todo.projectNameInput], todo.getProjectList())
       })
 
       _projHeader.appendChild(_editProjButton);
