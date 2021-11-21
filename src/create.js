@@ -307,6 +307,7 @@ const createElements = (() => {
         todo.tagWithIndex([todo.projectNameInput], todo.getProjectList())
 
         todo.deleteProjectButton.dataset['overallIndex'] = _projIndex
+        todo.deleteAllButton.dataset['overallIndex'] = _projIndex
       })
 
       _projHeader.appendChild(_editProjButton);

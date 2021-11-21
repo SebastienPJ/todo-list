@@ -357,31 +357,48 @@ const todo = (() => {
 
     deleteFromList(proj, getProjectList())
 
-    // console.log(getProjectList());
-
     let optionsInTask = [...editProjSelectTag.options];
     optionsInTask.forEach(item => {
       if (item.value !== "") {
         let itemIndex = item.dataset.overallIndex;
         let itemObj = getTodoList()[itemIndex];
         delete itemObj.project
-      }
- 
-    })
-
-    console.log(getProjectList());
-    console.log(getTodoList());
+      } 
+    });
 
     renderTodo.closeForm(editProjFormPopup)
     renderTodo.updatePage(findCurrentMenuSelected())
+  });
+
+  const deleteAllButton = document.querySelector('.delete-all');
+  deleteAllButton.addEventListener('click', function(e) {
+    let indexOfProject = e.target.dataset.overallIndex
+    let proj = getProjectList()[indexOfProject]
+
+    deleteFromList(proj, getProjectList())
+    let optionsInTask = [...editProjSelectTag.options];
+    optionsInTask.forEach(item => {
+      if (item.value !== "") {
+        let itemIndex = item.dataset.overallIndex;
+        let itemObj = getTodoList()[itemIndex];
+        deleteFromList(itemObj, getTodoList())
+      } 
+
+    });
+    
+    editProjFormPopup.firstElementChild.reset()
+    renderTodo.closeForm(editProjFormPopup)
+    renderTodo.updatePage(findCurrentMenuSelected())
+
+    
   })
 
 
   
 
   return { todoFormPopup, editFormPopup, projectFormPopup, editProjFormPopup, projFormSelectTag,
-    todoFormSelectTag, editFormSelectTag, editProjSelectTag, projectNameInput, deleteProjectButton, getTodoList, getProjectList, findIndexOf, 
-    tagEditSubmitButtonWithIndex, tagWithIndex, deleteFromList }
+    todoFormSelectTag, editFormSelectTag, editProjSelectTag, projectNameInput, deleteProjectButton, 
+    deleteAllButton, getTodoList, getProjectList, findIndexOf, tagEditSubmitButtonWithIndex, tagWithIndex }
 
 
 })();
