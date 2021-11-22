@@ -9,7 +9,6 @@ const createElements = (() => {
   const createDisplayHeader = (highlightedButton) => {
 
     let title = highlightedButton.textContent;
-    
     const _headerContainer = document.createElement('header');
     _headerContainer.classList.add('display-menu-header')
     _contentContainer.appendChild(_headerContainer);
@@ -129,7 +128,7 @@ const createElements = (() => {
       renderTodo.openForm(todo.editFormPopup);
       renderTodo.addProjectsToFormOptions(todo.editFormSelectTag, todo.getProjectList());
       renderTodo.prefillEditForm(e);
-      todo.tagEditSubmitButtonWithIndex(e);
+      todo.tagEditSubmitButtonWithIndex(e); /// LOOK INTO CHANGINg THIS
 
     })
   

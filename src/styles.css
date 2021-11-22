@@ -9,26 +9,12 @@ body {
 
 
 .side-bar {
-  /* background-color: gray; */
   width: 30vw;
   height: 100vh;
   border-right: 1px solid black;
 }
 
 
-.all-todos,
-.due-today,
-.due-tomorrow,
-.all-projects {
-  display: none;
-
-}
-
-
-.dropdown {
-  display: flex;
-  flex-direction: column;
-}
 
 .menu-button {
   width: 100%;
@@ -44,36 +30,48 @@ body {
 
 }
 
+
 .menu-button:hover {
   background-color: blanchedalmond;
 }
 
 
+.current-menu-selected {
+  text-decoration: underline;
+  background-color: coral;
+}
 
 
+.counter {
+  border: 1px solid black;
 
-
-
+}
 
 
 .todo-display {
-  /* background-color: indianred; */
   width: 70vw;
   height: 100vh;
   position: relative;
 }
 
-.todo-display li {
-  list-style: none; 
-  border: 1px solid black;
-  /* display: flex;
-  /* justify-content: space-between; */
-  /* align-items: center; */
-}
-
 
 .display-menu-header {
   text-align: center;
+}
+
+
+.list {
+  margin-bottom: 5px;
+  list-style: none; 
+  border: 1px solid black;
+
+}
+
+
+.shown-content {
+  display: flex;
+  align-items: center;
+  
 }
 
 
@@ -91,6 +89,58 @@ body {
   margin-left: 10px;
   vertical-align: middle;
 }
+
+
+
+.hide {
+  display: none;
+  margin-left: 20px;
+  font-size: 0.8rem;
+  border: none;
+  cursor: pointer;
+}
+
+
+.list:hover .hide{
+  display: inline-flex;
+  background-color: green;
+}
+
+
+.active {
+  display: inline-flex;
+  background-color: green;
+  margin-left: 20px;
+  font-size: 0.8rem;
+  border: none;
+  cursor: pointer;
+}
+
+
+.project-section {
+  margin-left: auto;
+  margin-right: 20px;
+}
+
+
+.due-date-section {
+  padding-right: 10px;
+}
+
+
+.hidden-container {
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+}
+
+
+.notes-container {
+  border: 1px solid black;
+  padding: 30px;
+
+}
+
 
 
 
@@ -118,10 +168,9 @@ body {
 
 
 
-.todo-form-popup,
-.new-project-popup,
-.edit-todo-popup,
-.edit-project-popup {
+
+
+.form-container {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.7);
@@ -132,32 +181,31 @@ body {
   z-index: 1;
 }
 
-
-/* .edit-todo-popup {
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
-  position: absolute;
-  top: 0;
-  justify-content: center;
-  display: none;
-  z-index: 1;
-
-} */
-
-table {
-  border-spacing: 0 10px;
-}
-
-
-.todo-form {
+.form {
   border: 2px solid black;
   padding: 60px 30px;
   background-color: white;
   position: relative;
-  height: 350px;
   margin-top: 100px;
+  height: 500px;
+
 }
+
+/* #todo-form {
+
+}
+
+
+#edit-todo-form,
+#new-project-form,
+#edit-project-form {
+
+
+} */
+
+
+
+
 
 .form-header {
   font-size: 2rem;
@@ -165,6 +213,8 @@ table {
   width: 100%;
   margin-bottom: 30px;
 }
+
+
 
 .x-button {
   position: absolute;
@@ -179,6 +229,12 @@ table {
   font-size: 1.8rem;
 }
 
+
+table {
+  border-spacing: 0 10px;
+}
+
+
 .form-label {
   text-align: right;
   vertical-align: top;
@@ -188,8 +244,8 @@ textarea {
   resize: none;
 }
 
+
 .form-buttons {
-  /* border: 1px solid black; */
   margin-top: 20px;
   width: 100%;
   text-align: center;
@@ -202,141 +258,26 @@ textarea {
   cursor: pointer;
 }
 
-/* .save-project-changes {
-   background-color: rgb(45, 231, 255); 
-} */
 
-.save-project-changes:hover {
+.submit-button:hover {
   background-color: rgb(45, 231, 255);
   border: 1px solid black;
 }
 
-.cancel-proj-changes:hover {
-  background-color: rgb(180, 180, 180);
-border: 1px solid black;
-}
 
-.cancel,
-.cancel-changes {
+.cancel-button {
   margin-left: 10px;
+
 }
 
-.delete-button-container {
-  /* border: 1px solid black; */
-  display: flex;
-  flex-direction: column;
-  /* justify-content: center; */
-  align-items: center;
-  margin-top: 20px;
-}
-
-.delete-button-container button {
-  width: 100%;
-  margin-bottom: 5px;
-  padding: 5px 10px;
-  /* background-color: red; */
-  border: 1px solid white;
-  cursor: pointer;
-}
-
-.delete-button-container button:hover {
-  background-color: red;
-  /* color: red; */
+.cancel-button:hover {
+  background-color: rgb(180, 180, 180);
   border: 1px solid black;
-
-  font-weight: bold;
-  /* text-decoration:underline overline; */
 }
 
 
 
 
-
-
-.hide {
-  display: none;
-  margin-left: 20px;
-  font-size: 0.8rem;
-  border: none;
-  cursor: pointer;
-}
-
-.list:hover .hide{
-  display: inline-flex;
-  background-color: green;
-}
-
-
-.active {
-  display: inline-flex;
-  background-color: green;
-  margin-left: 20px;
-  font-size: 0.8rem;
-  border: none;
-  cursor: pointer;
-}
-
-
-.list {
-  margin-bottom: 5px;
-
-  /* background-color: #777; */
-}
-
-
-
-
-
-
-
-.edit-todo-form,
-.new-project-form,
-.edit-project-form {
-  border: 2px solid black;
-  padding: 60px 30px;
-  background-color: white;
-  position: relative;
-  height: 500px;
-  margin-top: 100px;
-}
-
-
-.hidden-container {
-  display: none;
-  overflow: hidden;
-  background-color: #f1f1f1;
-}
-
-
-.notes-container {
-  border: 1px solid black;
-  padding: 30px;
-
-}
-
-
-.current-menu-selected {
-  text-decoration: underline;
-  background-color: coral;
-}
-
-
-.due-date-section {
-  /* margin-left: auto; */
-  padding-right: 10px;
-}
-
-
-.project-section {
-  margin-left: auto;
-  margin-right: 20px;
-}
-
-.shown-content {
-  display: flex;
-  align-items: center;
-  
-}
 
 
 
@@ -354,5 +295,32 @@ border: 1px solid black;
 .edit-project-button {
   margin-left: 50px;
 }
+
+
+
+.delete-buttons-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.delete-buttons-container button {
+  width: 100%;
+  margin-bottom: 5px;
+  padding: 5px 10px;
+  border: 1px solid white;
+  cursor: pointer;
+}
+
+.delete-buttons-container button:hover {
+  background-color: red;
+  border: 1px solid black;
+  font-weight: bold;
+}
+
+
+
+
 
 

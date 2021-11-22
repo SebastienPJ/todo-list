@@ -24,10 +24,8 @@ const todo = (() => {
 
 
   const tagEditSubmitButtonWithIndex = (e) => {
-    let _saveButton = document.querySelector('.save-changes');
     let _index = e.target.dataset.overallTaskIndex
-
-    _saveButton.dataset.overallTaskIndex = _index;    
+    _saveEditChangesButton.dataset.overallTaskIndex = _index;    
   };
 
 
@@ -63,7 +61,7 @@ const todo = (() => {
 
     
     _editForm.reset();
-    renderTodo.closeForm(editFormPopup);
+    renderTodo.closeForm(findCurrentFormInUse());
 
     let _currentMenu = findCurrentMenuSelected();
     renderTodo.updatePage(_currentMenu);
@@ -98,7 +96,7 @@ const todo = (() => {
     _completeListOfObjects[_projIndex] = _newProjName;
 
     _editProjectForm.reset();
-    renderTodo.closeForm(editProjFormPopup);
+    renderTodo.closeForm(findCurrentFormInUse());
     renderTodo.updatePage(findCurrentMenuSelected())
 
   }
@@ -220,7 +218,7 @@ const todo = (() => {
     renderTodo.updatePage(currentMenu)
 
     _projectForm.reset();
-    renderTodo.closeForm(projectFormPopup); 
+    renderTodo.closeForm(findCurrentFormInUse()); 
   }
 
 
@@ -237,7 +235,7 @@ const todo = (() => {
 
 
     _todoForm.reset();
-    renderTodo.closeForm(todoFormPopup);
+    renderTodo.closeForm(findCurrentFormInUse());
     
     
     let menu = findCurrentMenuSelected();
@@ -292,21 +290,21 @@ const todo = (() => {
 
 
 
-  const _todoForm = document.querySelector('.todo-form');
-  const _projectForm = document.querySelector('.new-project-form');
-  const _editForm = document.querySelector('.edit-todo-form');  
-  const _editProjectForm = document.querySelector('.edit-project-form')
+  const _todoForm = document.querySelector('#todo-form');
+  const _projectForm = document.querySelector('#new-project-form');
+  const _editForm = document.querySelector('#edit-todo-form');  
+  const _editProjectForm = document.querySelector('#edit-project-form')
  
 
 
   const projFormSelectTag = document.querySelector('.project-form-select-tag');
-  const todoFormSelectTag = document.querySelector('.todo-form-select');
+  const todoFormSelectTag = document.querySelector('#todo-form-select-tag');
   const editFormSelectTag = document.querySelector('#edit-project');
   const editProjSelectTag = document.querySelector('#edit-project-todos');
-  const todoFormPopup = document.querySelector('.todo-form-popup');
-  const editFormPopup = document.querySelector('.edit-todo-popup');
-  const projectFormPopup = document.querySelector('.new-project-popup');
-  const editProjFormPopup = document.querySelector('.edit-project-popup')
+  const todoFormPopup = document.querySelector('#todo-form-container');
+  const editFormPopup = document.querySelector('#edit-todo-form-container');
+  const projectFormPopup = document.querySelector('#new-project-form-container');
+  const editProjFormPopup = document.querySelector('#edit-project-form-container')
   const projectNameInput = document.querySelector('#edit-project-name')
 
 
@@ -321,16 +319,16 @@ const todo = (() => {
   });
 
 
-  const _submitTodoForm = document.querySelector('.submit-form');
+  const _submitTodoForm = document.querySelector('#submit-todo-form');
   _submitTodoForm.addEventListener('click', createTodo);
 
 
 
-  const _saveEditChangesButton = document.querySelector('.save-changes');
+  const _saveEditChangesButton = document.querySelector('#save-todo-changes');
   _saveEditChangesButton.addEventListener('click', saveEditChanges);
 
 
-  const _submitProjectForm = document.querySelector('.create-project');
+  const _submitProjectForm = document.querySelector('#create-project');
   _submitProjectForm.addEventListener('click', createProject);
 
 
@@ -345,7 +343,7 @@ const todo = (() => {
 
 
 
-  const _saveProjectChangesButton = document.querySelector('.save-project-changes');
+  const _saveProjectChangesButton = document.querySelector('#save-project-changes');
   _saveProjectChangesButton.addEventListener('click', saveProjectChanges)
 
 
@@ -366,7 +364,7 @@ const todo = (() => {
       } 
     });
 
-    renderTodo.closeForm(editProjFormPopup)
+    renderTodo.closeForm(findCurrentFormInUse())
     renderTodo.updatePage(findCurrentMenuSelected())
   });
 
@@ -387,7 +385,7 @@ const todo = (() => {
     });
     
     editProjFormPopup.firstElementChild.reset()
-    renderTodo.closeForm(editProjFormPopup)
+    renderTodo.closeForm(findCurrentFormInUse())
     renderTodo.updatePage(findCurrentMenuSelected())
 
     

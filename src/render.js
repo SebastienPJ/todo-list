@@ -182,7 +182,7 @@ const renderTodo = (() => {
   const _contentDisplay = document.querySelector('.todo-display');
 
 
-  const _editForm = document.querySelector('.edit-todo-form');  
+  const _editForm = document.querySelector('#edit-todo-form');  
 
 
   const _editTitle = document.querySelector('#edit-title');
