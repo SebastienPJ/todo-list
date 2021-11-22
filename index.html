@@ -11,26 +11,29 @@
   <div class="todo-app">
     <div class="side-bar">
 
-      <div class="today-menu-button">
+      <div class>
         
         <button type="button" class="menu-button">Today</button>
 
+        <!-- <span class="today-counter counter">23</span> -->
+
       </div>
 
-      <div class="tomorrow-menu-button">
+
+      <div>
 
         <button type="button" class="menu-button">Tomorrow</button>
       
       </div>
 
 
-      <div class="all-todos-menu-button">
+      <div>
 
         <button type="button" class="menu-button" id="all-todo-button">All ToDos</button>
 
       </div>
 
-      <div class="projects-menu-button">
+      <div>
   
         <button type="button" class="menu-button">Projects</button>
      
@@ -52,12 +55,12 @@
 
   <!-------------- TODO FORM ---------->
 
-  <div class="todo-form-popup form-container">
-    <form action="" class="todo-form">
+  <div class="form-container" id="todo-form-container">
+    <form action="" class="form" id="todo-form">
       <div class="form-header">Add ToDo</div>
-      <div class="close-todo-form x-button close-form">+</div>
+      <div class="x-button close-form">+</div>
   
-      <table class="todo-table">
+      <table>
   
         
         <tr>
@@ -80,17 +83,7 @@
           </td>
         </tr>
 
-  
-        <!-- <tr>
-          <td class="form-label">
-            <label for="description">Description: </label>
-          </td>
-          <td>
-            <textarea name="description" id="description" cols="21" rows="6"></textarea>
-          </td>
-        </tr> -->
 
-  
         <tr>
           <td class="form-label">
             <label for="due-date">Due Date: </label>
@@ -123,7 +116,7 @@
             <label for="part-of-project">Project: </label>
           </td>
           <td>
-            <select name="part-of-project" id="part-of-project" class="todo-form-select">
+            <select name="part-of-project" id="todo-form-select-tag">
 
               <option value="" selected></option>
             </select>
@@ -139,8 +132,8 @@
   
   
       <div class="form-buttons">
-        <button type="submit" class="submit-form">Submit</button>
-        <button type="button" class="cancel close-todo-form close-form">Cancel</button>
+        <button type="submit" class="submit-button" id="submit-todo-form">Submit</button>
+        <button type="button" class="cancel-button close-form">Cancel</button>
       </div>         
   
   
@@ -155,12 +148,12 @@
 
   <!-------------- EDIT FORM ---------->
 
-  <div class="edit-todo-popup form-container">
-    <form action="" class="edit-todo-form">
+  <div class="form-container" id="edit-todo-form-container">
+    <form action="" class="form" id="edit-todo-form">
       <div class="form-header">Edit Task</div>
       <div class="close-edit-form x-button close-form">+</div>
   
-      <table class="todo-table">
+      <table>
   
         
         <tr>
@@ -173,15 +166,6 @@
         </tr>
 
   
-        <!-- <tr>
-          <td class="form-label">
-            <label for="edit-description">Description: </label>
-          </td>
-          <td>
-            <textarea name="edit-description" id="edit-description" cols="21" rows="6"></textarea>
-          </td>
-        </tr> -->
-
 
         <tr>
           <td class="form-label">
@@ -237,8 +221,8 @@
   
   
       <div class="form-buttons">
-        <button type="submit" class="save-changes">Save Changes</button>
-        <button type="button" class="cancel-changes close-edit-form close-form">Cancel</button>
+        <button type="submit" class="submit-button" id="save-todo-changes">Save Changes</button>
+        <button type="button" class="cancel-button close-form">Cancel</button>
       </div>         
   
   
@@ -253,8 +237,8 @@
 
   <!-- PROJECTS FORM -->
 
-  <div class="new-project-popup form-container">
-    <form action="" class="new-project-form">
+  <div class="form-container" id="new-project-form-container">
+    <form action="" class="form" id="new-project-form">
       <div class="form-header">Create New Project</div>
       <div class="close-project-form x-button close-form">+</div>
   
@@ -288,8 +272,8 @@
   
   
       <div class="form-buttons">
-        <button type="submit" class="create-project">Create</button>
-        <button type="button" class="cancel close-project-form close-form">Cancel</button>
+        <button type="submit" class="submit-button" id="create-project">Create</button>
+        <button type="button" class="cancel-button close-form">Cancel</button>
       </div>         
   
   
@@ -304,8 +288,8 @@
   <!-------------- EDIT PROJECT FORM ---------->
 
 
-  <div class="edit-project-popup form-container">
-    <form action="" class="edit-project-form">
+  <div class="form-container" id="edit-project-form-container">
+    <form action="" class="form" id="edit-project-form">
       <div class="form-header">Edit Your Project</div>
       <div class="close-project-form x-button close-form">+</div>
   
@@ -339,10 +323,11 @@
   
   
       <div class="form-buttons">
-        <button type="submit" class="save-project-changes">Save Changes</button>
-        <button type="button" class="cancel cancel-proj-changes close-form">Cancel</button>
+        <button type="submit" class="submit-button" id="save-project-changes">Save Changes</button>
+        <button type="button" class="cancel-button close-form">Cancel</button>
       </div>   
-      <div class="delete-button-container">
+
+      <div class="delete-buttons-container">
         <button type="button" class="delete-project">Delete Project </button>
         <button type="button" class="delete-all">Delete Project and Tasks </button>
 
