@@ -3,6 +3,32 @@ import './styles.css';
 
 const todo = (() => {
 
+  const deleteKeyFromObj = (key, objects) => {
+    objects.forEach(object => {
+      delete object[key]
+    })
+  }
+
+
+
+
+
+
+
+  const todoFactory = (data) => {
+    let title = data.get('title');
+    let dueDate = data.get('due-date');
+    let priority = data.get('priority');
+    let isTodoDone = 'no';
+    let project = data.get('part-of-project');
+
+
+    return { title, dueDate, priority, project, isTodoDone }
+
+  };
+
+
+
   const getTodoList = () => {
     return _todoList
   };
@@ -12,21 +38,137 @@ const todo = (() => {
     return _projectList;
   };
 
-
   const captureFormData = (form) => {
     return new FormData(form)
   };
 
 
-  const findIndexOf = (item, list) => {
-    return list.indexOf(item);
+
+
+
+
+
+
+
+
+
+  const highlightSelectedButton = (event) => {
+
+    const selectedButton = event.target;
+
+    _menuButtons.forEach(item => {
+      if (item.classList.contains('current-menu-selected')) {
+        item.classList.remove('current-menu-selected')
+      }
+    })
+
+    selectedButton.classList.add('current-menu-selected');
+
   };
+
+
+  const findCurrentMenuSelected = () => {
+    return [..._menuButtons].filter(button => button.classList.contains('current-menu-selected'))[0];
+  };
+
 
 
   const tagEditSubmitButtonWithIndex = (e) => {
     let _index = e.target.dataset.overallTaskIndex
     _saveEditChangesButton.dataset.overallTaskIndex = _index;    
   };
+
+
+
+  const tagWithIndex = (inputs, array) => {
+    inputs.forEach(input => {
+      let index = array.indexOf(input.value);
+      input.dataset['overallIndex'] = index;
+    })
+  }
+
+
+
+  const deleteFromList = (item, list) => {
+    let itemIndex = list.indexOf(item);
+    list.splice(itemIndex, 1);
+  };
+
+
+
+  const findCurrentFormInUse = () => {
+
+    let allForms = [...document.querySelectorAll('.form-container')];
+    
+    let currentForm = allForms.filter(form => form.classList.contains('current-form-inuse'))[0]
+ 
+    return currentForm;
+  };
+
+
+
+  const createTodo = function(e) {
+    e.preventDefault();
+
+
+    let _formData = captureFormData(_todoForm);
+
+    let _newTodo = todoFactory(_formData);
+
+  
+    _todoList.push(_newTodo);
+
+
+    _todoForm.reset();
+    renderTodo.closeForm(findCurrentFormInUse());
+    
+    
+    let menu = findCurrentMenuSelected();
+    renderTodo.updatePage(menu)
+  };  
+  
+  
+
+  const createProject = (e) => {
+    e.preventDefault();
+
+    let _projectData = captureFormData(_projectForm);
+
+    let _projectName = _projectData.get('project-name');
+
+    if (_projectList.includes(_projectName)) {
+      alert('project already exists');
+      return;
+    };
+
+    _projectList.push(_projectName);
+
+
+    let _taskAddedToProj = [...projFormSelectTag.selectedOptions].map(option => option.value)
+
+    addProjectToTaskObj(_projectName, _taskAddedToProj)
+
+
+
+    let currentMenu = findCurrentMenuSelected();
+    renderTodo.updatePage(currentMenu)
+
+    _projectForm.reset();
+    renderTodo.closeForm(findCurrentFormInUse()); 
+  };
+
+
+  const addProjectToTaskObj = (projName, projTasks) => {
+
+    projTasks.forEach(taskName => {
+      _todoList.forEach(todo => {
+        if (taskName == todo.title) {
+          todo.project = projName
+
+        }
+      })
+    })
+  }
 
 
 
@@ -42,7 +184,6 @@ const todo = (() => {
     let _todoObj = _listOfTodos[_objIndex];
 
     let newTitle = _editedFormData.get('edit-title');
-    // let newDescription = _editedFormData.get('edit-description');
     let newNotes = _editedFormData.get('edit-notes');
     let newDueDate = _editedFormData.get('edit-due-date');
     let newPriority = _editedFormData.get('edit-priority');
@@ -67,7 +208,6 @@ const todo = (() => {
     renderTodo.updatePage(_currentMenu);
 
   };
-
 
 
 
@@ -102,156 +242,37 @@ const todo = (() => {
   }
 
 
-  const deleteFromList = (item, list) => {
-    let itemIndex = list.indexOf(item);
-    list.splice(itemIndex, 1);
-  };
-
-
-  const deleteKeyFromObj = (key, objects) => {
-    objects.forEach(object => {
-      delete object[key]
-    })
-  }
 
 
 
-  const tagWithIndex = (inputs, array) => {
-    inputs.forEach(input => {
-      let index = array.indexOf(input.value);
-      input.dataset['overallIndex'] = index;
-    })
-  }
-
-
-  
-  const todoFactory = (data) => {
-    let title = data.get('title');
-    // let description = data.get('description');
-    let dueDate = data.get('due-date');
-    let priority = data.get('priority');
-    let isTodoDone = 'no';
-    let project = data.get('part-of-project');
-
-
-    return { title, dueDate, priority, project, isTodoDone }
-
-  };
-
-
-  const findCurrentMenuSelected = () => {
-    return [..._menuButtons].filter(button => button.classList.contains('current-menu-selected'))[0];
-  };
 
 
 
-  const findCurrentFormInUse = () => {
 
-    let allForms = [...document.querySelectorAll('.form-container')];
-    
-    let currentForm = allForms.filter(form => form.classList.contains('current-form-inuse'))[0]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  
-    return currentForm;
-  };
-
-
-
-  const highlightSelectedButton = (event) => {
-
-    const selectedButton = event.target;
-
-    _menuButtons.forEach(item => {
-      if (item.classList.contains('current-menu-selected')) {
-        item.classList.remove('current-menu-selected')
-      }
-    })
-
-    selectedButton.classList.add('current-menu-selected');
-
-  };
-
-  const addProjectToTaskObj = (projName, projTasks) => {
-
-    projTasks.forEach(taskName => {
-      _todoList.forEach(todo => {
-        if (taskName == todo.title) {
-          todo.project = projName
-
-          console.log(todo);
-        }
-      })
-    })
-
-
-    // _todoList.forEach(todo => {
-    //   projTasks.forEach(taskName => {
-    //     if (todo.title == taskName) {
-    //       console.log(todo);
-    //     }
-    //   })
-    // })
-  }
-
-
-  const createProject = (e) => {
-    e.preventDefault();
-
-    let _projectData = captureFormData(_projectForm);
-
-    let _projectName = _projectData.get('project-name');
-
-    if (_projectList.includes(_projectName)) {
-      alert('project already exists');
-      return;
-    };
-
-    _projectList.push(_projectName);
-
-
-    let _taskAddedToProj = [...projFormSelectTag.selectedOptions].map(option => option.value)
-
-    addProjectToTaskObj(_projectName, _taskAddedToProj)
-
-
-
-    let currentMenu = findCurrentMenuSelected();
-    renderTodo.updatePage(currentMenu)
-
-    _projectForm.reset();
-    renderTodo.closeForm(findCurrentFormInUse()); 
-  }
-
-
-  const createTodo = function(e) {
-    e.preventDefault();
-
-
-    let _formData = captureFormData(_todoForm);
-
-    let _newTodo = todoFactory(_formData);
-
-  
-    _todoList.push(_newTodo);
-
-
-    _todoForm.reset();
-    renderTodo.closeForm(findCurrentFormInUse());
-    
-    
-    let menu = findCurrentMenuSelected();
-    renderTodo.updatePage(menu)
-
-    // renderTodo.dispayMenuItems(pass in current menu selected)
-
-  };   
-
-
-
-
   const _todoList = [
     {
       title: "Complete Presentation",
-      // description: "Must complete and sell pitch to board",
       dueDate: "2021-12-10",
       priority: "medium",
       isTodoDone: "no",
@@ -261,7 +282,6 @@ const todo = (() => {
 
     {
       title: "Do groceries",
-      // description: "Need foood",
       dueDate: "2021-11-18",
       priority: "high",
       isTodoDone: "no",
@@ -271,7 +291,6 @@ const todo = (() => {
 
     {
       title: "Fix Car Issues",
-      // description: "Need fast car",
       dueDate: "2021-12-10",
       priority: "medium",
       isTodoDone: "no",
@@ -286,6 +305,9 @@ const todo = (() => {
   const _projectList = ['Home', 'Work', 'Car'];
 
   // const _projectList = [];
+  
+
+
 
 
 
@@ -297,19 +319,20 @@ const todo = (() => {
  
 
 
-  const projFormSelectTag = document.querySelector('.project-form-select-tag');
+  const projFormSelectTag = document.querySelector('#project-form-select-tag');
   const todoFormSelectTag = document.querySelector('#todo-form-select-tag');
-  const editFormSelectTag = document.querySelector('#edit-project');
-  const editProjSelectTag = document.querySelector('#edit-project-todos');
-  const todoFormPopup = document.querySelector('#todo-form-container');
-  const editFormPopup = document.querySelector('#edit-todo-form-container');
-  const projectFormPopup = document.querySelector('#new-project-form-container');
-  const editProjFormPopup = document.querySelector('#edit-project-form-container')
+  const editFormSelectTag = document.querySelector('#edit-form-proj-select-tag');
+  const editProjSelectTag = document.querySelector('#edit-project-select-tag');
+  const todoFormContainer = document.querySelector('#todo-form-container');
+  const editFormContainer = document.querySelector('#edit-todo-form-container');
+  const projectFormContainer = document.querySelector('#new-project-form-container');
+  const editProjFormContainer = document.querySelector('#edit-project-form-container')
   const projectNameInput = document.querySelector('#edit-project-name')
 
 
   const _menuButtons = document.querySelectorAll('.menu-button');
   _menuButtons.forEach(button => {
+
     button.addEventListener('click', function(e) {
       highlightSelectedButton(e);    
       let currentMenu = findCurrentMenuSelected();
@@ -322,8 +345,6 @@ const todo = (() => {
   const _submitTodoForm = document.querySelector('#submit-todo-form');
   _submitTodoForm.addEventListener('click', createTodo);
 
-
-
   const _saveEditChangesButton = document.querySelector('#save-todo-changes');
   _saveEditChangesButton.addEventListener('click', saveEditChanges);
 
@@ -331,20 +352,29 @@ const todo = (() => {
   const _submitProjectForm = document.querySelector('#create-project');
   _submitProjectForm.addEventListener('click', createProject);
 
+  const _saveProjectChangesButton = document.querySelector('#save-project-changes');
+  _saveProjectChangesButton.addEventListener('click', saveProjectChanges)
+
+
 
 
   const _closeFormButtons = document.querySelectorAll('.close-form');
   _closeFormButtons.forEach(button => {
     button.addEventListener('click', function() {
       renderTodo.closeForm(findCurrentFormInUse())
-
     })
   });
 
 
 
-  const _saveProjectChangesButton = document.querySelector('#save-project-changes');
-  _saveProjectChangesButton.addEventListener('click', saveProjectChanges)
+
+
+
+
+
+
+
+
 
 
 
@@ -364,6 +394,9 @@ const todo = (() => {
       } 
     });
 
+
+    editProjFormContainer.firstElementChild.reset()
+
     renderTodo.closeForm(findCurrentFormInUse())
     renderTodo.updatePage(findCurrentMenuSelected())
   });
@@ -374,6 +407,7 @@ const todo = (() => {
     let proj = getProjectList()[indexOfProject]
 
     deleteFromList(proj, getProjectList())
+
     let optionsInTask = [...editProjSelectTag.options];
     optionsInTask.forEach(item => {
       if (item.value !== "") {
@@ -384,7 +418,7 @@ const todo = (() => {
 
     });
     
-    editProjFormPopup.firstElementChild.reset()
+    editProjFormContainer.firstElementChild.reset()
     renderTodo.closeForm(findCurrentFormInUse())
     renderTodo.updatePage(findCurrentMenuSelected())
 
@@ -392,11 +426,10 @@ const todo = (() => {
   })
 
 
-  
 
-  return { todoFormPopup, editFormPopup, projectFormPopup, editProjFormPopup, projFormSelectTag,
-    todoFormSelectTag, editFormSelectTag, editProjSelectTag, projectNameInput, deleteProjectButton, 
-    deleteAllButton, getTodoList, getProjectList, findIndexOf, tagEditSubmitButtonWithIndex, tagWithIndex }
+  return { projectNameInput, deleteProjectButton, deleteAllButton, projectFormContainer, todoFormContainer, editFormContainer, editProjFormContainer, 
+    projFormSelectTag, todoFormSelectTag, editFormSelectTag, editProjSelectTag, 
+    getTodoList, getProjectList, tagEditSubmitButtonWithIndex, tagWithIndex  }
 
 
 })();
