@@ -67,7 +67,7 @@ const renderTodo = (() => {
 
     array.forEach(item => {
       let newOption = document.createElement('option');
-      newOption.textContent = item;
+      typeof item == 'object'? newOption.textContent = item.title: newOption.textContent = item;
       selectTag.add(newOption)      
     });
 

@@ -110,6 +110,9 @@ const todo = (() => {
   const createTodo = function(e) {
     e.preventDefault();
 
+    let _menu = findCurrentMenuSelected();
+
+
 
     let _formData = captureFormData(_todoForm);
 
@@ -118,19 +121,22 @@ const todo = (() => {
   
     _todoList.push(_newTodo);
 
+    updateCounterData(_menu, getTodoList());
+
 
     _todoForm.reset();
     renderTodo.closeForm(findCurrentFormInUse());
     
     
-    let menu = findCurrentMenuSelected();
-    renderTodo.updatePage(menu)
+    renderTodo.updatePage(_menu)
   };  
   
   
 
   const createProject = (e) => {
     e.preventDefault();
+
+    let _currentMenu = findCurrentMenuSelected();
 
     let _projectData = captureFormData(_projectForm);
 
@@ -142,6 +148,7 @@ const todo = (() => {
     };
 
     _projectList.push(_projectName);
+    updateCounterData(_currentMenu, getProjectList())
 
 
     let _taskAddedToProj = [...projFormSelectTag.selectedOptions].map(option => option.value)
@@ -150,8 +157,8 @@ const todo = (() => {
 
 
 
-    let currentMenu = findCurrentMenuSelected();
-    renderTodo.updatePage(currentMenu)
+    
+    renderTodo.updatePage(_currentMenu)
 
     _projectForm.reset();
     renderTodo.closeForm(findCurrentFormInUse()); 
@@ -239,7 +246,13 @@ const todo = (() => {
     renderTodo.closeForm(findCurrentFormInUse());
     renderTodo.updatePage(findCurrentMenuSelected())
 
-  }
+  };
+
+
+
+  const updateCounterData = (button, list) => {
+    button.setAttribute('counter-data', list.length)  
+  };
 
 
 
@@ -342,6 +355,36 @@ const todo = (() => {
   });
 
 
+
+
+  // const root = document.querySelector(':root')
+  // root.style.setProperty("--pseudo-text", "New")
+  
+
+  const allTodoButton = document.querySelector('#all-todo-button')
+  allTodoButton.setAttribute('counter-data', getTodoList().length);
+
+
+  const todayButton = document.querySelector('#today-button')
+
+
+  const tomorrowButton = document.querySelector('#tomorrow-button')
+
+
+
+  const projectButton = document.querySelector('#projects-button');
+  projectButton.setAttribute('counter-data', getProjectList().length);
+
+
+
+
+
+
+
+
+
+
+
   const _submitTodoForm = document.querySelector('#submit-todo-form');
   _submitTodoForm.addEventListener('click', createTodo);
 
@@ -367,23 +410,14 @@ const todo = (() => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
   const deleteProjectButton = document.querySelector('.delete-project')
   deleteProjectButton.addEventListener('click', function(e) {
     let indexOfProject = e.target.dataset.overallIndex
-    let proj = getProjectList()[indexOfProject]
+    let proj = getProjectList()[indexOfProject];
+    let _menuCurrently = findCurrentMenuSelected();
 
     deleteFromList(proj, getProjectList())
+    updateCounterData(_menuCurrently, getProjectList())
 
     let optionsInTask = [...editProjSelectTag.options];
     optionsInTask.forEach(item => {

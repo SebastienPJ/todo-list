@@ -1,3 +1,7 @@
+/* :root {
+  --pseudo-counter: 'Yay'
+} */
+
 body {
   margin: 0;
 }
@@ -27,6 +31,10 @@ body {
   cursor: pointer;
   font-weight: bold;
   background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
 
 }
 
@@ -35,6 +43,13 @@ body {
   background-color: blanchedalmond;
 }
 
+/* 
+.menu-button::after {
+  content: attr(counter-data);
+  font-size: 1rem;
+  border: 1px solid black;
+  margin-left: 5px;
+} */
 
 .current-menu-selected {
   text-decoration: underline;
@@ -42,10 +57,20 @@ body {
 }
 
 
-.counter {
+#all-todo-button::after,
+#projects-button::after {
+  content: attr(counter-data);
+  font-size: 1rem;
   border: 1px solid black;
+  margin-left: 5px;
+  padding: 2px;
 
 }
+
+/* .counter {
+  border: 1px solid black;
+
+} */
 
 
 .todo-display {
