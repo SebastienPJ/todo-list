@@ -121,7 +121,6 @@ const todo = (() => {
   
     _todoList.push(_newTodo);
 
-    // updateCounterData(_menu, getTodoList());
     updateAllCounterData();
 
     _todoForm.reset();
@@ -148,7 +147,6 @@ const todo = (() => {
     };
 
     _projectList.push(_projectName);
-    // updateCounterData(_currentMenu, getProjectList())
     updateAllCounterData();
 
     let _taskAddedToProj = [...projFormSelectTag.selectedOptions].map(option => option.value)
@@ -411,6 +409,7 @@ const todo = (() => {
 
     let optionsInTask = [...editProjSelectTag.options];
     optionsInTask.forEach(item => {
+
       if (item.value !== "") {
         let itemIndex = item.dataset.overallIndex;
         let itemObj = getTodoList()[itemIndex];
@@ -426,8 +425,11 @@ const todo = (() => {
     renderTodo.updatePage(findCurrentMenuSelected())
   });
 
+
+
   const deleteAllButton = document.querySelector('.delete-all');
   deleteAllButton.addEventListener('click', function(e) {
+
     let indexOfProject = e.target.dataset.overallIndex
     let proj = getProjectList()[indexOfProject]
 
@@ -440,24 +442,20 @@ const todo = (() => {
         let itemObj = getTodoList()[itemIndex];
         deleteFromList(itemObj, getTodoList())
       } 
-
     });
 
     updateAllCounterData();
-
     
     editProjFormContainer.firstElementChild.reset()
     renderTodo.closeForm(findCurrentFormInUse())
-    renderTodo.updatePage(findCurrentMenuSelected())
-
-    
-  })
+    renderTodo.updatePage(findCurrentMenuSelected())    
+  });
 
 
 
   return { projectNameInput, deleteProjectButton, deleteAllButton, projectFormContainer, todoFormContainer, editFormContainer, editProjFormContainer, 
     projFormSelectTag, todoFormSelectTag, editFormSelectTag, editProjSelectTag, 
-    getTodoList, getProjectList, tagEditSubmitButtonWithIndex, tagWithIndex  }
+    getTodoList, getProjectList, tagEditSubmitButtonWithIndex, tagWithIndex, deleteFromList, findCurrentMenuSelected, updateAllCounterData }
 
 
 })();

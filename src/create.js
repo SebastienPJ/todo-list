@@ -1,5 +1,7 @@
 import { todo } from ".";
 import { renderTodo } from "./render";
+import Bin from './images/bin.png'
+
 
 
 
@@ -341,6 +343,31 @@ const createElements = (() => {
     };
   
     _visibleContent.appendChild(_dueDateContainer);
+
+
+
+    const _deleteBinContainer = document.createElement('div');
+    _deleteBinContainer.classList.add('delete-bin-container');
+    _visibleContent.appendChild(_deleteBinContainer);
+
+
+    const _deleteBin = document.createElement('button');
+    _deleteBin.classList.add('delete-bin-button');
+    _deleteBin.dataset['overallTaskIndex'] = index;
+
+    _deleteBin.addEventListener('click', function() {
+      todo.deleteFromList(task, todo.getTodoList());   
+      renderTodo.updatePage(todo.findCurrentMenuSelected());
+      todo.updateAllCounterData();
+    });
+
+    _deleteBinContainer.appendChild(_deleteBin);  
+
+    const _deleteIcon = document.createElement('img');
+    _deleteIcon.classList.add('delete-bin');
+    _deleteIcon.src = Bin;
+
+    _deleteBin.appendChild(_deleteIcon);
   
   
   
@@ -362,7 +389,7 @@ const createElements = (() => {
   
   
   
-    return {list, checkBox, label, editButton}
+    return {list, checkBox, label, editButton }
   }
    
 

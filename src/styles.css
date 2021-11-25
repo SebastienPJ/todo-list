@@ -1,7 +1,3 @@
-/* :root {
-  --pseudo-counter: 'Yay'
-} */
-
 body {
   margin: 0;
 }
@@ -43,13 +39,6 @@ body {
   background-color: blanchedalmond;
 }
 
-/* 
-.menu-button::after {
-  content: attr(counter-data);
-  font-size: 1rem;
-  border: 1px solid black;
-  margin-left: 5px;
-} */
 
 .current-menu-selected {
   text-decoration: underline;
@@ -66,11 +55,6 @@ body {
   padding: 2px;
 
 }
-
-/* .counter {
-  border: 1px solid black;
-
-} */
 
 
 .todo-display {
@@ -153,6 +137,23 @@ body {
 }
 
 
+.delete-bin {
+  width: 35px;
+ }
+ 
+.delete-bin-button {
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+  border-radius: 15px;
+  padding: 2px 5px;
+ }
+ 
+.delete-bin-button:hover {
+  background-color: lightgrey;
+ }
+
+
 .hidden-container {
   display: none;
   overflow: hidden;
@@ -215,20 +216,6 @@ body {
   height: 500px;
 
 }
-
-/* #todo-form {
-
-}
-
-
-#edit-todo-form,
-#new-project-form,
-#edit-project-form {
-
-
-} */
-
-
 
 
 
@@ -302,10 +289,6 @@ textarea {
 
 
 
-
-
-
-
 .project-container {
   border: 2px solid black;
   padding: 10px 0;
@@ -343,9 +326,3 @@ textarea {
   border: 1px solid black;
   font-weight: bold;
 }
-
-
-
-
-
-
