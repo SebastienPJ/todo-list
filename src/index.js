@@ -121,8 +121,8 @@ const todo = (() => {
   
     _todoList.push(_newTodo);
 
-    updateCounterData(_menu, getTodoList());
-
+    // updateCounterData(_menu, getTodoList());
+    updateAllCounterData();
 
     _todoForm.reset();
     renderTodo.closeForm(findCurrentFormInUse());
@@ -148,8 +148,8 @@ const todo = (() => {
     };
 
     _projectList.push(_projectName);
-    updateCounterData(_currentMenu, getProjectList())
-
+    // updateCounterData(_currentMenu, getProjectList())
+    updateAllCounterData();
 
     let _taskAddedToProj = [...projFormSelectTag.selectedOptions].map(option => option.value)
 
@@ -250,12 +250,17 @@ const todo = (() => {
 
 
 
-  const updateCounterData = (button, list) => {
-    button.setAttribute('counter-data', list.length)  
-  };
+
+  const updateAllCounterData = () => {
+
+    const _taskList = getTodoList();
+    const _projList = getProjectList();
+
+    _allTodoButton.setAttribute('counter-data', _taskList.length);
+    _projectButton.setAttribute('counter-data', _projList.length);
 
 
-
+  }
 
 
 
@@ -357,30 +362,14 @@ const todo = (() => {
 
 
 
-  // const root = document.querySelector(':root')
-  // root.style.setProperty("--pseudo-text", "New")
+  const _todayButton = document.querySelector('#today-button');
+  const _tomorrowButton = document.querySelector('#tomorrow-button');
+  const _allTodoButton = document.querySelector('#all-todo-button')
+  const _projectButton = document.querySelector('#projects-button');
   
 
-  const allTodoButton = document.querySelector('#all-todo-button')
-  allTodoButton.setAttribute('counter-data', getTodoList().length);
-
-
-  const todayButton = document.querySelector('#today-button')
-
-
-  const tomorrowButton = document.querySelector('#tomorrow-button')
-
-
-
-  const projectButton = document.querySelector('#projects-button');
-  projectButton.setAttribute('counter-data', getProjectList().length);
-
-
-
-
-
-
-
+  _allTodoButton.setAttribute('counter-data', getTodoList().length);
+  _projectButton.setAttribute('counter-data', getProjectList().length);
 
 
 
@@ -417,7 +406,8 @@ const todo = (() => {
     let _menuCurrently = findCurrentMenuSelected();
 
     deleteFromList(proj, getProjectList())
-    updateCounterData(_menuCurrently, getProjectList())
+    
+
 
     let optionsInTask = [...editProjSelectTag.options];
     optionsInTask.forEach(item => {
@@ -428,6 +418,7 @@ const todo = (() => {
       } 
     });
 
+    updateAllCounterData();
 
     editProjFormContainer.firstElementChild.reset()
 
@@ -440,7 +431,7 @@ const todo = (() => {
     let indexOfProject = e.target.dataset.overallIndex
     let proj = getProjectList()[indexOfProject]
 
-    deleteFromList(proj, getProjectList())
+    deleteFromList(proj, getProjectList());
 
     let optionsInTask = [...editProjSelectTag.options];
     optionsInTask.forEach(item => {
@@ -451,6 +442,9 @@ const todo = (() => {
       } 
 
     });
+
+    updateAllCounterData();
+
     
     editProjFormContainer.firstElementChild.reset()
     renderTodo.closeForm(findCurrentFormInUse())
