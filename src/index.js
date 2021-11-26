@@ -307,7 +307,8 @@ const todo = (() => {
 
 
 
- 
+  // const _todoList = []
+
   const _todoList = [
     {
       title: "Complete Presentation",
@@ -346,8 +347,8 @@ const todo = (() => {
 
 
   let _dueToday = _todoList.filter(todo => isToday(todo.dueDate))
-  console.log(_dueToday);
-  console.log(isToday(_todoList[1].dueDate))
+  // console.log(_dueToday);
+  // console.log(isToday(_todoList[1].dueDate))
   
 
 

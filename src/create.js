@@ -81,10 +81,6 @@ const createElements = (() => {
 
 
   const createAllTodosList = () => {
-    const _listContainer = document.createElement('div');
-
-    const _unorderdList = document.createElement('ul');
-    _listContainer.appendChild(_unorderdList);
 
     let _allTasksArray = todo.getTodoList();
 
@@ -95,24 +91,14 @@ const createElements = (() => {
       return _noTodosMessage;
     };
 
-    _allTasksArray.forEach(_task => {
-      let _overallTodoIndex = _allTasksArray.indexOf(_task);
 
-      let _listElement = listFactory(_task, _overallTodoIndex);
+    const _listContainer = document.createElement('div');
 
-      _unorderdList.appendChild(_listElement.list);
+    let uL = createListOfTasks(_allTasksArray, _allTasksArray)
 
-
-      _listElement.checkBox.dataset['overallIndex'] = _overallTodoIndex;
-      _listElement.checkBox.name = `task${_overallTodoIndex}`;
-      _listElement.checkBox.id = `task${_overallTodoIndex}`;
+    _listContainer.appendChild(uL);
 
 
-
-      _listElement.label.setAttribute('for', `task${_overallTodoIndex}`);
-
-
-    });
 
     return _listContainer
 
@@ -122,40 +108,27 @@ const createElements = (() => {
 
 
   const createTodayList = () => {
-    const _listContainer = document.createElement('div');
 
-    const _unorderdList = document.createElement('ul');
-    _listContainer.appendChild(_unorderdList);
-
-    let _dueTodayArray = todo.getTodayList();
+    let _dueTodayList = todo.getTodayList();
     let _allTasksArray = todo.getTodoList();
 
-    if (_dueTodayArray.length == 0) {
+
+    if (_dueTodayList.length == 0) {
       const _noTodosMessage = document.createElement('p');
       _noTodosMessage.textContent = 'YAY! No tasks do today'
 
       return _noTodosMessage;
     };
 
-    _dueTodayArray.forEach(_task => {
-      let _overallTodoIndex = _allTasksArray.indexOf(_task);
-
-      let _listElement = listFactory(_task, _overallTodoIndex);
-
-      _unorderdList.appendChild(_listElement.list);
+    const _listContainer = document.createElement('div');
 
 
-      _listElement.checkBox.dataset['overallIndex'] = _overallTodoIndex;
-      _listElement.checkBox.name = `task${_overallTodoIndex}`;
-      _listElement.checkBox.id = `task${_overallTodoIndex}`;
+    let uL = createListOfTasks(_dueTodayList, _allTasksArray)
+
+    _listContainer.appendChild(uL);
 
 
-
-      _listElement.label.setAttribute('for', `task${_overallTodoIndex}`);
-
-
-    });
-
+    
     return _listContainer
 
 
@@ -164,7 +137,7 @@ const createElements = (() => {
 
   const createProjectsList = () => {
 
-    const _listOfTasks = todo.getTodoList();
+    const _listOfAllTasks = todo.getTodoList();
     const _listOfProjects = todo.getProjectList();
 
 
@@ -196,7 +169,7 @@ const createElements = (() => {
       _projHeader.appendChild(_projNameSection);
 
 
-      let _tasksBelongingToProj = _listOfTasks.filter(task => task.project == _projectName)
+      let _tasksBelongingToProj = _listOfAllTasks.filter(task => task.project == _projectName)
 
       const _editProjButton = document.createElement('button');
       _editProjButton.textContent = 'Edit Project';
@@ -227,30 +200,13 @@ const createElements = (() => {
 
 
 
-      const _uL = document.createElement('ul');
-      _projContainer.appendChild(_uL)
+      const _listContainer = document.createElement('div');
 
+      let uL = createListOfTasks(_tasksBelongingToProj, _listOfAllTasks)
 
+      _listContainer.appendChild(uL);
 
-      _tasksBelongingToProj.forEach(_task => {
-        let _overallTaskIndex = todo.getTodoList().indexOf(_task)
-        let _taskIndexLocal = _tasksBelongingToProj.indexOf(_task);
-
-
-        let _listTag = listFactory(_task, _overallTaskIndex)
-
-        _uL.appendChild(_listTag.list);
-
-        
-        _listTag.checkBox.dataset['projectIndex'] = _projIndex;
-        _listTag.checkBox.dataset['localTaskIndex'] = _taskIndexLocal; 
-        _listTag.checkBox.name = `obj${_projIndex}task${_taskIndexLocal}`;    
-        _listTag.checkBox.id = `obj${_projIndex}task${_taskIndexLocal}`;  
-  
-  
-
-        _listTag.label.setAttribute('for', `obj${_projIndex}task${_taskIndexLocal}`);
-      });
+      _projContainer.appendChild(_listContainer)   
       
 
     })
@@ -264,195 +220,210 @@ const createElements = (() => {
 
 
 
+  const createListOfTasks = (listOfTasks, allTodosArray) => {
 
-  const listFactory = (task, index) => {
-    const list = document.createElement('li');
-    list.classList.add('list');
+    const _unorderedList = document.createElement('ul');
   
   
+    listOfTasks.forEach(task => {
   
-    let _visibleContent = document.createElement('div');
-    _visibleContent.classList.add('shown-content');
-    list.appendChild(_visibleContent);
-  
-  
-    let checkBox = document.createElement('input');
-    checkBox.setAttribute('type', 'checkbox');
-    checkBox.classList.add('checkbox');
-
-    checkBox.addEventListener('click', (e) => {
-      renderTodo.toggleTaskComplete(e);
-      // todo.updateObject()
-    });
-  
-    _visibleContent.appendChild(checkBox);
+      let _overallTaskIndex = allTodosArray.indexOf(task);
   
   
-  
-    let label = document.createElement('label');
-    label.classList.add('task-label');
-    label.textContent = task.title;
-    _visibleContent.appendChild(label);
-  
-  
-  
-    let _priorityMarker = document.createElement('div');
-    _priorityMarker.classList.add('priority-marker');
-  
-  
-    switch (task.priority) {
-      case 'high':
-        _priorityMarker.style.display = 'inline-block'
-        _priorityMarker.style.backgroundColor = HIGH_PRIORITY;
-        break;
+      const list = document.createElement('li');
+      list.classList.add('list');
     
+    
+    
+      let _visibleContent = document.createElement('div');
+      _visibleContent.classList.add('shown-content');
+      list.appendChild(_visibleContent);
   
   
-      case 'medium':
-        _priorityMarker.style.display = 'inline-block'
-        _priorityMarker.style.backgroundColor = MEDIUM_PRIORITY;
-        break;
+      let checkBox = document.createElement('input');
+      checkBox.setAttribute('type', 'checkbox');
+      checkBox.classList.add('checkbox');
   
+      checkBox.dataset['overallTaskIndex'] = _overallTaskIndex;
+      checkBox.name = `task${_overallTaskIndex}`;
+      checkBox.id = `task${_overallTaskIndex}`;
+  
+      checkBox.addEventListener('click', (e) => {
+        renderTodo.toggleTaskComplete(e);
+        // todo.updateObject()
+      });
+  
+      _visibleContent.appendChild(checkBox);
+  
+  
+  
+      let label = document.createElement('label');
+      label.classList.add('task-label');
+      label.textContent = task.title;
+  
+      label.setAttribute('for', `task${_overallTaskIndex}`);
+  
+      _visibleContent.appendChild(label);
+  
+  
+  
+  
+      let _priorityMarker = document.createElement('div');
+      _priorityMarker.classList.add('priority-marker');
+    
+    
+      switch (task.priority) {
+        case 'high':
+          _priorityMarker.style.display = 'inline-block'
+          _priorityMarker.style.backgroundColor = HIGH_PRIORITY;
+          break;
       
-  
-  
-      case 'low':
-        _priorityMarker.style.display = 'inline-block'
-        _priorityMarker.style.backgroundColor = LOW_PRIORITY;
-        break;
-  
-  
-  
-      default:
-        _priorityMarker.style.display = 'none'
-        break;
-    };
-  
-    _visibleContent.appendChild(_priorityMarker);
-  
-  
-  
-    let editButton = document.createElement('button');
-    editButton.classList.add('hide', 'edit-task-button')
-    editButton.textContent = 'edit';
-    editButton.dataset['overallTaskIndex'] = index;
-    editButton.addEventListener('click', (e) => {
-      renderTodo.openForm(todo.editFormContainer);
-      renderTodo.addItemsToFormOptions(todo.editFormSelectTag, todo.getProjectList());
-      renderTodo.prefillEditForm(e);
-      todo.tagEditSubmitButtonWithIndex(e); /// LOOK INTO CHANGING THIS
-
-    })
-  
-  
-    _visibleContent.appendChild(editButton);
+    
+    
+        case 'medium':
+          _priorityMarker.style.display = 'inline-block'
+          _priorityMarker.style.backgroundColor = MEDIUM_PRIORITY;
+          break;
+    
+        
+    
+    
+        case 'low':
+          _priorityMarker.style.display = 'inline-block'
+          _priorityMarker.style.backgroundColor = LOW_PRIORITY;
+          break;
+    
+    
+    
+        default:
+          _priorityMarker.style.display = 'none'
+          break;
+      };
+    
+      _visibleContent.appendChild(_priorityMarker);
   
   
   
+      let editButton = document.createElement('button');
+      editButton.classList.add('hide', 'edit-task-button')
+      editButton.textContent = 'edit';
+      editButton.dataset['overallTaskIndex'] = _overallTaskIndex;
+      editButton.addEventListener('click', (e) => {
+        renderTodo.openForm(todo.editFormContainer);
+        renderTodo.addItemsToFormOptions(todo.editFormSelectTag, todo.getProjectList());
+        renderTodo.prefillEditForm(e);
+        todo.tagEditSubmitButtonWithIndex(e); /// LOOK INTO CHANGING THIS
   
-    let _expandButton = document.createElement('button');
-    _expandButton.classList.add('hide', 'expand-button')
-    _expandButton.textContent = 'expand'
-  
-    _expandButton.addEventListener('click', function() {
-
-      this.classList.toggle('active');
-      this.classList.toggle('hide');
-      this.previousSibling.classList.toggle('hide');
-      this.previousSibling.classList.toggle('active');
-      this.textContent == 'expand'? this.textContent = 'collapse' : this.textContent = 'expand';
-  
-  
-      let _hiddenContent = this.parentElement.nextElementSibling;
-      if (_hiddenContent.style.display === 'block') {
-        _hiddenContent.style.display = 'none';
-      } else {
-        _hiddenContent.style.display = 'block';
-      }
-    });
-  
-    _visibleContent.appendChild(_expandButton);
+      })
+    
+    
+      _visibleContent.appendChild(editButton);  
   
   
+      let _expandButton = document.createElement('button');
+      _expandButton.classList.add('hide', 'expand-button')
+      _expandButton.textContent = 'expand'
+    
+      _expandButton.addEventListener('click', function() {
+  
+        this.classList.toggle('active');
+        this.classList.toggle('hide');
+        this.previousSibling.classList.toggle('hide');
+        this.previousSibling.classList.toggle('active');
+        this.textContent == 'expand'? this.textContent = 'collapse' : this.textContent = 'expand';
+    
+    
+        let _hiddenContent = this.parentElement.nextElementSibling;
+        if (_hiddenContent.style.display === 'block') {
+          _hiddenContent.style.display = 'none';
+        } else {
+          _hiddenContent.style.display = 'block';
+        }
+      });
+    
+      _visibleContent.appendChild(_expandButton);   
+    
+    
+    
+      let _projContainer = document.createElement('p');
+      _projContainer.classList.add('project-section');
+      if ('project' in task) {
+        _projContainer.textContent = `Project: ${task.project}`;
+      };
+    
+      _visibleContent.appendChild(_projContainer);
+    
+    
+    
+      let _dueDateContainer = document.createElement('p');
+      _dueDateContainer.classList.add('due-date-section');
+      if ('dueDate' in task) {
+        isThisYear(task.dueDate)? _dueDateContainer.textContent = `Due: ${format(task.dueDate, 'MMM dd')}`:
+                              _dueDateContainer.textContent = `Due: ${format(task.dueDate, 'MMM dd, yyyy')}`
+        
+      };
+    
+      _visibleContent.appendChild(_dueDateContainer);
   
   
-    let _projContainer = document.createElement('p');
-    _projContainer.classList.add('project-section');
-    if ('project' in task) {
-      _projContainer.textContent = `Project: ${task.project}`;
-    };
-  
-    _visibleContent.appendChild(_projContainer);
   
   
+      const _deleteBinContainer = document.createElement('div');
+      _deleteBinContainer.classList.add('delete-bin-container');
+      _visibleContent.appendChild(_deleteBinContainer);
   
-    let _dueDateContainer = document.createElement('p');
-    _dueDateContainer.classList.add('due-date-section');
-    if ('dueDate' in task) {
-      isThisYear(task.dueDate)? _dueDateContainer.textContent = `Due: ${format(task.dueDate, 'MMM dd')}`:
-                            _dueDateContainer.textContent = `Due: ${format(task.dueDate, 'MMM dd, yyyy')}`
+  
+      const _deleteBin = document.createElement('button');
+      _deleteBin.classList.add('delete-bin-button');
+      _deleteBin.dataset['overallTaskIndex'] = _overallTaskIndex;
+  
+      _deleteBin.addEventListener('click', function() {
+        todo.deleteFromList(task, todo.getTodoList());   
+        todo.updateDatedLists();
+        todo.updateAllCounterData();
+  
+        renderTodo.updatePage(todo.findCurrentMenuSelected());
+  
+  
+      });
+  
+      _deleteBinContainer.appendChild(_deleteBin);  
+  
+      const _deleteIcon = document.createElement('img');
+      _deleteIcon.classList.add('delete-bin');
+      _deleteIcon.src = Bin;
+  
+      _deleteBin.appendChild(_deleteIcon);
+    
+    
+    
+    
+      let _collapsedContainer = document.createElement('div');
+      _collapsedContainer.classList.add('hidden-container');
+    
+      list.appendChild(_collapsedContainer);
+    
+    
+    
+      let _notesContainer = document.createElement('div');
+      _notesContainer.classList.add('notes-container');
+      'notes' in task ? _notesContainer.textContent = task.notes : 
+                _notesContainer.textContent = 'No notes for this task. Edit task to add notes';
       
-    };
-  
-    _visibleContent.appendChild(_dueDateContainer);
+      _collapsedContainer.appendChild(_notesContainer);
 
 
-
-    const _deleteBinContainer = document.createElement('div');
-    _deleteBinContainer.classList.add('delete-bin-container');
-    _visibleContent.appendChild(_deleteBinContainer);
-
-
-    const _deleteBin = document.createElement('button');
-    _deleteBin.classList.add('delete-bin-button');
-    _deleteBin.dataset['overallTaskIndex'] = index;
-
-    _deleteBin.addEventListener('click', function() {
-      todo.deleteFromList(task, todo.getTodoList());   
-      todo.updateDatedLists();
-      todo.updateAllCounterData();
-
-      renderTodo.updatePage(todo.findCurrentMenuSelected());
-
-
+      _unorderedList.appendChild(list)
+      
     });
-
-    _deleteBinContainer.appendChild(_deleteBin);  
-
-    const _deleteIcon = document.createElement('img');
-    _deleteIcon.classList.add('delete-bin');
-    _deleteIcon.src = Bin;
-
-    _deleteBin.appendChild(_deleteIcon);
   
   
   
+    return _unorderedList
   
-    let _collapsedContainer = document.createElement('div');
-    _collapsedContainer.classList.add('hidden-container');
-  
-    list.appendChild(_collapsedContainer);
-  
-  
-  
-    let _notesContainer = document.createElement('div');
-    _notesContainer.classList.add('notes-container');
-    'notes' in task ? _notesContainer.textContent = task.notes : 
-              _notesContainer.textContent = 'No notes for this task. Edit task to add notes';
-    
-    _collapsedContainer.appendChild(_notesContainer);
-    
-  
-  
-  
-    return {list, checkBox, label, editButton }
   }
+ 
    
-
-
-
-
-
 
 
   const _contentContainer = document.querySelector('.todo-display');
