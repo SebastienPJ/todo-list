@@ -1,6 +1,7 @@
 import { todo } from ".";
 import { renderTodo } from "./render";
 import Bin from './images/bin.png'
+import { isDate, format, isToday, isThisYear } from "date-fns";
 
 
 
@@ -339,7 +340,9 @@ const createElements = (() => {
     let _dueDateContainer = document.createElement('p');
     _dueDateContainer.classList.add('due-date-section');
     if ('dueDate' in task) {
-      _dueDateContainer.textContent = `Due: ${task.dueDate}`;
+      isThisYear(task.dueDate)? _dueDateContainer.textContent = `Due: ${format(task.dueDate, 'MMM dd')}`:
+                            _dueDateContainer.textContent = `Due: ${format(task.dueDate, 'MMM dd, yyyy')}`
+      
     };
   
     _visibleContent.appendChild(_dueDateContainer);

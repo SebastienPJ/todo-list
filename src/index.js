@@ -1,5 +1,6 @@
 import { renderTodo } from "./render";
 import './styles.css';
+import { addDays, format, isToday, isTomorrow, startOfDay, startOfToday, startOfTomorrow, isDate, parseISO } from "date-fns";
 
 const todo = (() => {
 
@@ -16,8 +17,9 @@ const todo = (() => {
 
 
   const todoFactory = (data) => {
+   
     let title = data.get('title');
-    let dueDate = data.get('due-date');
+    let dueDate = parseISO(data.get('due-date'));
     let priority = data.get('priority');
     let isTodoDone = 'no';
     let project = data.get('part-of-project');
@@ -120,6 +122,15 @@ const todo = (() => {
 
   
     _todoList.push(_newTodo);
+
+
+    // console.log(typeof _newTodo.dueDate);
+
+    if (isToday(_newTodo.dueDate)) {
+      _dueToday.push(_newTodo)
+    }
+
+    console.log(_dueToday);
 
     updateAllCounterData();
 
@@ -289,7 +300,7 @@ const todo = (() => {
   const _todoList = [
     {
       title: "Complete Presentation",
-      dueDate: "2021-12-10",
+      dueDate: parseISO('2021-11-10'),
       priority: "medium",
       isTodoDone: "no",
       notes: "Notes on meeting prep",
@@ -298,7 +309,7 @@ const todo = (() => {
 
     {
       title: "Do groceries",
-      dueDate: "2021-11-18",
+      dueDate: parseISO('2021-11-25'),
       priority: "high",
       isTodoDone: "no",
       notes: 'go to walmart cheap food',
@@ -307,7 +318,7 @@ const todo = (() => {
 
     {
       title: "Fix Car Issues",
-      dueDate: "2021-12-10",
+      dueDate: parseISO('2021-11-20'),
       priority: "medium",
       isTodoDone: "no",
       notes: "vroom vroom",
@@ -321,9 +332,35 @@ const todo = (() => {
   const _projectList = ['Home', 'Work', 'Car'];
 
   // const _projectList = [];
+
+
+  const _dueToday = []
   
 
 
+  // const today = new Date(2021, 10, 25);
+  // const formattedDay = format(today, 'MMM dd, yyyy')
+
+  // console.log(typeof formattedDay);
+  // console.log(typeof today);
+  // console.log(isToday(today));
+  // console.log(isToday(formattedDay));
+  // console.log(typeof today);
+  // const tomorrow = addDays(today, 1)
+  // const todayStart = startOfDay(today)
+  // console.log(tomorrow);
+
+  // console.log(format(today, 'MMM dd, yyyy'))
+  
+  // console.log(todayStart);
+  const day = '2021-11-25'
+  const formattedDate = parseISO(day)
+  // console.log(isToday(parseISO(formattedDate)));
+  // console.log(formattedDate);
+
+  const reformat = format(formattedDate, 'yyyy-MM-dd')
+  // console.log(reformat);
+  // console.log(parseISO(formattedDate));
 
 
 

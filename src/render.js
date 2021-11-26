@@ -145,34 +145,6 @@ const renderTodo = (() => {
 
 
 
-  // const addTodosToFormOptions = (selectTag, allTodosArray) => {
-  //   clearOldOptions(selectTag);
-
-  //   allTodosArray.forEach(todo => {
-  //     let newOption = document.createElement('option');
-  //     newOption.textContent = todo.title
-  //     selectTag.add(newOption)      
-  //   });    
-
-
-  // };
-
-
-
-  // const addProjectsToFormOptions= (selectTag, allProjectsArray) => {
-  //   clearOldOptions(selectTag);
-
-  //   allProjectsArray.forEach(project => {
-  //     let option = document.createElement('option');
-  //     option.textContent = project
-  //     selectTag.add(option)      
-  //   });
-  // };
-
-
-
-
-
   const _contentDisplay = document.querySelector('.todo-display');
 
   const _editForm = document.querySelector('#edit-todo-form');  
