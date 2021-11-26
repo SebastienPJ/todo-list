@@ -47,7 +47,8 @@ body {
 
 
 #all-todo-button::after,
-#projects-button::after {
+#projects-button::after,
+#today-button:after {
   content: attr(counter-data);
   font-size: 1rem;
   border: 1px solid black;

@@ -40,6 +40,10 @@ const todo = (() => {
     return _projectList;
   };
 
+  const getTodayList = () => {
+    return _dueToday
+  }
+
   const captureFormData = (form) => {
     return new FormData(form)
   };
@@ -124,13 +128,13 @@ const todo = (() => {
     _todoList.push(_newTodo);
 
 
-    // console.log(typeof _newTodo.dueDate);
 
     if (isToday(_newTodo.dueDate)) {
       _dueToday.push(_newTodo)
     }
 
     console.log(_dueToday);
+    // console.log(getTodoList()[-1] === getTodayList[-1])
 
     updateAllCounterData();
 
@@ -158,6 +162,7 @@ const todo = (() => {
     };
 
     _projectList.push(_projectName);
+
     updateAllCounterData();
 
     let _taskAddedToProj = [...projFormSelectTag.selectedOptions].map(option => option.value)
@@ -264,11 +269,17 @@ const todo = (() => {
 
     const _taskList = getTodoList();
     const _projList = getProjectList();
+    const _totayList = getTodayList();
 
     _allTodoButton.setAttribute('counter-data', _taskList.length);
     _projectButton.setAttribute('counter-data', _projList.length);
+    _todayButton.setAttribute('counter-data', _dueToday.length)
 
 
+  }
+
+  const updateDatedLists = () => {
+    _dueToday = _todoList.filter(todo => isToday(todo.dueDate));
   }
 
 
@@ -309,7 +320,7 @@ const todo = (() => {
 
     {
       title: "Do groceries",
-      dueDate: parseISO('2021-11-25'),
+      dueDate: parseISO('2021-11-26'),
       priority: "high",
       isTodoDone: "no",
       notes: 'go to walmart cheap food',
@@ -334,33 +345,11 @@ const todo = (() => {
   // const _projectList = [];
 
 
-  const _dueToday = []
+  let _dueToday = _todoList.filter(todo => isToday(todo.dueDate))
+  console.log(_dueToday);
+  console.log(isToday(_todoList[1].dueDate))
   
 
-
-  // const today = new Date(2021, 10, 25);
-  // const formattedDay = format(today, 'MMM dd, yyyy')
-
-  // console.log(typeof formattedDay);
-  // console.log(typeof today);
-  // console.log(isToday(today));
-  // console.log(isToday(formattedDay));
-  // console.log(typeof today);
-  // const tomorrow = addDays(today, 1)
-  // const todayStart = startOfDay(today)
-  // console.log(tomorrow);
-
-  // console.log(format(today, 'MMM dd, yyyy'))
-  
-  // console.log(todayStart);
-  const day = '2021-11-25'
-  const formattedDate = parseISO(day)
-  // console.log(isToday(parseISO(formattedDate)));
-  // console.log(formattedDate);
-
-  const reformat = format(formattedDate, 'yyyy-MM-dd')
-  // console.log(reformat);
-  // console.log(parseISO(formattedDate));
 
 
 
@@ -405,6 +394,7 @@ const todo = (() => {
 
   _allTodoButton.setAttribute('counter-data', getTodoList().length);
   _projectButton.setAttribute('counter-data', getProjectList().length);
+  _todayButton.setAttribute('counter-data', getTodayList().length);
 
 
 
@@ -428,7 +418,9 @@ const todo = (() => {
   const _closeFormButtons = document.querySelectorAll('.close-form');
   _closeFormButtons.forEach(button => {
     button.addEventListener('click', function() {
-      renderTodo.closeForm(findCurrentFormInUse())
+      let _formContainer = findCurrentFormInUse();
+      _formContainer.firstElementChild.reset();
+      renderTodo.closeForm(_formContainer);
     })
   });
 
@@ -481,8 +473,12 @@ const todo = (() => {
       } 
     });
 
+
+    updateDatedLists()
+
     updateAllCounterData();
     
+
     editProjFormContainer.firstElementChild.reset()
     renderTodo.closeForm(findCurrentFormInUse())
     renderTodo.updatePage(findCurrentMenuSelected())    
@@ -492,7 +488,7 @@ const todo = (() => {
 
   return { projectNameInput, deleteProjectButton, deleteAllButton, projectFormContainer, todoFormContainer, editFormContainer, editProjFormContainer, 
     projFormSelectTag, todoFormSelectTag, editFormSelectTag, editProjSelectTag, 
-    getTodoList, getProjectList, tagEditSubmitButtonWithIndex, tagWithIndex, deleteFromList, findCurrentMenuSelected, updateAllCounterData }
+    getTodoList, getProjectList, getTodayList, tagEditSubmitButtonWithIndex, tagWithIndex, deleteFromList, findCurrentMenuSelected, updateAllCounterData, updateDatedLists }
 
 
 })();

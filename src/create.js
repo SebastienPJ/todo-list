@@ -68,7 +68,7 @@ const createElements = (() => {
 
     const returnedList = {
       'All ToDos': createAllTodosList,
-      // 'Today': todayList,
+      'Today': createTodayList,
       // 'Tomorrow': tomorrowList,
       'Projects': createProjectsList,
 
@@ -87,6 +87,13 @@ const createElements = (() => {
     _listContainer.appendChild(_unorderdList);
 
     let _allTasksArray = todo.getTodoList();
+
+    if (_allTasksArray.length == 0) {
+      const _noTodosMessage = document.createElement('p');
+      _noTodosMessage.textContent = 'No tasks yet created, click button to create a new task'
+
+      return _noTodosMessage;
+    };
 
     _allTasksArray.forEach(_task => {
       let _overallTodoIndex = _allTasksArray.indexOf(_task);
@@ -111,6 +118,48 @@ const createElements = (() => {
 
 
   };
+
+
+
+  const createTodayList = () => {
+    const _listContainer = document.createElement('div');
+
+    const _unorderdList = document.createElement('ul');
+    _listContainer.appendChild(_unorderdList);
+
+    let _dueTodayArray = todo.getTodayList();
+    let _allTasksArray = todo.getTodoList();
+
+    if (_dueTodayArray.length == 0) {
+      const _noTodosMessage = document.createElement('p');
+      _noTodosMessage.textContent = 'YAY! No tasks do today'
+
+      return _noTodosMessage;
+    };
+
+    _dueTodayArray.forEach(_task => {
+      let _overallTodoIndex = _allTasksArray.indexOf(_task);
+
+      let _listElement = listFactory(_task, _overallTodoIndex);
+
+      _unorderdList.appendChild(_listElement.list);
+
+
+      _listElement.checkBox.dataset['overallIndex'] = _overallTodoIndex;
+      _listElement.checkBox.name = `task${_overallTodoIndex}`;
+      _listElement.checkBox.id = `task${_overallTodoIndex}`;
+
+
+
+      _listElement.label.setAttribute('for', `task${_overallTodoIndex}`);
+
+
+    });
+
+    return _listContainer
+
+
+  }
 
 
   const createProjectsList = () => {
@@ -360,8 +409,12 @@ const createElements = (() => {
 
     _deleteBin.addEventListener('click', function() {
       todo.deleteFromList(task, todo.getTodoList());   
-      renderTodo.updatePage(todo.findCurrentMenuSelected());
+      todo.updateDatedLists();
       todo.updateAllCounterData();
+
+      renderTodo.updatePage(todo.findCurrentMenuSelected());
+
+
     });
 
     _deleteBinContainer.appendChild(_deleteBin);  

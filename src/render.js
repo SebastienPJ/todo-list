@@ -38,7 +38,6 @@ const renderTodo = (() => {
 
 
   const closeForm = (formChosen) => {
-    ////// Need to reset form when being closed, now data stays
     formChosen.classList.remove('current-form-inuse');
     formChosen.setAttribute('style', 'display: none');
 
