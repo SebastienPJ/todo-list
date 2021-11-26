@@ -37,11 +37,15 @@ const todo = (() => {
 
 
   const getProjectList = () => {
-    return _projectList;
+    return _projectList
   };
 
   const getTodayList = () => {
     return _dueToday
+  };
+
+  const getTomorrowList = () => {
+    return _dueTomorrow
   }
 
   const captureFormData = (form) => {
@@ -127,14 +131,7 @@ const todo = (() => {
   
     _todoList.push(_newTodo);
 
-
-
-    if (isToday(_newTodo.dueDate)) {
-      _dueToday.push(_newTodo)
-    }
-
-    console.log(_dueToday);
-    // console.log(getTodoList()[-1] === getTodayList[-1])
+    updateDatedLists();
 
     updateAllCounterData();
 
@@ -267,19 +264,17 @@ const todo = (() => {
 
   const updateAllCounterData = () => {
 
-    const _taskList = getTodoList();
-    const _projList = getProjectList();
-    const _totayList = getTodayList();
-
-    _allTodoButton.setAttribute('counter-data', _taskList.length);
-    _projectButton.setAttribute('counter-data', _projList.length);
+    _allTodoButton.setAttribute('counter-data', _todoList.length);
+    _projectButton.setAttribute('counter-data', _projectList.length);
     _todayButton.setAttribute('counter-data', _dueToday.length)
+    _tomorrowButton.setAttribute('counter-data', _dueTomorrow.length)
 
 
   }
 
   const updateDatedLists = () => {
     _dueToday = _todoList.filter(todo => isToday(todo.dueDate));
+    _dueTomorrow = _todoList.filter(todo => isTomorrow(todo.dueDate));
   }
 
 
@@ -335,20 +330,48 @@ const todo = (() => {
       isTodoDone: "no",
       notes: "vroom vroom",
       project: "Home"
-    }
+    },
+
+    {
+      title: "Do some stuff",
+      dueDate: parseISO('2021-11-27'),
+      priority: "low",
+      isTodoDone: "no",
+      notes: 'go to walmart cheap food',
+      project: "Home"
+    },
+
+    {
+      title: "Do some secret stuff",
+      dueDate: parseISO('2021-11-26'),
+      priority: "medium",
+      isTodoDone: "no",
+      notes: 'go to walmart cheap food',
+      project: "Home"
+    },
+
+    {
+      title: "Watch movies",
+      dueDate: parseISO('2021-11-27'),
+      priority: "high",
+      isTodoDone: "no",
+      notes: 'go to walmart cheap food',
+      project: "Home"
+    },
   ];
 
 
 
 
   const _projectList = ['Home', 'Work', 'Car'];
-
   // const _projectList = [];
 
 
-  let _dueToday = _todoList.filter(todo => isToday(todo.dueDate))
-  // console.log(_dueToday);
-  // console.log(isToday(_todoList[1].dueDate))
+  let _dueToday = _todoList.filter(todo => isToday(todo.dueDate));
+
+
+  let _dueTomorrow = _todoList.filter(todo => isTomorrow(todo.dueDate));
+
   
 
 
@@ -393,9 +416,10 @@ const todo = (() => {
   const _projectButton = document.querySelector('#projects-button');
   
 
-  _allTodoButton.setAttribute('counter-data', getTodoList().length);
-  _projectButton.setAttribute('counter-data', getProjectList().length);
-  _todayButton.setAttribute('counter-data', getTodayList().length);
+  _allTodoButton.setAttribute('counter-data', _todoList.length);
+  _projectButton.setAttribute('counter-data', _projectList.length);
+  _todayButton.setAttribute('counter-data', _dueToday.length);
+  _tomorrowButton.setAttribute('counter-data', _dueTomorrow.length)
 
 
 
@@ -489,7 +513,7 @@ const todo = (() => {
 
   return { projectNameInput, deleteProjectButton, deleteAllButton, projectFormContainer, todoFormContainer, editFormContainer, editProjFormContainer, 
     projFormSelectTag, todoFormSelectTag, editFormSelectTag, editProjSelectTag, 
-    getTodoList, getProjectList, getTodayList, tagEditSubmitButtonWithIndex, tagWithIndex, deleteFromList, findCurrentMenuSelected, updateAllCounterData, updateDatedLists }
+    getTodoList, getProjectList, getTodayList, getTomorrowList, tagEditSubmitButtonWithIndex, tagWithIndex, deleteFromList, findCurrentMenuSelected, updateAllCounterData, updateDatedLists }
 
 
 })();

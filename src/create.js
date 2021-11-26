@@ -69,7 +69,7 @@ const createElements = (() => {
     const returnedList = {
       'All ToDos': createAllTodosList,
       'Today': createTodayList,
-      // 'Tomorrow': tomorrowList,
+      'Tomorrow': createTomorrowList,
       'Projects': createProjectsList,
 
     };
@@ -124,6 +124,35 @@ const createElements = (() => {
 
 
     let uL = createListOfTasks(_dueTodayList, _allTasksArray)
+
+    _listContainer.appendChild(uL);
+
+
+    
+    return _listContainer
+
+
+  };
+
+
+
+  const createTomorrowList = () => {
+
+    let _dueTomorrowList = todo.getTomorrowList();
+    let _allTasksArray = todo.getTodoList();
+
+
+    if (_dueTomorrowList.length == 0) {
+      const _noTodosMessage = document.createElement('p');
+      _noTodosMessage.textContent = 'YAY! No tasks do tomorrow'
+
+      return _noTodosMessage;
+    };
+
+    const _listContainer = document.createElement('div');
+
+
+    let uL = createListOfTasks(_dueTomorrowList, _allTasksArray)
 
     _listContainer.appendChild(uL);
 
