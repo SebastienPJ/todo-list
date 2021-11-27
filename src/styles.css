@@ -11,13 +11,8 @@ body {
 
 
 .side-bar {
-  /* width: 30vw; */
-  /* height: 100vh; */
   border-right: 1px solid black;
   background-color: #5b78c7;
-  /* display: none; */
-  /* position: fixed; */
-  /* display: flex; */
 }
 
 
@@ -70,11 +65,10 @@ body {
 
 
 .todo-display {
-  /* width: 70vw; */
+  width: 70vw;
   height: 100vh;
   position: relative;
   margin: 2vw;
-  border: 1px solid violet
 }
 
 
@@ -109,45 +103,78 @@ body {
   width: 15px;
   border-radius: 50%;
   display: inline-block;
-  margin-left: 10px;
+  margin-left: 5px;
   vertical-align: middle;
 }
 
+.buttons-container {
+  display: flex;
+}
+
+.down-arrow,
+.up-arrow {
+  width: 20px;
+}
 
 
-.hide {
-  display: none;
-  margin-left: 20px;
+.collapse-button {
+  margin-left: 10px;
   font-size: 0.8rem;
+  background-color: transparent;
+  border-radius: 10px;
   border: none;
   cursor: pointer;
 }
 
+.edit-task-button,
+.expand-button {
+  margin-left: 10px;
+  font-size: 0.8rem;
+  background-color: transparent;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  display: none;
+}
 
-.list:hover .hide{
+
+
+.list:hover .show{
   display: inline-flex;
-  background-color: green;
+  background-color: transparent;
+}
+
+.hide {
+  display: none;
+}
+
+.hide-collapse {
+  display: none;
 }
 
 
 .active {
   display: inline-flex;
-  background-color: green;
-  margin-left: 20px;
-  font-size: 0.8rem;
-  border: none;
-  cursor: pointer;
 }
 
+.project-info {
+  border: 1px solid black;
+  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
 
 .project-section {
-  margin-left: auto;
-  margin-right: 20px;
+  border: 1px solid black;
+
 }
 
 
 .due-date-section {
-  padding-right: 10px;
+  border: 1px solid black;
+
 }
 
 
@@ -341,9 +368,7 @@ textarea {
   font-weight: bold;
 }
 
-h1 {
-  /* border: 1px solid black; */
-}
+
 
 .bar {
   width: 30px;
@@ -357,9 +382,6 @@ h1 {
 .toggle-menu {
   display: none;
 }
-.nav-links {
-  /* display: none; */
-}
 
 ul {
   padding: 0;
@@ -367,26 +389,31 @@ ul {
 
 
 
-@media screen and (max-width: 680px) {
+@media screen and (max-width: 780px) {
 
   .close {
     display: none;
   }
 
-  .toggle-menu {
-    z-index: 2;
-    /* position: absolute; */
-  
-  }
-   
-  .todo-display {
-    /* display: none; */
+
+  .todo-app {
+    display: block;
   }
 
+  .todo-display {
+    margin: 0 auto;
+    width: 95vw;
+  }
+
+  .toggle-menu {
+    z-index: 2;
+  }
+   
+ 
   .side-bar {
-    /* position: fixed; */
-    /* height: 100vh; */
-    /* width: 100%; */
+    height: 100px;
+    display: flex;
+
   }
   
   .toggle-menu {
@@ -401,12 +428,11 @@ ul {
     width: 100%;
     z-index: 1;
     display: flex;
-    /* display: none; */
     flex-direction: column;
     justify-content: space-around;
     padding: 20px 0;
-    clip-path: circle(100px at 10% -10%);
-    -webkit-clip-path: circle(100px at 10% -10%);
+    clip-path: circle(100px at 10% -50%);
+    -webkit-clip-path: circle(100px at 10% -50%);
     transition: all 1s ease-out;
 
     
@@ -419,15 +445,18 @@ ul {
   }
 
 
-  .side-bar {
-    display: flex;
+ .project-info {
+   font-size: .6rem;
+ }
+
+
+  .hide-small-window {
+    display: none;
   }
 
-  .todo-app {
-    display: block;
+  .show {
+    display: inline-flex;
   }
-
-
 
 
 

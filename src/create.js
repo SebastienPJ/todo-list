@@ -1,6 +1,9 @@
 import { todo } from ".";
 import { renderTodo } from "./render";
 import Bin from './images/bin.png'
+import Edit from './images/edit.png'
+import UpArrow from './images/up-arrow.png'
+import DownArrow from './images/down-arrow.png'
 import { isDate, format, isToday, isThisYear } from "date-fns";
 
 
@@ -333,9 +336,13 @@ const createElements = (() => {
       _visibleContent.appendChild(_priorityMarker);
   
   
-  
+      let buttons = document.createElement('div');
+      buttons.classList.add('buttons-container')
+      _visibleContent.appendChild(buttons)
+
+
       let editButton = document.createElement('button');
-      editButton.classList.add('hide', 'edit-task-button')
+      editButton.classList.add('show', 'edit-task-button')
       editButton.textContent = 'edit';
       editButton.dataset['overallTaskIndex'] = _overallTaskIndex;
       editButton.addEventListener('click', (e) => {
@@ -347,23 +354,27 @@ const createElements = (() => {
       })
     
     
-      _visibleContent.appendChild(editButton);  
+      buttons.appendChild(editButton);  
   
   
       let _expandButton = document.createElement('button');
-      _expandButton.classList.add('hide', 'expand-button')
-      _expandButton.textContent = 'expand'
+      _expandButton.classList.add('show', 'expand-button');
+
+      let expandIcon = new Image();
+      expandIcon.src = DownArrow;
+      expandIcon.classList.add('down-arrow');
+      _expandButton.appendChild(expandIcon);
     
       _expandButton.addEventListener('click', function() {
-  
-        this.classList.toggle('active');
-        this.classList.toggle('hide');
-        this.previousSibling.classList.toggle('hide');
+        this.classList.toggle('show'); 
+        this.classList.toggle('hide-small-window');
+        this.previousSibling.classList.toggle('show');
         this.previousSibling.classList.toggle('active');
-        this.textContent == 'expand'? this.textContent = 'collapse' : this.textContent = 'expand';
+        this.nextSibling.classList.toggle('hide-collapse');
+        this.nextSibling.classList.toggle('active')
+
     
-    
-        let _hiddenContent = this.parentElement.nextElementSibling;
+        let _hiddenContent = this.parentElement.parentElement.nextElementSibling;
         if (_hiddenContent.style.display === 'block') {
           _hiddenContent.style.display = 'none';
         } else {
@@ -371,9 +382,45 @@ const createElements = (() => {
         }
       });
     
-      _visibleContent.appendChild(_expandButton);   
+      buttons.appendChild(_expandButton);  
+      
+      
+         
+      let _collapseButton = document.createElement('button');
+      _collapseButton.classList.add('collapse-button', 'hide-collapse')
+
+      let collapseIcon = new Image();
+      collapseIcon.classList.add('up-arrow');
+      collapseIcon.src = UpArrow;
+      _collapseButton.appendChild(collapseIcon);
+
+      _collapseButton.addEventListener('click', function() {
+        this.classList.toggle('active');
+        this.classList.toggle('hide-collapse');
+        this.previousSibling.classList.toggle('show');
+        this.parentElement.firstElementChild.classList.toggle('show');
+        this.parentElement.firstElementChild.classList.toggle('active');
+
+  
+           
+        let _hiddenContent = this.parentElement.parentElement.nextElementSibling;
+        if (_hiddenContent.style.display === 'block') {
+          _hiddenContent.style.display = 'none';
+        } else {
+          _hiddenContent.style.display = 'block';
+        }
+
+      })
+
+      buttons.appendChild(_collapseButton)
     
     
+
+      let _projInfo = document.createElement('div');
+      _projInfo.classList.add('project-info');
+      _visibleContent.appendChild(_projInfo);
+
+
     
       let _projContainer = document.createElement('p');
       _projContainer.classList.add('project-section');
@@ -381,7 +428,7 @@ const createElements = (() => {
         _projContainer.textContent = `Project: ${task.project}`;
       };
     
-      _visibleContent.appendChild(_projContainer);
+      _projInfo.appendChild(_projContainer);
     
     
     
@@ -393,7 +440,7 @@ const createElements = (() => {
         
       };
     
-      _visibleContent.appendChild(_dueDateContainer);
+      _projInfo.appendChild(_dueDateContainer);
   
   
   

@@ -381,6 +381,7 @@ const todo = (() => {
     button.addEventListener('click', function(e) {
       highlightSelectedButton(e);    
       let currentMenu = findCurrentMenuSelected();
+      navLinks.classList.toggle('open');
       renderTodo.updatePage(currentMenu);
     });
 
