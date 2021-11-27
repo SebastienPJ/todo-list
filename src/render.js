@@ -1,6 +1,6 @@
 import { todo } from "./index";
 import { createElements } from "./create";
-
+import { format } from "date-fns";
 
 const renderTodo = (() => {
 
@@ -104,8 +104,8 @@ const renderTodo = (() => {
       _editNotes.value = _currentTodoObject.notes;
     };
 
-    if (_currentTodoObject.hasOwnProperty('dueDate')) {
-      _editDueDate.value = _currentTodoObject.dueDate;
+    if (_currentTodoObject.hasOwnProperty('dueDate') && _currentTodoObject.dueDate !== '') {
+      _editDueDate.value = format(_currentTodoObject.dueDate, 'yyyy-MM-dd');
     }
 
 

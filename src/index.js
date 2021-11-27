@@ -5,9 +5,17 @@ import { addDays, format, isToday, isTomorrow, parseISO } from "date-fns";
 const todo = (() => {
 
   const todoFactory = (data) => {
-   
+
+    console.log(data.get('part-of-project'))
+
     let title = data.get('title');
-    let dueDate = parseISO(data.get('due-date'));
+    let dueDate;
+
+    data.get('due-date') == '' ? dueDate = data.get('due-date')    
+                              :dueDate = parseISO(data.get('due-date'));
+
+    
+    
     let priority = data.get('priority');
     let isTodoDone = 'no';
     let project = data.get('part-of-project');

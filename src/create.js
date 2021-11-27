@@ -37,6 +37,11 @@ const createElements = (() => {
 
     let _todoTitlesList = todo.getTodoList().map(todo => todo.title);
 
+
+    const _buttonContainer = document.createElement('div');
+    _buttonContainer.classList.add('new-todo-button-container');
+
+
     const _todoButton = document.createElement('button');
     _todoButton.setAttribute('type', 'button');
     _todoButton.textContent = '+';
@@ -59,7 +64,9 @@ const createElements = (() => {
 
     }
 
-    return _todoButton
+    _buttonContainer.appendChild(_todoButton)
+
+    return _buttonContainer
     
   };
 
@@ -445,7 +452,7 @@ const createElements = (() => {
     
       let _projContainer = document.createElement('p');
       _projContainer.classList.add('project-section');
-      if ('project' in task) {
+      if ('project' in task && task.project !== '') {
         _projContainer.textContent = `Project: ${task.project}`;
       };
     
@@ -455,7 +462,7 @@ const createElements = (() => {
     
       let _dueDateContainer = document.createElement('p');
       _dueDateContainer.classList.add('due-date-section');
-      if ('dueDate' in task) {
+      if ('dueDate' in task && task.dueDate !== '') {
         isThisYear(task.dueDate)? _dueDateContainer.textContent = `Due: ${format(task.dueDate, 'MMM dd')}`:
                               _dueDateContainer.textContent = `Due: ${format(task.dueDate, 'MMM dd, yyyy')}`
         
