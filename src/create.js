@@ -230,6 +230,7 @@ const createElements = (() => {
 
 
       const _listContainer = document.createElement('div');
+      // _listContainer.classList.add('list-container')
 
       let uL = createListOfTasks(_tasksBelongingToProj, _listOfAllTasks)
 

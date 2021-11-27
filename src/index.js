@@ -1,20 +1,8 @@
 import { renderTodo } from "./render";
 import './styles.css';
-import { addDays, format, isToday, isTomorrow, startOfDay, startOfToday, startOfTomorrow, isDate, parseISO } from "date-fns";
+import { addDays, format, isToday, isTomorrow, parseISO } from "date-fns";
 
 const todo = (() => {
-
-  const deleteKeyFromObj = (key, objects) => {
-    objects.forEach(object => {
-      delete object[key]
-    })
-  }
-
-
-
-
-
-
 
   const todoFactory = (data) => {
    
@@ -51,15 +39,6 @@ const todo = (() => {
   const captureFormData = (form) => {
     return new FormData(form)
   };
-
-
-
-
-
-
-
-
-
 
 
   const highlightSelectedButton = (event) => {
@@ -329,7 +308,7 @@ const todo = (() => {
       priority: "medium",
       isTodoDone: "no",
       notes: "vroom vroom",
-      project: "Home"
+      project: "Work"
     },
 
     {
@@ -338,7 +317,7 @@ const todo = (() => {
       priority: "low",
       isTodoDone: "no",
       notes: 'go to walmart cheap food',
-      project: "Home"
+      project: "Car"
     },
 
     {
@@ -412,14 +391,23 @@ const todo = (() => {
 
   const _todayButton = document.querySelector('#today-button');
   const _tomorrowButton = document.querySelector('#tomorrow-button');
-  const _allTodoButton = document.querySelector('#all-todo-button')
+  const _allTodoButton = document.querySelector('#all-todo-button');
   const _projectButton = document.querySelector('#projects-button');
   
 
   _allTodoButton.setAttribute('counter-data', _todoList.length);
   _projectButton.setAttribute('counter-data', _projectList.length);
   _todayButton.setAttribute('counter-data', _dueToday.length);
-  _tomorrowButton.setAttribute('counter-data', _dueTomorrow.length)
+  _tomorrowButton.setAttribute('counter-data', _dueTomorrow.length);
+
+
+
+  const navLinks = document.querySelector('.nav-links')
+  const toggleMenu = document.querySelector('.toggle-menu');
+  toggleMenu.addEventListener('click', () =>{
+    navLinks.classList.toggle('open')
+  })
+
 
 
 

@@ -1,24 +1,34 @@
 body {
   margin: 0;
+  font-family: sans-serif;
 }
 
 
 .todo-app {
+  height: 100vh;
   display: flex;
 }
 
 
 .side-bar {
-  width: 30vw;
-  height: 100vh;
+  /* width: 30vw; */
+  /* height: 100vh; */
   border-right: 1px solid black;
+  background-color: #5b78c7;
+  /* display: none; */
+  /* position: fixed; */
+  /* display: flex; */
 }
 
+
+.close {
+  display: none;
+}
 
 
 .menu-button {
   width: 100%;
-  margin: 20px 0;
+  margin: 50px 0;
   padding: 10px;
   border: none;
   font-size: 2rem;
@@ -60,9 +70,11 @@ body {
 
 
 .todo-display {
-  width: 70vw;
+  /* width: 70vw; */
   height: 100vh;
   position: relative;
+  margin: 2vw;
+  border: 1px solid violet
 }
 
 
@@ -327,4 +339,96 @@ textarea {
   background-color: red;
   border: 1px solid black;
   font-weight: bold;
+}
+
+h1 {
+  /* border: 1px solid black; */
+}
+
+.bar {
+  width: 30px;
+  height: 3px;
+  background-color: white;
+  margin: 5px;
+  border-radius: 15px;
+}
+
+
+.toggle-menu {
+  display: none;
+}
+.nav-links {
+  /* display: none; */
+}
+
+ul {
+  padding: 0;
+}
+
+
+
+@media screen and (max-width: 680px) {
+
+  .close {
+    display: none;
+  }
+
+  .toggle-menu {
+    z-index: 2;
+    /* position: absolute; */
+  
+  }
+   
+  .todo-display {
+    /* display: none; */
+  }
+
+  .side-bar {
+    /* position: fixed; */
+    /* height: 100vh; */
+    /* width: 100%; */
+  }
+  
+  .toggle-menu {
+    display: block;
+  }
+
+
+  .nav-links {
+    position: fixed;
+    background-color: #5b78c7;
+    height: 100vh;
+    width: 100%;
+    z-index: 1;
+    display: flex;
+    /* display: none; */
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 20px 0;
+    clip-path: circle(100px at 10% -10%);
+    -webkit-clip-path: circle(100px at 10% -10%);
+    transition: all 1s ease-out;
+
+    
+  }
+
+  .nav-links.open {
+    clip-path: circle(1100px at 10% -10%);
+    -webkit-clip-path: circle(1100px at 10% -10%);
+
+  }
+
+
+  .side-bar {
+    display: flex;
+  }
+
+  .todo-app {
+    display: block;
+  }
+
+
+
+
+
 }
