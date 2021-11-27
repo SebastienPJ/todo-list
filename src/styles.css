@@ -24,6 +24,21 @@ body {
 
 
 
+.bar {
+  width: 30px;
+  height: 3px;
+  background-color: white;
+  margin: 5px;
+  border-radius: 15px;
+}
+
+
+.toggle-menu {
+  display: none;
+}
+
+
+
 
 .menu-button {
   width: 100%;
@@ -69,9 +84,7 @@ body {
 
 
 .todo-display {
-  width: 70vw;
-  /* height: 100vh; */
-  /* position: relative; */
+  width: 80vw;
   margin: 2vw;
 }
 
@@ -81,13 +94,17 @@ body {
 }
 
 
+ul {
+  padding: 0;
+}
+
+
 .list {
   margin-bottom: 5px;
   list-style: none; 
   border: 1px solid black;
 
 }
-
 
 .shown-content {
   display: flex;
@@ -237,6 +254,11 @@ body {
 
 
 
+.new-todo-button-container {
+  margin-top: 10vh;
+  text-align: right;
+}
+
 
 
 .form-container {
@@ -335,7 +357,8 @@ textarea {
 
 .project-container {
   border: 2px solid black;
-  padding: 10px 0;
+  padding: 10px 5px;
+  margin-bottom: 10px;
 }
 
 .project-title {
@@ -372,30 +395,6 @@ textarea {
 }
 
 
-
-.bar {
-  width: 30px;
-  height: 3px;
-  background-color: white;
-  margin: 5px;
-  border-radius: 15px;
-}
-
-
-.toggle-menu {
-  display: none;
-}
-
-ul {
-  padding: 0;
-}
-
-
-.new-todo-button-container {
-  margin-top: 10vh;
-  text-align: right;
-  border: 1px solid black;
-}
 
 
 

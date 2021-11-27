@@ -1,6 +1,6 @@
 import { renderTodo } from "./render";
 import './styles.css';
-import { addDays, format, isToday, isTomorrow, parseISO } from "date-fns";
+import { isToday, isTomorrow, parseISO } from "date-fns";
 
 const todo = (() => {
 

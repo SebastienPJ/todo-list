@@ -4,7 +4,7 @@ import Bin from './images/bin.png'
 import Edit from './images/edit.png'
 import UpArrow from './images/up-arrow.png'
 import DownArrow from './images/down-arrow.png'
-import { isDate, format, isToday, isThisYear } from "date-fns";
+import { format, isThisYear } from "date-fns";
 
 
 
@@ -241,10 +241,17 @@ const createElements = (() => {
 
       const _listContainer = document.createElement('div');
       // _listContainer.classList.add('list-container')
+      if (_tasksBelongingToProj.length == 0) {
+        let _noTasksMessage = document.createElement('p');
+        _noTasksMessage.textContent = 'No tasks listed for this project'
+        _listContainer.appendChild(_noTasksMessage);
+      } else {
 
-      let uL = createListOfTasks(_tasksBelongingToProj, _listOfAllTasks)
+        let uL = createListOfTasks(_tasksBelongingToProj, _listOfAllTasks);
+        _listContainer.appendChild(uL);
 
-      _listContainer.appendChild(uL);
+      }
+
 
       _projContainer.appendChild(_listContainer)   
       
