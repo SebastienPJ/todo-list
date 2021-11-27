@@ -118,7 +118,7 @@ const createElements = (() => {
 
     if (_dueTodayList.length == 0) {
       const _noTodosMessage = document.createElement('p');
-      _noTodosMessage.textContent = 'YAY! No tasks do today'
+      _noTodosMessage.textContent = 'YAY! No tasks due today'
 
       return _noTodosMessage;
     };
@@ -147,7 +147,7 @@ const createElements = (() => {
 
     if (_dueTomorrowList.length == 0) {
       const _noTodosMessage = document.createElement('p');
-      _noTodosMessage.textContent = 'YAY! No tasks do tomorrow'
+      _noTodosMessage.textContent = 'YAY! No tasks due tomorrow'
 
       return _noTodosMessage;
     };
@@ -335,10 +335,18 @@ const createElements = (() => {
     
       _visibleContent.appendChild(_priorityMarker);
   
-  
+
+
+      let rightSideContent = document.createElement('div');
+      rightSideContent.classList.add('right-aligned-content');
+      _visibleContent.appendChild(rightSideContent);
+
+
+
+
       let buttons = document.createElement('div');
       buttons.classList.add('buttons-container')
-      _visibleContent.appendChild(buttons)
+      rightSideContent.appendChild(buttons)
 
 
 
@@ -374,7 +382,9 @@ const createElements = (() => {
       _expandButton.appendChild(expandIcon);
     
       _expandButton.addEventListener('click', function(e) {
-        console.log(e);
+
+        console.log(this);
+
         this.classList.toggle('show'); 
         this.classList.toggle('hide-small-window');
         this.previousSibling.classList.toggle('show');
@@ -383,7 +393,7 @@ const createElements = (() => {
         this.nextSibling.classList.toggle('active')
 
     
-        let _hiddenContent = this.parentElement.parentElement.nextElementSibling;
+        let _hiddenContent = this.parentElement.parentElement.parentElement.nextSibling;
         if (_hiddenContent.style.display === 'block') {
           _hiddenContent.style.display = 'none';
         } else {
@@ -404,6 +414,8 @@ const createElements = (() => {
       _collapseButton.appendChild(collapseIcon);
 
       _collapseButton.addEventListener('click', function() {
+
+        console.log(this);
         this.classList.toggle('active');
         this.classList.toggle('hide-collapse');
         this.previousSibling.classList.toggle('show');
@@ -412,7 +424,7 @@ const createElements = (() => {
 
   
            
-        let _hiddenContent = this.parentElement.parentElement.nextElementSibling;
+        let _hiddenContent = this.parentElement.parentElement.parentElement.nextSibling;
         if (_hiddenContent.style.display === 'block') {
           _hiddenContent.style.display = 'none';
         } else {
@@ -427,7 +439,7 @@ const createElements = (() => {
 
       let _projInfo = document.createElement('div');
       _projInfo.classList.add('project-info');
-      _visibleContent.appendChild(_projInfo);
+      rightSideContent.appendChild(_projInfo);
 
 
     
