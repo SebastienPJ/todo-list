@@ -89,7 +89,7 @@ const renderTodo = (() => {
 
 
   const prefillEditForm = (e) => { 
-    // console.log(e);
+    console.log(e);
 
     let _todoIndex = e.target.dataset.overallTaskIndex
 

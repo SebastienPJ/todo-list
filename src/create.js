@@ -341,10 +341,18 @@ const createElements = (() => {
       _visibleContent.appendChild(buttons)
 
 
+
+
       let editButton = document.createElement('button');
       editButton.classList.add('show', 'edit-task-button')
-      editButton.textContent = 'edit';
-      editButton.dataset['overallTaskIndex'] = _overallTaskIndex;
+
+      let editIcon = new Image();
+      editIcon.classList.add('edit-icon');
+      editIcon.dataset['overallTaskIndex'] = _overallTaskIndex;
+      editIcon.src = Edit;
+      editButton.appendChild(editIcon);
+
+      // editButton.dataset['overallTaskIndex'] = _overallTaskIndex;
       editButton.addEventListener('click', (e) => {
         renderTodo.openForm(todo.editFormContainer);
         renderTodo.addItemsToFormOptions(todo.editFormSelectTag, todo.getProjectList());
@@ -365,7 +373,8 @@ const createElements = (() => {
       expandIcon.classList.add('down-arrow');
       _expandButton.appendChild(expandIcon);
     
-      _expandButton.addEventListener('click', function() {
+      _expandButton.addEventListener('click', function(e) {
+        console.log(e);
         this.classList.toggle('show'); 
         this.classList.toggle('hide-small-window');
         this.previousSibling.classList.toggle('show');

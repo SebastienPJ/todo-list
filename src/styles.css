@@ -112,9 +112,11 @@ body {
 }
 
 .down-arrow,
-.up-arrow {
+.up-arrow,
+.edit-icon {
   width: 20px;
 }
+
 
 
 .collapse-button {
