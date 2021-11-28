@@ -486,6 +486,9 @@ const createElements = (() => {
     
       let _dueDateContainer = document.createElement('p');
       _dueDateContainer.classList.add('due-date-section');
+
+      console.log(task.dueDate == '');
+
       if ('dueDate' in task && task.dueDate !== '') {
         isThisYear(task.dueDate)? _dueDateContainer.textContent = `Due: ${format(task.dueDate, 'MMM dd')}`:
                               _dueDateContainer.textContent = `Due: ${format(task.dueDate, 'MMM dd, yyyy')}`
@@ -510,6 +513,7 @@ const createElements = (() => {
         todo.deleteFromList(task, todo.getTodoList());   
         todo.updateDatedLists();
         todo.updateAllCounterData();
+        todo.updateLocalStorage();
   
         renderTodo.updatePage(todo.findCurrentMenuSelected());
   

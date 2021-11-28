@@ -6,8 +6,6 @@ const todo = (() => {
 
   const todoFactory = (data) => {
 
-    console.log(data.get('part-of-project'))
-
     let title = data.get('title');
     let dueDate;
 
@@ -15,9 +13,8 @@ const todo = (() => {
                               :dueDate = parseISO(data.get('due-date'));
 
     
-    
     let priority = data.get('priority');
-    let isTodoDone = 'no';
+    let isTodoDone = false;
     let project = data.get('part-of-project');
 
 
@@ -25,6 +22,43 @@ const todo = (() => {
 
   };
 
+
+  const updateLocalStorage = () => {
+    // localStorage.clear();
+    localStorage.setItem('list', JSON.stringify(_todoList));
+    localStorage.setItem('projects', JSON.stringify(_projectList));
+  };
+
+
+  const loadLocalStorage = () => {
+    if (localStorage.length > 0) {
+      let unprocessedList = JSON.parse(localStorage.getItem('list'));
+      let convertedList = convertDatesToObjects(unprocessedList);
+
+      _todoList = convertedList;
+      _projectList = JSON.parse(localStorage.getItem('projects'));
+      updateAllCounterData();
+      updateDatedLists();
+
+    };
+  };
+
+
+  const convertDatesToObjects = (list) => {
+
+    let finishedList = [];
+    
+    list.forEach(item => {
+
+      if (item.dueDate !== '') {
+        item.dueDate = new Date(item.dueDate);
+      }
+
+      finishedList.push(item)
+    });
+
+    return finishedList;
+  }
 
 
   const getTodoList = () => {
@@ -103,29 +137,25 @@ const todo = (() => {
   };
 
 
-
   const createTodo = function(e) {
     e.preventDefault();
 
     let _menu = findCurrentMenuSelected();
 
-
-
     let _formData = captureFormData(_todoForm);
-
-    let _newTodo = todoFactory(_formData);
-
-  
+    let _newTodo = todoFactory(_formData);  
     _todoList.push(_newTodo);
 
     updateDatedLists();
-
     updateAllCounterData();
 
     _todoForm.reset();
     renderTodo.closeForm(findCurrentFormInUse());
+
+    updateLocalStorage();
     
-    
+    console.log(localStorage);
+
     renderTodo.updatePage(_menu)
   };  
   
@@ -151,9 +181,10 @@ const todo = (() => {
 
     let _taskAddedToProj = [...projFormSelectTag.selectedOptions].map(option => option.value)
 
-    addProjectToTaskObj(_projectName, _taskAddedToProj)
+    addProjectToTaskObj(_projectName, _taskAddedToProj);
 
 
+    updateLocalStorage();
 
     
     renderTodo.updatePage(_currentMenu)
@@ -205,6 +236,10 @@ const todo = (() => {
 
     newProject == ''? delete _todoObj.project: _todoObj.project = newProject;
 
+
+    updateLocalStorage();
+
+
     _editForm.reset();
     renderTodo.closeForm(findCurrentFormInUse());
 
@@ -239,6 +274,9 @@ const todo = (() => {
 
     _completeListOfObjects[_projIndex] = _newProjName;
 
+
+    updateLocalStorage();
+
     _editProjectForm.reset();
     renderTodo.closeForm(findCurrentFormInUse());
     renderTodo.updatePage(findCurrentMenuSelected())
@@ -264,33 +302,9 @@ const todo = (() => {
   }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   // const _todoList = []
 
-  const _todoList = [
+  let _todoList = [
     {
       title: "Complete Presentation",
       dueDate: parseISO('2021-11-10'),
@@ -349,7 +363,7 @@ const todo = (() => {
 
 
 
-  const _projectList = ['Home', 'Work', 'Car'];
+  let _projectList = ['Home', 'Work', 'Car'];
   // const _projectList = [];
 
 
@@ -386,7 +400,11 @@ const todo = (() => {
   _menuButtons.forEach(button => {
 
     button.addEventListener('click', function(e) {
-      highlightSelectedButton(e);    
+      highlightSelectedButton(e);   
+
+      console.log(localStorage);
+
+
       let currentMenu = findCurrentMenuSelected();
       navLinks.classList.toggle('open');
       renderTodo.updatePage(currentMenu);
@@ -468,6 +486,8 @@ const todo = (() => {
     });
 
     updateAllCounterData();
+    updateLocalStorage();
+
 
     editProjFormContainer.firstElementChild.reset()
 
@@ -498,7 +518,9 @@ const todo = (() => {
     updateDatedLists()
 
     updateAllCounterData();
-    
+
+    updateLocalStorage();
+   
 
     editProjFormContainer.firstElementChild.reset()
     renderTodo.closeForm(findCurrentFormInUse())
@@ -509,18 +531,15 @@ const todo = (() => {
 
   return { projectNameInput, deleteProjectButton, deleteAllButton, projectFormContainer, todoFormContainer, editFormContainer, editProjFormContainer, 
     projFormSelectTag, todoFormSelectTag, editFormSelectTag, editProjSelectTag, 
-    getTodoList, getProjectList, getTodayList, getTomorrowList, tagEditSubmitButtonWithIndex, tagWithIndex, deleteFromList, findCurrentMenuSelected, updateAllCounterData, updateDatedLists }
+    loadLocalStorage, updateLocalStorage, getTodoList, getProjectList, getTodayList, getTomorrowList, tagEditSubmitButtonWithIndex, tagWithIndex, deleteFromList, findCurrentMenuSelected, updateAllCounterData, updateDatedLists }
 
 
 })();
 
+
+todo.loadLocalStorage();
+
+
 document.getElementById('all-todo-button').click();
 
 export { todo }
-
-
-
-
-
-
-
