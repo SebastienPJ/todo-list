@@ -10,14 +10,11 @@ body {
 
 .todo-app {
   min-height: 100vh;
-  /* height: 100vh; */
   display: flex;
-  border: 1px solid black;
 }
 
 
 .side-bar {
-  /* height: 100vh; */
   border-right: 1px solid black;
   background-color: #5b78c7;
 }
@@ -234,7 +231,6 @@ ul {
 .add-new-todo-button,
 .add-new-project-button {
   color: white;
-  /* position: absolute; */
   background-color: #008CBA;
   bottom: 20px;
   right: 20px;
@@ -255,16 +251,25 @@ ul {
 
 
 .new-todo-button-container {
-  margin-top: 10vh;
+  margin: 10vh 2vw 3vh 2vw;
   text-align: right;
+  
 }
 
+
+.stop-scrolling {
+  overflow: hidden;
+}
+
+.move-to-background {
+  opacity: 0.5;
+  pointer-events: none;
+}
 
 
 .form-container {
   width: 100vw;
-  /* min-height: 100vh; */
-  /* height: 100%; */
+  height: 100vh;
   background-color: rgba(0, 0, 0, 0.7);
   position: absolute;
   top: 0;
@@ -361,16 +366,27 @@ textarea {
   margin-bottom: 10px;
 }
 
+.project-container:hover .edit-project-button {
+  display: inline-flex;
+  background-color: transparent;
+}
+
 .project-title {
   display: flex;
   align-items: center;
 }
 
 
+
 .edit-project-button {
   margin-left: 50px;
+  font-size: 0.8rem;
+  background-color: transparent;
+  border-radius: 10px;
+  border: 1px solid black;
+  cursor: pointer;
+  display: none;
 }
-
 
 
 .delete-buttons-container {
@@ -428,7 +444,7 @@ textarea {
   .nav-links {
     position: fixed;
     background-color: #5b78c7;
-    /* height: 100vh; */
+    height: 100vh;
     width: 100%;
     z-index: 1;
     display: flex;
@@ -491,6 +507,11 @@ textarea {
 
   .delete-bin {
     width: 25px;
+  }
+
+  .edit-project-button {
+    margin-left: auto;
+    display: inline-flex;
   }
 
 

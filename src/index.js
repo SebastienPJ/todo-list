@@ -1,6 +1,6 @@
 import { renderTodo } from "./render";
 import './styles.css';
-import { isToday, isTomorrow, parseISO, format } from "date-fns";
+import { isToday, isTomorrow, parseISO } from "date-fns";
 
 const todo = (() => {
 
@@ -24,7 +24,6 @@ const todo = (() => {
 
 
   const updateLocalStorage = () => {
-    // localStorage.clear();
     localStorage.setItem('list', JSON.stringify(_todoList));
     localStorage.setItem('projects', JSON.stringify(_projectList));
   };
@@ -37,8 +36,8 @@ const todo = (() => {
 
       _todoList = convertedList;
       _projectList = JSON.parse(localStorage.getItem('projects'));
-      updateAllCounterData();
       updateDatedLists();
+      updateAllCounterData();
 
     };
   };
@@ -137,6 +136,9 @@ const todo = (() => {
   };
 
 
+ 
+
+
   const createTodo = function(e) {
     if (_todoForm.reportValidity()) {
       e.preventDefault();
@@ -155,8 +157,6 @@ const todo = (() => {
 
       updateLocalStorage();
       
-      console.log(localStorage);
-
       renderTodo.updatePage(_menu)
 
     }
@@ -246,6 +246,8 @@ const todo = (() => {
       newProject == ''? delete _todoObj.project: _todoObj.project = newProject;
 
 
+      updateDatedLists();
+      updateAllCounterData();
       updateLocalStorage();
 
 
@@ -316,60 +318,59 @@ const todo = (() => {
   }
 
 
-  // const _todoList = []
 
   let _todoList = [
     {
-      title: "Complete Presentation",
-      dueDate: parseISO('2021-11-10'),
+      title: "Make calls regarding project",
+      dueDate: parseISO('2022-02-10'),
       priority: "medium",
-      isTodoDone: "no",
-      notes: "Notes on meeting prep",
+      isTodoDone: false,
+      notes: "Meetings went well",
       project: "Work"
     },
 
     {
       title: "Do groceries",
-      dueDate: parseISO('2021-11-26'),
+      dueDate: parseISO('2021-12-15'),
       priority: "high",
-      isTodoDone: "no",
-      notes: 'go to walmart cheap food',
+      isTodoDone: false,
+      notes: '-Milk \n-Bread \n-Eggs \n-Water \n-Veggies \n-Captain Crunch cereal',
       project: "Home"
     },
 
     {
       title: "Fix Car Issues",
-      dueDate: parseISO('2021-11-20'),
+      dueDate: parseISO('2021-12-20'),
       priority: "medium",
-      isTodoDone: "no",
-      notes: "vroom vroom",
-      project: "Work"
-    },
-
-    {
-      title: "Do some stuff",
-      dueDate: parseISO('2021-11-27'),
-      priority: "low",
-      isTodoDone: "no",
-      notes: 'go to walmart cheap food',
+      isTodoDone: false,
+      notes: "Front headlights are out",
       project: "Car"
     },
 
     {
-      title: "Do some secret stuff",
-      dueDate: parseISO('2021-11-26'),
-      priority: "medium",
-      isTodoDone: "no",
-      notes: 'go to walmart cheap food',
+      title: "Schedule carpet cleaning",
+      dueDate: parseISO('2021-11-29'),
+      priority: "low",
+      isTodoDone: false,
+      notes: '',
       project: "Home"
     },
 
     {
-      title: "Watch movies",
+      title: "Big Game",
+      dueDate: parseISO('2022-02-13'),
+      priority: "medium",
+      isTodoDone: false,
+      notes: '',
+      project: "Home"
+    },
+
+    {
+      title: "Movie night",
       dueDate: parseISO('2021-11-27'),
       priority: "high",
-      isTodoDone: "no",
-      notes: 'go to walmart cheap food',
+      isTodoDone: false,
+      notes: '',
       project: "Home"
     },
   ];
@@ -378,7 +379,6 @@ const todo = (() => {
 
 
   let _projectList = ['Home', 'Work', 'Car'];
-  // const _projectList = [];
 
 
   let _dueToday = _todoList.filter(todo => isToday(todo.dueDate));
@@ -415,10 +415,6 @@ const todo = (() => {
 
     button.addEventListener('click', function(e) {
       highlightSelectedButton(e);   
-
-      // console.log(localStorage);
-
-      console.log(_todoForm['title'].value);
       let currentMenu = findCurrentMenuSelected();
       navLinks.classList.toggle('open');
       renderTodo.updatePage(currentMenu);
@@ -485,11 +481,11 @@ const todo = (() => {
     let proj = getProjectList()[indexOfProject];
     let _menuCurrently = findCurrentMenuSelected();
 
-    deleteFromList(proj, getProjectList())
-    
+    deleteFromList(proj, getProjectList());   
 
 
     let optionsInTask = [...editProjSelectTag.options];
+
     optionsInTask.forEach(item => {
 
       if (item.value !== "") {
@@ -506,7 +502,7 @@ const todo = (() => {
     editProjFormContainer.firstElementChild.reset()
 
     renderTodo.closeForm(findCurrentFormInUse())
-    renderTodo.updatePage(findCurrentMenuSelected())
+    renderTodo.updatePage(_menuCurrently)
   });
 
 
@@ -552,8 +548,6 @@ const todo = (() => {
 
 
 todo.loadLocalStorage();
-
-
 document.getElementById('all-todo-button').click();
 
 export { todo }

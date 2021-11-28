@@ -77,7 +77,7 @@ const createElements = (() => {
     let menuSelected = buttonSelected.textContent
 
     const returnedList = {
-      'All ToDos': createAllTodosList,
+      'All Todos': createAllTodosList,
       'Today': createTodayList,
       'Tomorrow': createTomorrowList,
       'Projects': createProjectsList,
@@ -240,7 +240,6 @@ const createElements = (() => {
 
 
       const _listContainer = document.createElement('div');
-      // _listContainer.classList.add('list-container')
       if (_tasksBelongingToProj.length == 0) {
         let _noTasksMessage = document.createElement('p');
         _noTasksMessage.textContent = 'No tasks listed for this project'
@@ -391,12 +390,11 @@ const createElements = (() => {
       editIcon.src = Edit;
       editButton.appendChild(editIcon);
 
-      // editButton.dataset['overallTaskIndex'] = _overallTaskIndex;
       editButton.addEventListener('click', (e) => {
         renderTodo.openForm(todo.editFormContainer);
         renderTodo.addItemsToFormOptions(todo.editFormSelectTag, todo.getProjectList());
         renderTodo.prefillEditForm(e);
-        todo.tagEditSubmitButtonWithIndex(e); /// LOOK INTO CHANGING THIS
+        todo.tagEditSubmitButtonWithIndex(e);
   
       })
     
@@ -413,8 +411,6 @@ const createElements = (() => {
       _expandButton.appendChild(expandIcon);
     
       _expandButton.addEventListener('click', function(e) {
-
-        console.log(this);
 
         this.classList.toggle('show'); 
         this.classList.toggle('hide-small-window');
@@ -446,7 +442,6 @@ const createElements = (() => {
 
       _collapseButton.addEventListener('click', function() {
 
-        console.log(this);
         this.classList.toggle('active');
         this.classList.toggle('hide-collapse');
         this.previousSibling.classList.toggle('show');
@@ -487,7 +482,6 @@ const createElements = (() => {
       let _dueDateContainer = document.createElement('p');
       _dueDateContainer.classList.add('due-date-section');
 
-      console.log(task.dueDate == '');
 
       if ('dueDate' in task && task.dueDate !== '') {
         isThisYear(task.dueDate)? _dueDateContainer.textContent = `Due: ${format(task.dueDate, 'MMM dd')}`:
@@ -540,8 +534,14 @@ const createElements = (() => {
     
       let _notesContainer = document.createElement('div');
       _notesContainer.classList.add('notes-container');
-      'notes' in task ? _notesContainer.textContent = task.notes : 
-                _notesContainer.textContent = 'No notes for this task. Edit task to add notes';
+
+      if ('notes' in task && task.notes !== '') {
+        _notesContainer.textContent = task.notes
+      } else {
+        _notesContainer.textContent = 'No notes for this task. Edit task to add notes';
+
+      }
+                 
       
       _collapsedContainer.appendChild(_notesContainer);
 

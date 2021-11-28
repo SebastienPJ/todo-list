@@ -27,19 +27,31 @@ const renderTodo = (() => {
   };
 
 
+  const stopScrolling = () => {
+
+    document.classList.toggle('stop-scolling')
+  }
 
 
+  
   const openForm = (form) => {
     form.setAttribute('style', 'display: flex');
     form.classList.add('current-form-inuse');
+    window.scrollTo({top:0});
+    document.documentElement.classList.toggle('stop-scrolling');
+    _app.classList.toggle('move-to-background');
 
   };
 
-
+  
 
   const closeForm = (formChosen) => {
     formChosen.classList.remove('current-form-inuse');
     formChosen.setAttribute('style', 'display: none');
+    document.documentElement.classList.toggle('stop-scrolling')
+    _app.classList.toggle('move-to-background');
+
+
 
   };
 
@@ -75,7 +87,6 @@ const renderTodo = (() => {
 
 
   const prefillEditForm = (e) => { 
-    console.log(e);
 
     let _todoIndex = e.target.dataset.overallTaskIndex
 
@@ -131,8 +142,7 @@ const renderTodo = (() => {
 
 
   const _contentDisplay = document.querySelector('.todo-display');
-
-  const _editForm = document.querySelector('#edit-todo-form');  
+  const _app = document.querySelector('.todo-app')
 
 
   const _editTitle = document.querySelector('#edit-title');
@@ -148,7 +158,7 @@ const renderTodo = (() => {
 
 
  
-  return { updatePage, openForm, closeForm, addItemsToFormOptions, prefillEditForm, prefillProjForm }
+  return { updatePage, openForm, closeForm, addItemsToFormOptions, prefillEditForm, prefillProjForm, stopScrolling }
 })();
 
 
