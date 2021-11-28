@@ -290,14 +290,26 @@ const createElements = (() => {
       let checkBox = document.createElement('input');
       checkBox.setAttribute('type', 'checkbox');
       checkBox.classList.add('checkbox');
+
+      if (task.isTodoDone == true) {
+        checkBox.checked = true
+      }
+
   
       checkBox.dataset['overallTaskIndex'] = _overallTaskIndex;
       checkBox.name = `task${_overallTaskIndex}`;
       checkBox.id = `task${_overallTaskIndex}`;
   
       checkBox.addEventListener('click', (e) => {
-        renderTodo.toggleTaskComplete(e);
-        // todo.updateObject()
+
+        let label = e.target.nextSibling;
+        label.classList.toggle('task-done');
+
+        let objIndex = e.target.dataset.overallTaskIndex;
+        let currentObj = todo.getTodoList()[objIndex];
+
+        e.target.checked ? currentObj.isTodoDone = true : currentObj.isTodoDone = false
+
       });
   
       _visibleContent.appendChild(checkBox);
@@ -306,6 +318,11 @@ const createElements = (() => {
   
       let label = document.createElement('label');
       label.classList.add('task-label');
+
+      if (task.isTodoDone == true) {
+        label.classList.add('task-done')
+      }
+
       label.textContent = task.title;
   
       label.setAttribute('for', `task${_overallTaskIndex}`);

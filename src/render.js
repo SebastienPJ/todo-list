@@ -73,20 +73,6 @@ const renderTodo = (() => {
   };
 
 
-  const toggleTaskComplete = (e) => {
-    let task = e.target.labels[0];
-
-    if (e.target.checked) {
-      // console.log("task is complete")
-      task.classList.add('task-done')
-
-    } else {
-      // console.log("task incomplete");
-      task.classList.remove('task-done');
-    }
-
-  };
-
 
   const prefillEditForm = (e) => { 
     console.log(e);
@@ -162,7 +148,7 @@ const renderTodo = (() => {
 
 
  
-  return { updatePage, openForm, closeForm, addItemsToFormOptions, toggleTaskComplete, prefillEditForm, prefillProjForm }
+  return { updatePage, openForm, closeForm, addItemsToFormOptions, prefillEditForm, prefillProjForm }
 })();
 
 
