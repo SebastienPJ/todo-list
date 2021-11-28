@@ -1,6 +1,6 @@
 import { renderTodo } from "./render";
 import './styles.css';
-import { isToday, isTomorrow, parseISO } from "date-fns";
+import { isToday, isTomorrow, parseISO, format } from "date-fns";
 
 const todo = (() => {
 
@@ -197,7 +197,7 @@ const todo = (() => {
     _todoObj.title = newTitle;
 
 
-    newDueDate == ''? delete _todoObj.dueDate: _todoObj.dueDate = newDueDate;
+    newDueDate == ''? delete _todoObj.dueDate: _todoObj.dueDate = parseISO(newDueDate);
 
     newNotes == ''? delete _todoObj.notes: _todoObj.notes = newNotes;
 
@@ -205,7 +205,6 @@ const todo = (() => {
 
     newProject == ''? delete _todoObj.project: _todoObj.project = newProject;
 
-    
     _editForm.reset();
     renderTodo.closeForm(findCurrentFormInUse());
 
