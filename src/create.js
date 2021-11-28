@@ -309,7 +309,7 @@ const createElements = (() => {
         let currentObj = todo.getTodoList()[objIndex];
 
         e.target.checked ? currentObj.isTodoDone = true : currentObj.isTodoDone = false
-
+        todo.updateLocalStorage();
       });
   
       _visibleContent.appendChild(checkBox);
