@@ -138,59 +138,67 @@ const todo = (() => {
 
 
   const createTodo = function(e) {
-    e.preventDefault();
+    if (_todoForm.reportValidity()) {
+      e.preventDefault();
 
-    let _menu = findCurrentMenuSelected();
+      let _menu = findCurrentMenuSelected();
 
-    let _formData = captureFormData(_todoForm);
-    let _newTodo = todoFactory(_formData);  
-    _todoList.push(_newTodo);
+      let _formData = captureFormData(_todoForm);
+      let _newTodo = todoFactory(_formData);  
+      _todoList.push(_newTodo);
 
-    updateDatedLists();
-    updateAllCounterData();
+      updateDatedLists();
+      updateAllCounterData();
 
-    _todoForm.reset();
-    renderTodo.closeForm(findCurrentFormInUse());
+      _todoForm.reset();
+      renderTodo.closeForm(findCurrentFormInUse());
 
-    updateLocalStorage();
+      updateLocalStorage();
+      
+      console.log(localStorage);
+
+      renderTodo.updatePage(_menu)
+
+    }
     
-    console.log(localStorage);
-
-    renderTodo.updatePage(_menu)
   };  
   
   
 
   const createProject = (e) => {
-    e.preventDefault();
+    if (_projectForm.reportValidity()) {
+      e.preventDefault();
 
-    let _currentMenu = findCurrentMenuSelected();
+      let _currentMenu = findCurrentMenuSelected();
 
-    let _projectData = captureFormData(_projectForm);
+      let _projectData = captureFormData(_projectForm);
 
-    let _projectName = _projectData.get('project-name');
+      let _projectName = _projectData.get('project-name');
 
-    if (_projectList.includes(_projectName)) {
-      alert('project already exists');
-      return;
-    };
+      if (_projectList.includes(_projectName)) {
+        alert('project already exists');
+        return;
+      };
 
-    _projectList.push(_projectName);
+      _projectList.push(_projectName);
 
-    updateAllCounterData();
+      updateAllCounterData();
 
-    let _taskAddedToProj = [...projFormSelectTag.selectedOptions].map(option => option.value)
+      let _taskAddedToProj = [...projFormSelectTag.selectedOptions].map(option => option.value)
 
-    addProjectToTaskObj(_projectName, _taskAddedToProj);
+      addProjectToTaskObj(_projectName, _taskAddedToProj);
 
 
-    updateLocalStorage();
+      updateLocalStorage();
 
+      
+      renderTodo.updatePage(_currentMenu)
+
+      _projectForm.reset();
+      renderTodo.closeForm(findCurrentFormInUse()); 
+
+    }
     
-    renderTodo.updatePage(_currentMenu)
-
-    _projectForm.reset();
-    renderTodo.closeForm(findCurrentFormInUse()); 
   };
 
 
@@ -209,77 +217,83 @@ const todo = (() => {
 
 
   const saveEditChanges = (e) => {
-    e.preventDefault();
+    if (_editForm.reportValidity()) {
+      e.preventDefault();
 
-    let _editedFormData = captureFormData(_editForm);
+      let _editedFormData = captureFormData(_editForm);
 
-    let _listOfTodos = getTodoList();
+      let _listOfTodos = getTodoList();
 
-    let _objIndex = e.target.dataset.overallTaskIndex;
+      let _objIndex = e.target.dataset.overallTaskIndex;
 
-    let _todoObj = _listOfTodos[_objIndex];
+      let _todoObj = _listOfTodos[_objIndex];
 
-    let newTitle = _editedFormData.get('edit-title');
-    let newNotes = _editedFormData.get('edit-notes');
-    let newDueDate = _editedFormData.get('edit-due-date');
-    let newPriority = _editedFormData.get('edit-priority');
-    let newProject = _editedFormData.get('edit-project');
+      let newTitle = _editedFormData.get('edit-title');
+      let newNotes = _editedFormData.get('edit-notes');
+      let newDueDate = _editedFormData.get('edit-due-date');
+      let newPriority = _editedFormData.get('edit-priority');
+      let newProject = _editedFormData.get('edit-project');
 
-    _todoObj.title = newTitle;
-
-
-    newDueDate == ''? delete _todoObj.dueDate: _todoObj.dueDate = parseISO(newDueDate);
-
-    newNotes == ''? delete _todoObj.notes: _todoObj.notes = newNotes;
-
-    newPriority == ''? delete _todoObj.priority: _todoObj.priority = newPriority;
-
-    newProject == ''? delete _todoObj.project: _todoObj.project = newProject;
+      _todoObj.title = newTitle;
 
 
-    updateLocalStorage();
+      newDueDate == ''? delete _todoObj.dueDate: _todoObj.dueDate = parseISO(newDueDate);
+
+      newNotes == ''? delete _todoObj.notes: _todoObj.notes = newNotes;
+
+      newPriority == ''? delete _todoObj.priority: _todoObj.priority = newPriority;
+
+      newProject == ''? delete _todoObj.project: _todoObj.project = newProject;
 
 
-    _editForm.reset();
-    renderTodo.closeForm(findCurrentFormInUse());
+      updateLocalStorage();
 
-    let _currentMenu = findCurrentMenuSelected();
-    renderTodo.updatePage(_currentMenu);
+
+      _editForm.reset();
+      renderTodo.closeForm(findCurrentFormInUse());
+
+      let _currentMenu = findCurrentMenuSelected();
+      renderTodo.updatePage(_currentMenu);
+    }
+    
 
   };
 
 
 
   const saveProjectChanges = (e) => {
-    e.preventDefault();
+    if (_editProjectForm.reportValidity()) {
+      e.preventDefault();
 
-    let _editedProjFormData = captureFormData(_editProjectForm);
-    let _completeListOfTasks = getTodoList();
-    let _completeListOfObjects = getProjectList();
+      let _editedProjFormData = captureFormData(_editProjectForm);
+      let _completeListOfTasks = getTodoList();
+      let _completeListOfObjects = getProjectList();
 
-    let _formOptions = [...editProjSelectTag.options];
-    let _projIndex = projectNameInput.dataset.overallIndex;
+      let _formOptions = [...editProjSelectTag.options];
+      let _projIndex = projectNameInput.dataset.overallIndex;
 
-   
-    _formOptions.forEach(option => {
-      if (!option.selected && option.value !== "") {
-        let taskIndex = option.dataset.overallIndex;
-        let taskObject = _completeListOfTasks[taskIndex];
-        delete taskObject.project;
-      }
-    })
+    
+      _formOptions.forEach(option => {
+        if (!option.selected && option.value !== "") {
+          let taskIndex = option.dataset.overallIndex;
+          let taskObject = _completeListOfTasks[taskIndex];
+          delete taskObject.project;
+        }
+      })
 
-  
-    let _newProjName = _editedProjFormData.get('edit-project-name');
+    
+      let _newProjName = _editedProjFormData.get('edit-project-name');
 
-    _completeListOfObjects[_projIndex] = _newProjName;
+      _completeListOfObjects[_projIndex] = _newProjName;
 
 
-    updateLocalStorage();
+      updateLocalStorage();
 
-    _editProjectForm.reset();
-    renderTodo.closeForm(findCurrentFormInUse());
-    renderTodo.updatePage(findCurrentMenuSelected())
+      _editProjectForm.reset();
+      renderTodo.closeForm(findCurrentFormInUse());
+      renderTodo.updatePage(findCurrentMenuSelected())
+    }
+    
 
   };
 
@@ -402,9 +416,9 @@ const todo = (() => {
     button.addEventListener('click', function(e) {
       highlightSelectedButton(e);   
 
-      console.log(localStorage);
+      // console.log(localStorage);
 
-
+      console.log(_todoForm['title'].value);
       let currentMenu = findCurrentMenuSelected();
       navLinks.classList.toggle('open');
       renderTodo.updatePage(currentMenu);
