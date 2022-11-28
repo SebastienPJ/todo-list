@@ -66,16 +66,16 @@ const todo = (() => {
 
   let _dueTomorrow = _todoList.filter((todoItem) => isTomorrow(todoItem.dueDate));
 
-  const todoFactory = (data) => {
-    const title = data.get('title');
+  const todoFactory = (formInfo) => {
+    const title = formInfo.get('title');
     let dueDate;
 
-    data.get('due-date') == '' ? dueDate = data.get('due-date')
-      : dueDate = parseISO(data.get('due-date'));
+    formInfo.get('due-date') == '' ? dueDate = formInfo.get('due-date')
+      : dueDate = parseISO(formInfo.get('due-date'));
 
-    const priority = data.get('priority');
+    const priority = formInfo.get('priority');
     const isTodoDone = false;
-    const project = data.get('part-of-project');
+    const project = formInfo.get('part-of-project');
 
     return {
       title, dueDate, priority, project, isTodoDone,
@@ -110,7 +110,7 @@ const todo = (() => {
       _projectList = JSON.parse(localStorage.getItem('projects'));
       updateDatedLists();
       updateAllCounterData();
-    };
+    }
   };
 
   const getTodoList = () => _todoList;
@@ -121,7 +121,8 @@ const todo = (() => {
 
   const getTomorrowList = () => _dueTomorrow;
 
-  const captureFormData = (form) => new FormData(form);
+  // eslint-disable-next-line max-len
+  // const captureFormData = (form) => new FormData(form); //// unneeded function, used new FormData directly instead
 
   const highlightSelectedButton = (event) => {
     const selectedButton = event.target;
@@ -168,7 +169,7 @@ const todo = (() => {
 
       const _menu = findCurrentMenuSelected();
 
-      const _formData = captureFormData(_todoForm);
+      const _formData = new FormData(_todoForm);
       const _newTodo = todoFactory(_formData);
       _todoList.push(_newTodo);
 
@@ -190,7 +191,7 @@ const todo = (() => {
 
       const _currentMenu = findCurrentMenuSelected();
 
-      const _projectData = captureFormData(_projectForm);
+      const _projectData = new FormData(_projectForm);
 
       const _projectName = _projectData.get('project-name');
 
@@ -230,7 +231,7 @@ const todo = (() => {
     if (_editForm.reportValidity()) {
       e.preventDefault();
 
-      const _editedFormData = captureFormData(_editForm);
+      const _editedFormData = new FormData(__editForm);
 
       const _listOfTodos = getTodoList();
 
@@ -270,7 +271,7 @@ const todo = (() => {
     if (_editProjectForm.reportValidity()) {
       e.preventDefault();
 
-      const _editedProjFormData = captureFormData(_editProjectForm);
+      const _editedProjFormData = new FormData(_editProjectForm);
       const _completeListOfTasks = getTodoList();
       const _completeListOfObjects = getProjectList();
 
