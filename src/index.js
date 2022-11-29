@@ -66,6 +66,11 @@ const todo = (() => {
 
   let _dueTomorrow = _todoList.filter((todoItem) => isTomorrow(todoItem.dueDate));
 
+  const getTodoList = () => _todoList;
+  const getProjectList = () => _projectList;
+  const getTodayList = () => _dueToday;
+  const getTomorrowList = () => _dueTomorrow;
+
   const todoFactory = (formInfo) => {
     const title = formInfo.get('title');
     let dueDate;
@@ -112,17 +117,6 @@ const todo = (() => {
       updateAllCounterData();
     }
   };
-
-  const getTodoList = () => _todoList;
-
-  const getProjectList = () => _projectList;
-
-  const getTodayList = () => _dueToday;
-
-  const getTomorrowList = () => _dueTomorrow;
-
-  // eslint-disable-next-line max-len
-  // const captureFormData = (form) => new FormData(form); //// unneeded function, used new FormData directly instead
 
   const highlightSelectedButton = (event) => {
     const selectedButton = event.target;
@@ -347,7 +341,7 @@ const todo = (() => {
 
   const navLinks = document.querySelector('.nav-links');
   const toggleMenu = document.querySelector('.toggle-menu');
-  toggleMenu.addEventListener('click', () =>{
+  toggleMenu.addEventListener('click', () => {
     navLinks.classList.toggle('open');
   });
 
