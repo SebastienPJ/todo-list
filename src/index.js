@@ -71,6 +71,44 @@ const todo = (() => {
   const getTodayList = () => _dueToday;
   const getTomorrowList = () => _dueTomorrow;
 
+  const _todoForm = document.querySelector('#todo-form');
+  const _projectForm = document.querySelector('#new-project-form');
+  const _editForm = document.querySelector('#edit-todo-form');
+  const _editProjectForm = document.querySelector('#edit-project-form');
+
+  const projFormSelectTag = document.querySelector('#project-form-select-tag');
+  const todoFormSelectTag = document.querySelector('#todo-form-select-tag');
+  const editFormSelectTag = document.querySelector('#edit-form-proj-select-tag');
+  const editProjSelectTag = document.querySelector('#edit-project-select-tag');
+  const todoFormContainer = document.querySelector('#todo-form-container');
+  const editFormContainer = document.querySelector('#edit-todo-form-container');
+  const projectFormContainer = document.querySelector('#new-project-form-container');
+  const editProjFormContainer = document.querySelector('#edit-project-form-container');
+  const projectNameInput = document.querySelector('#edit-project-name');
+
+  const _menuButtons = document.querySelectorAll('.menu-button');
+
+  const _todayButton = document.querySelector('#today-button');
+  const _tomorrowButton = document.querySelector('#tomorrow-button');
+  const _allTodoButton = document.querySelector('#all-todo-button');
+  const _projectButton = document.querySelector('#projects-button');
+
+  const _submitTodoForm = document.querySelector('#submit-todo-form');
+  const _saveEditChangesButton = document.querySelector('#save-todo-changes');
+  const _submitProjectForm = document.querySelector('#create-project');
+  const _saveProjectChangesButton = document.querySelector('#save-project-changes');
+  const _closeFormButtons = document.querySelectorAll('.close-form');
+  const deleteProjectButton = document.querySelector('.delete-project');
+  const deleteAllButton = document.querySelector('.delete-all');
+
+  _allTodoButton.setAttribute('counter-data', _todoList.length);
+  _projectButton.setAttribute('counter-data', _projectList.length);
+  _todayButton.setAttribute('counter-data', _dueToday.length);
+  _tomorrowButton.setAttribute('counter-data', _dueTomorrow.length);
+
+  const navLinks = document.querySelector('.nav-links');
+  const toggleMenu = document.querySelector('.toggle-menu');
+
   const updateDatedLists = () => {
     _dueToday = _todoList.filter((todo) => isToday(todo.dueDate));
     _dueTomorrow = _todoList.filter((todo) => isTomorrow(todo.dueDate));
@@ -106,6 +144,13 @@ const todo = (() => {
     return finishedList;
   };
 
+  const updateAllCounterData = () => {
+    _allTodoButton.setAttribute('counter-data', _todoList.length);
+    _projectButton.setAttribute('counter-data', _projectList.length);
+    _todayButton.setAttribute('counter-data', _dueToday.length);
+    _tomorrowButton.setAttribute('counter-data', _dueTomorrow.length);
+  };
+
   const updateLocalStorage = () => {
     localStorage.setItem('list', JSON.stringify(_todoList));
     localStorage.setItem('projects', JSON.stringify(_projectList));
@@ -123,22 +168,28 @@ const todo = (() => {
     }
   };
 
-  const _todoForm = document.querySelector('#todo-form');
-  const _projectForm = document.querySelector('#new-project-form');
-  const _editForm = document.querySelector('#edit-todo-form');
-  const _editProjectForm = document.querySelector('#edit-project-form');
+  const highlightSelectedButton = (event) => {
+    const selectedButton = event.target;
 
-  const projFormSelectTag = document.querySelector('#project-form-select-tag');
-  const todoFormSelectTag = document.querySelector('#todo-form-select-tag');
-  const editFormSelectTag = document.querySelector('#edit-form-proj-select-tag');
-  const editProjSelectTag = document.querySelector('#edit-project-select-tag');
-  const todoFormContainer = document.querySelector('#todo-form-container');
-  const editFormContainer = document.querySelector('#edit-todo-form-container');
-  const projectFormContainer = document.querySelector('#new-project-form-container');
-  const editProjFormContainer = document.querySelector('#edit-project-form-container');
-  const projectNameInput = document.querySelector('#edit-project-name');
+    _menuButtons.forEach((item) => {
+      if (item.classList.contains('current-menu-selected')) {
+        item.classList.remove('current-menu-selected');
+      }
+    });
 
-  const _menuButtons = document.querySelectorAll('.menu-button');
+    selectedButton.classList.add('current-menu-selected');
+  };
+
+  const findCurrentMenuSelected = () => [..._menuButtons].filter((button) => button.classList.contains('current-menu-selected'))[0];
+
+  const findCurrentFormInUse = () => {
+    const allForms = [...document.querySelectorAll('.form-container')];
+
+    const currentForm = allForms.filter((form) => form.classList.contains('current-form-inuse'))[0];
+
+    return currentForm;
+  };
+
   _menuButtons.forEach((button) => {
     button.addEventListener('click', (e) => {
       highlightSelectedButton(e);
@@ -148,35 +199,40 @@ const todo = (() => {
     });
   });
 
-  const _todayButton = document.querySelector('#today-button');
-  const _tomorrowButton = document.querySelector('#tomorrow-button');
-  const _allTodoButton = document.querySelector('#all-todo-button');
-  const _projectButton = document.querySelector('#projects-button');
-
-  _allTodoButton.setAttribute('counter-data', _todoList.length);
-  _projectButton.setAttribute('counter-data', _projectList.length);
-  _todayButton.setAttribute('counter-data', _dueToday.length);
-  _tomorrowButton.setAttribute('counter-data', _dueTomorrow.length);
-
-  const navLinks = document.querySelector('.nav-links');
-  const toggleMenu = document.querySelector('.toggle-menu');
   toggleMenu.addEventListener('click', () => {
     navLinks.classList.toggle('open');
   });
 
-  const _submitTodoForm = document.querySelector('#submit-todo-form');
+  const createTodo = (e) => {
+    if (_todoForm.reportValidity()) {
+      e.preventDefault();
+
+      const _menu = findCurrentMenuSelected();
+
+      const _formData = new FormData(_todoForm);
+      const _newTodo = todoFactory(_formData);
+      _todoList.push(_newTodo);
+
+      updateDatedLists();
+      updateAllCounterData();
+
+      _todoForm.reset();
+      renderTodo.closeForm(findCurrentFormInUse());
+
+      updateLocalStorage();
+
+      renderTodo.updatePage(_menu);
+    }
+  };
+
   _submitTodoForm.addEventListener('click', createTodo);
 
-  const _saveEditChangesButton = document.querySelector('#save-todo-changes');
   _saveEditChangesButton.addEventListener('click', saveEditChanges);
 
-  const _submitProjectForm = document.querySelector('#create-project');
   _submitProjectForm.addEventListener('click', createProject);
 
-  const _saveProjectChangesButton = document.querySelector('#save-project-changes');
   _saveProjectChangesButton.addEventListener('click', saveProjectChanges);
 
-  const _closeFormButtons = document.querySelectorAll('.close-form');
   _closeFormButtons.forEach((button) => {
     button.addEventListener('click', () => {
       const _formContainer = findCurrentFormInUse();
@@ -185,7 +241,6 @@ const todo = (() => {
     });
   });
 
-  const deleteProjectButton = document.querySelector('.delete-project');
   deleteProjectButton.addEventListener('click', (e) => {
     const indexOfProject = e.target.dataset.overallIndex;
     const proj = getProjectList()[indexOfProject];
@@ -212,7 +267,6 @@ const todo = (() => {
     renderTodo.updatePage(_menuCurrently);
   });
 
-  const deleteAllButton = document.querySelector('.delete-all');
   deleteAllButton.addEventListener('click', (e) => {
     const indexOfProject = e.target.dataset.overallIndex;
     const proj = getProjectList()[indexOfProject];
@@ -239,20 +293,6 @@ const todo = (() => {
     renderTodo.updatePage(findCurrentMenuSelected());
   });
 
-  const highlightSelectedButton = (event) => {
-    const selectedButton = event.target;
-
-    _menuButtons.forEach((item) => {
-      if (item.classList.contains('current-menu-selected')) {
-        item.classList.remove('current-menu-selected');
-      }
-    });
-
-    selectedButton.classList.add('current-menu-selected');
-  };
-
-  const findCurrentMenuSelected = () => [..._menuButtons].filter((button) => button.classList.contains('current-menu-selected'))[0];
-
   const tagEditSubmitButtonWithIndex = (e) => {
     const _index = e.target.dataset.overallTaskIndex;
     _saveEditChangesButton.dataset.overallTaskIndex = _index;
@@ -268,36 +308,6 @@ const todo = (() => {
   const deleteFromList = (item, list) => {
     const itemIndex = list.indexOf(item);
     list.splice(itemIndex, 1);
-  };
-
-  const findCurrentFormInUse = () => {
-    const allForms = [...document.querySelectorAll('.form-container')];
-
-    const currentForm = allForms.filter((form) => form.classList.contains('current-form-inuse'))[0];
-
-    return currentForm;
-  };
-
-  const createTodo = (e) => {
-    if (_todoForm.reportValidity()) {
-      e.preventDefault();
-
-      const _menu = findCurrentMenuSelected();
-
-      const _formData = new FormData(_todoForm);
-      const _newTodo = todoFactory(_formData);
-      _todoList.push(_newTodo);
-
-      updateDatedLists();
-      updateAllCounterData();
-
-      _todoForm.reset();
-      renderTodo.closeForm(findCurrentFormInUse());
-
-      updateLocalStorage();
-
-      renderTodo.updatePage(_menu);
-    }
   };
 
   const createProject = (e) => {
@@ -412,15 +422,6 @@ const todo = (() => {
       renderTodo.updatePage(findCurrentMenuSelected());
     }
   };
-
-  const updateAllCounterData = () => {
-    _allTodoButton.setAttribute('counter-data', _todoList.length);
-    _projectButton.setAttribute('counter-data', _projectList.length);
-    _todayButton.setAttribute('counter-data', _dueToday.length);
-    _tomorrowButton.setAttribute('counter-data', _dueTomorrow.length);
-  };
-
-
 
   return {
     projectNameInput,
