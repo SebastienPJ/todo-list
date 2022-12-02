@@ -224,6 +224,107 @@ const todo = (() => {
       renderTodo.updatePage(_menu);
     }
   };
+  const createProject = (e) => {
+    if (_projectForm.reportValidity()) {
+      e.preventDefault();
+
+      const _currentMenu = findCurrentMenuSelected();
+
+      const _projectData = new FormData(_projectForm);
+
+      const _projectName = _projectData.get('project-name');
+
+      if (_projectList.includes(_projectName)) {
+        alert('project already exists');
+        return;
+      }
+
+      _projectList.push(_projectName);
+
+      updateAllCounterData();
+
+      const _taskAddedToProj = [...projFormSelectTag.selectedOptions].map((option) => option.value);
+
+      addProjectToTaskObj(_projectName, _taskAddedToProj);
+
+      updateLocalStorage();
+
+      renderTodo.updatePage(_currentMenu);
+
+      _projectForm.reset();
+      renderTodo.closeForm(findCurrentFormInUse());
+    }
+  };
+  const saveEditChanges = (e) => {
+    if (_editForm.reportValidity()) {
+      e.preventDefault();
+
+      const _editedFormData = new FormData(_editForm);
+
+      const _listOfTodos = getTodoList();
+
+      const _objIndex = e.target.dataset.overallTaskIndex;
+
+      const _todoObj = _listOfTodos[_objIndex];
+
+      const newTitle = _editedFormData.get('edit-title');
+      const newNotes = _editedFormData.get('edit-notes');
+      const newDueDate = _editedFormData.get('edit-due-date');
+      const newPriority = _editedFormData.get('edit-priority');
+      const newProject = _editedFormData.get('edit-project');
+
+      _todoObj.title = newTitle;
+
+      newDueDate == ''? delete _todoObj.dueDate: _todoObj.dueDate = parseISO(newDueDate);
+
+      newNotes == ''? delete _todoObj.notes: _todoObj.notes = newNotes;
+
+      newPriority == ''? delete _todoObj.priority: _todoObj.priority = newPriority;
+
+      newProject == ''? delete _todoObj.project: _todoObj.project = newProject;
+
+      updateDatedLists();
+      updateAllCounterData();
+      updateLocalStorage();
+
+      _editForm.reset();
+      renderTodo.closeForm(findCurrentFormInUse());
+
+      const _currentMenu = findCurrentMenuSelected();
+      renderTodo.updatePage(_currentMenu);
+    }
+  };
+
+  const saveProjectChanges = (e) => {
+    if (_editProjectForm.reportValidity()) {
+      e.preventDefault();
+
+      const _editedProjFormData = new FormData(_editProjectForm);
+      const _completeListOfTasks = getTodoList();
+      const _completeListOfObjects = getProjectList();
+
+      const _formOptions = [...editProjSelectTag.options];
+      const _projIndex = projectNameInput.dataset.overallIndex;
+
+      _formOptions.forEach((option) => {
+        if (!option.selected && option.value !== '') {
+          const taskIndex = option.dataset.overallIndex;
+          const taskObject = _completeListOfTasks[taskIndex];
+          delete taskObject.project;
+        }
+      });
+
+      const _newProjName = _editedProjFormData.get('edit-project-name');
+
+      _completeListOfObjects[_projIndex] = _newProjName;
+
+      updateLocalStorage();
+
+      _editProjectForm.reset();
+      renderTodo.closeForm(findCurrentFormInUse());
+      renderTodo.updatePage(findCurrentMenuSelected());
+    }
+  };
 
   _submitTodoForm.addEventListener('click', createTodo);
 
@@ -240,6 +341,11 @@ const todo = (() => {
       renderTodo.closeForm(_formContainer);
     });
   });
+
+  const deleteFromList = (item, list) => {
+    const itemIndex = list.indexOf(item);
+    list.splice(itemIndex, 1);
+  };
 
   deleteProjectButton.addEventListener('click', (e) => {
     const indexOfProject = e.target.dataset.overallIndex;
@@ -305,43 +411,6 @@ const todo = (() => {
     });
   };
 
-  const deleteFromList = (item, list) => {
-    const itemIndex = list.indexOf(item);
-    list.splice(itemIndex, 1);
-  };
-
-  const createProject = (e) => {
-    if (_projectForm.reportValidity()) {
-      e.preventDefault();
-
-      const _currentMenu = findCurrentMenuSelected();
-
-      const _projectData = new FormData(_projectForm);
-
-      const _projectName = _projectData.get('project-name');
-
-      if (_projectList.includes(_projectName)) {
-        alert('project already exists');
-        return;
-      }
-
-      _projectList.push(_projectName);
-
-      updateAllCounterData();
-
-      const _taskAddedToProj = [...projFormSelectTag.selectedOptions].map((option) => option.value);
-
-      addProjectToTaskObj(_projectName, _taskAddedToProj);
-
-      updateLocalStorage();
-
-      renderTodo.updatePage(_currentMenu);
-
-      _projectForm.reset();
-      renderTodo.closeForm(findCurrentFormInUse());
-    }
-  };
-
   const addProjectToTaskObj = (projName, projTasks) => {
     projTasks.forEach((taskName) => {
       _todoList.forEach((todo) => {
@@ -350,77 +419,6 @@ const todo = (() => {
         }
       });
     });
-  };
-
-  const saveEditChanges = (e) => {
-    if (_editForm.reportValidity()) {
-      e.preventDefault();
-
-      const _editedFormData = new FormData(__editForm);
-
-      const _listOfTodos = getTodoList();
-
-      const _objIndex = e.target.dataset.overallTaskIndex;
-
-      const _todoObj = _listOfTodos[_objIndex];
-
-      const newTitle = _editedFormData.get('edit-title');
-      const newNotes = _editedFormData.get('edit-notes');
-      const newDueDate = _editedFormData.get('edit-due-date');
-      const newPriority = _editedFormData.get('edit-priority');
-      const newProject = _editedFormData.get('edit-project');
-
-      _todoObj.title = newTitle;
-
-      newDueDate == ''? delete _todoObj.dueDate: _todoObj.dueDate = parseISO(newDueDate);
-
-      newNotes == ''? delete _todoObj.notes: _todoObj.notes = newNotes;
-
-      newPriority == ''? delete _todoObj.priority: _todoObj.priority = newPriority;
-
-      newProject == ''? delete _todoObj.project: _todoObj.project = newProject;
-
-      updateDatedLists();
-      updateAllCounterData();
-      updateLocalStorage();
-
-      _editForm.reset();
-      renderTodo.closeForm(findCurrentFormInUse());
-
-      const _currentMenu = findCurrentMenuSelected();
-      renderTodo.updatePage(_currentMenu);
-    }
-  };
-
-  const saveProjectChanges = (e) => {
-    if (_editProjectForm.reportValidity()) {
-      e.preventDefault();
-
-      const _editedProjFormData = new FormData(_editProjectForm);
-      const _completeListOfTasks = getTodoList();
-      const _completeListOfObjects = getProjectList();
-
-      const _formOptions = [...editProjSelectTag.options];
-      const _projIndex = projectNameInput.dataset.overallIndex;
-
-      _formOptions.forEach((option) => {
-        if (!option.selected && option.value !== '') {
-          const taskIndex = option.dataset.overallIndex;
-          const taskObject = _completeListOfTasks[taskIndex];
-          delete taskObject.project;
-        }
-      });
-
-      const _newProjName = _editedProjFormData.get('edit-project-name');
-
-      _completeListOfObjects[_projIndex] = _newProjName;
-
-      updateLocalStorage();
-
-      _editProjectForm.reset();
-      renderTodo.closeForm(findCurrentFormInUse());
-      renderTodo.updatePage(findCurrentMenuSelected());
-    }
   };
 
   return {
