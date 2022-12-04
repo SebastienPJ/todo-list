@@ -8,6 +8,12 @@ import UpArrow from './images/up-arrow.png';
 import DownArrow from './images/down-arrow.png';
 
 const createElements = (() => {
+  const _contentContainer = document.querySelector('.todo-display');
+
+  const HIGH_PRIORITY = 'red';
+  const MEDIUM_PRIORITY = 'orange';
+  const LOW_PRIORITY = 'cornflowerblue';
+
   const createDisplayHeader = (highlightedButton) => {
     const title = highlightedButton.textContent;
 
@@ -215,7 +221,7 @@ const createElements = (() => {
       _projContainer.classList.add('project-section');
       if ('project' in task && task.project !== '') {
         _projContainer.textContent = `Project: ${task.project}`;
-      };
+      }
 
       _projInfo.appendChild(_projContainer);
 
@@ -275,7 +281,6 @@ const createElements = (() => {
 
     return _unorderedList;
   };
-
 
   const createAllTodosList = () => {
     const _allTasksArray = todo.getTodoList();
@@ -418,14 +423,6 @@ const createElements = (() => {
 
     return returnedList[menuSelected]();
   };
-
-
-
-  const _contentContainer = document.querySelector('.todo-display');
-
-  const HIGH_PRIORITY = 'red';
-  const MEDIUM_PRIORITY = 'orange';
-  const LOW_PRIORITY = 'cornflowerblue';
 
   return { createDisplayHeader, createAddButton, createPageList };
 })();
